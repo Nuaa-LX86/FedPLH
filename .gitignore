@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+venv/
+env/
+conda-meta/
+
+# Editors and operating systems
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Raw and processed medical data
+dataset/processed/
+data/
+datasets/
+brats/
+*.nii
+*.nii.gz
+*.npy
+*.npz
+*.h5
+
+# Experiment outputs
+outputs/
+results/
+runs/
+audited_runs/
+checkpoints/
+wandb/
+tensorboard/
+*.pt
+*.pth
+*.ckpt
+*.log
+
+# Generated figures and temporary files
+figures/generated/
+paper_figures_*/
+*.tmp
+*.bak
+*.swp
+
+# Archives
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z

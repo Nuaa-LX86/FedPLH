@@ -1,0 +1,1721 @@
+{
+  "schema_version": 1,
+  "entropy_definition": {
+    "scope": "complete 3D mask",
+    "labels": "original mutually exclusive segmentation labels 1, 2, and 3",
+    "background_excluded": true,
+    "aggregation_unit": "foreground voxels over all local patient volumes",
+    "empty_foreground_handling": "entropy=0; empty samples counted separately"
+  },
+  "partition": {
+    "partition_type": "dirichlet_patient_composition_strata",
+    "partition_seed": 0,
+    "alpha": 0.01,
+    "min_client_samples": 10,
+    "balance_client_sizes": true,
+    "partition_basis": "foreground_composition_quantiles",
+    "composition_bins": 10,
+    "composition_bin_score_ranges": {
+      "projection": "label_3_minus_label_2",
+      "score_ranges": [
+        {
+          "bin_id": 0,
+          "num_samples": 69,
+          "score_min": -1.0,
+          "score_max": -0.8158497201403215
+        },
+        {
+          "bin_id": 1,
+          "num_samples": 69,
+          "score_min": -0.8118266698587503,
+          "score_max": -0.7116073570262386
+        },
+        {
+          "bin_id": 2,
+          "num_samples": 69,
+          "score_min": -0.7112708282860911,
+          "score_max": -0.5950483744229447
+        },
+        {
+          "bin_id": 3,
+          "num_samples": 68,
+          "score_min": -0.5924868672195666,
+          "score_max": -0.5007621806888978
+        },
+        {
+          "bin_id": 4,
+          "num_samples": 68,
+          "score_min": -0.49958561406213864,
+          "score_max": -0.39723878662172674
+        },
+        {
+          "bin_id": 5,
+          "num_samples": 68,
+          "score_min": -0.394207179692585,
+          "score_max": -0.31712294965412835
+        },
+        {
+          "bin_id": 6,
+          "num_samples": 68,
+          "score_min": -0.3166984637011748,
+          "score_max": -0.2253773663581019
+        },
+        {
+          "bin_id": 7,
+          "num_samples": 68,
+          "score_min": -0.2252031088311059,
+          "score_max": -0.0921176102596184
+        },
+        {
+          "bin_id": 8,
+          "num_samples": 68,
+          "score_min": -0.08886906759453872,
+          "score_max": 0.09708548591480654
+        },
+        {
+          "bin_id": 9,
+          "num_samples": 68,
+          "score_min": 0.1097431871438937,
+          "score_max": 0.7103901213643655
+        }
+      ]
+    },
+    "rebalance_moves": 367,
+    "split_seed": 0,
+    "entropy_scope": "full_volume_foreground",
+    "allocation_unit": "complete patient/volume"
+  },
+  "num_clients": 20,
+  "num_train_samples": 683,
+  "sample_count_summary": {
+    "min": 34,
+    "mean": 34.15,
+    "max": 35,
+    "std": 0.3570714214271425
+  },
+  "entropy_summary": {
+    "min": 0.3375514773837539,
+    "mean": 1.2349207835728557,
+    "max": 1.5164040569278416,
+    "std": 0.25476347058543797
+  },
+  "global_class_counts": {
+    "0": 1370285649,
+    "1": 8408252,
+    "2": 39477327,
+    "3": 14183588
+  },
+  "global_foreground_proportions": {
+    "1": 0.13546584248504576,
+    "2": 0.6360215370700882,
+    "3": 0.22851262044486598
+  },
+  "realized_heterogeneity": {
+    "mean_client_global_jsd_bits": 0.017518533634212546,
+    "max_client_global_jsd_bits": 0.11825987495109225,
+    "mean_pairwise_jsd_bits": 0.03637666108119655,
+    "max_pairwise_jsd_bits": 0.40644485515449663
+  },
+  "clients": [
+    {
+      "client_id": 0,
+      "entropy": 1.2249513998997363,
+      "num_samples": 35,
+      "class_counts": {
+        "0": 70147713,
+        "1": 385425,
+        "2": 2180825,
+        "3": 686357
+      },
+      "foreground_proportions": {
+        "1": 0.11849725466372052,
+        "2": 0.6704852446053273,
+        "3": 0.21101750073095213
+      },
+      "background_fraction": 0.9556867463248117,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 32,
+        "3": 3
+      },
+      "sample_indices": [
+        571,
+        646,
+        302,
+        483,
+        218,
+        176,
+        568,
+        436,
+        287,
+        212,
+        161,
+        447,
+        110,
+        282,
+        495,
+        468,
+        133,
+        255,
+        153,
+        107,
+        573,
+        541,
+        577,
+        254,
+        4,
+        379,
+        654,
+        198,
+        270,
+        460,
+        521,
+        593,
+        74,
+        172,
+        432
+      ]
+    },
+    {
+      "client_id": 1,
+      "entropy": 0.9949886735838673,
+      "num_samples": 35,
+      "class_counts": {
+        "0": 70043658,
+        "1": 346014,
+        "2": 2598975,
+        "3": 411673
+      },
+      "foreground_proportions": {
+        "1": 0.10308276496114295,
+        "2": 0.7742736683050007,
+        "3": 0.12264356673385643
+      },
+      "background_fraction": 0.9542691094534738,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 35,
+        "3": 0
+      },
+      "sample_indices": [
+        803,
+        722,
+        715,
+        730,
+        828,
+        673,
+        657,
+        667,
+        669,
+        850,
+        694,
+        799,
+        843,
+        703,
+        764,
+        640,
+        734,
+        658,
+        801,
+        689,
+        700,
+        757,
+        842,
+        691,
+        679,
+        753,
+        800,
+        728,
+        687,
+        751,
+        706,
+        702,
+        716,
+        841,
+        788
+      ]
+    },
+    {
+      "client_id": 2,
+      "entropy": 1.2607964968017522,
+      "num_samples": 35,
+      "class_counts": {
+        "0": 70085234,
+        "1": 376085,
+        "2": 2134819,
+        "3": 804182
+      },
+      "foreground_proportions": {
+        "1": 0.11344652898899153,
+        "2": 0.6439709256411448,
+        "3": 0.2425825453698637
+      },
+      "background_fraction": 0.9548355375017439,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 2,
+        "2": 30,
+        "3": 3
+      },
+      "sample_indices": [
+        34,
+        651,
+        489,
+        55,
+        304,
+        150,
+        71,
+        352,
+        308,
+        636,
+        253,
+        199,
+        100,
+        439,
+        312,
+        30,
+        210,
+        317,
+        345,
+        185,
+        501,
+        477,
+        295,
+        168,
+        251,
+        505,
+        64,
+        7,
+        27,
+        219,
+        145,
+        44,
+        337,
+        104,
+        165
+      ]
+    },
+    {
+      "client_id": 3,
+      "entropy": 1.2237361224792955,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 68494372,
+        "1": 347559,
+        "2": 1891952,
+        "3": 569285
+      },
+      "foreground_proportions": {
+        "1": 0.12373949549913914,
+        "2": 0.6735811358318653,
+        "3": 0.20267936866899555
+      },
+      "background_fraction": 0.960607696981991,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 31,
+        "3": 3
+      },
+      "sample_indices": [
+        20,
+        77,
+        334,
+        56,
+        425,
+        564,
+        106,
+        14,
+        798,
+        141,
+        101,
+        29,
+        298,
+        285,
+        333,
+        211,
+        61,
+        15,
+        585,
+        299,
+        170,
+        372,
+        190,
+        105,
+        229,
+        325,
+        122,
+        156,
+        194,
+        271,
+        195,
+        369,
+        538,
+        332
+      ]
+    },
+    {
+      "client_id": 4,
+      "entropy": 1.3469612327124405,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 68476210,
+        "1": 408549,
+        "2": 1699584,
+        "3": 718825
+      },
+      "foreground_proportions": {
+        "1": 0.144518949344136,
+        "2": 0.6012059606120784,
+        "3": 0.25427509004378557
+      },
+      "background_fraction": 0.9603529817917767,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 1,
+        "2": 29,
+        "3": 4
+      },
+      "sample_indices": [
+        222,
+        342,
+        435,
+        403,
+        580,
+        200,
+        193,
+        17,
+        281,
+        108,
+        470,
+        351,
+        166,
+        120,
+        163,
+        205,
+        429,
+        249,
+        18,
+        59,
+        6,
+        259,
+        612,
+        164,
+        26,
+        601,
+        626,
+        276,
+        381,
+        83,
+        16,
+        40,
+        54,
+        365
+      ]
+    },
+    {
+      "client_id": 5,
+      "entropy": 1.2166947093352922,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 68156915,
+        "1": 333242,
+        "2": 2102028,
+        "3": 710983
+      },
+      "foreground_proportions": {
+        "1": 0.10591710202580656,
+        "2": 0.6681052032369933,
+        "3": 0.22597769473720009
+      },
+      "background_fraction": 0.955874990014469,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 29,
+        "3": 5
+      },
+      "sample_indices": [
+        290,
+        160,
+        241,
+        97,
+        113,
+        62,
+        497,
+        39,
+        239,
+        48,
+        361,
+        89,
+        456,
+        401,
+        92,
+        354,
+        652,
+        191,
+        136,
+        220,
+        533,
+        215,
+        320,
+        12,
+        268,
+        264,
+        68,
+        76,
+        134,
+        631,
+        25,
+        357,
+        289,
+        69
+      ]
+    },
+    {
+      "client_id": 6,
+      "entropy": 1.2250634605864414,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 67866422,
+        "1": 429677,
+        "2": 2314082,
+        "3": 692987
+      },
+      "foreground_proportions": {
+        "1": 0.12502436898158897,
+        "2": 0.6733351839210695,
+        "3": 0.2016404470973415
+      },
+      "background_fraction": 0.9518009354086483,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 2,
+        "2": 31,
+        "3": 1
+      },
+      "sample_indices": [
+        482,
+        686,
+        186,
+        655,
+        10,
+        353,
+        713,
+        525,
+        247,
+        810,
+        413,
+        311,
+        385,
+        3,
+        426,
+        767,
+        250,
+        417,
+        175,
+        608,
+        619,
+        649,
+        481,
+        233,
+        790,
+        844,
+        51,
+        437,
+        540,
+        331,
+        407,
+        187,
+        213,
+        208
+      ]
+    },
+    {
+      "client_id": 7,
+      "entropy": 1.2181726851528465,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 68236671,
+        "1": 366356,
+        "2": 2069756,
+        "3": 630385
+      },
+      "foreground_proportions": {
+        "1": 0.11947052288001586,
+        "2": 0.6749577775553017,
+        "3": 0.20557169956468244
+      },
+      "background_fraction": 0.956993537790635,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 1,
+        "2": 29,
+        "3": 4
+      },
+      "sample_indices": [
+        670,
+        67,
+        240,
+        173,
+        349,
+        235,
+        367,
+        382,
+        539,
+        326,
+        826,
+        267,
+        243,
+        13,
+        93,
+        586,
+        322,
+        1,
+        112,
+        261,
+        66,
+        400,
+        73,
+        0,
+        284,
+        329,
+        137,
+        242,
+        146,
+        662,
+        584,
+        116,
+        111,
+        421
+      ]
+    },
+    {
+      "client_id": 8,
+      "entropy": 1.3736437087217765,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 67857711,
+        "1": 634079,
+        "2": 2056575,
+        "3": 754803
+      },
+      "foreground_proportions": {
+        "1": 0.18403335174405022,
+        "2": 0.5968946935050996,
+        "3": 0.21907195475085017
+      },
+      "background_fraction": 0.9516787669237923,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 4,
+        "2": 29,
+        "3": 1
+      },
+      "sample_indices": [
+        363,
+        847,
+        628,
+        202,
+        181,
+        441,
+        102,
+        154,
+        135,
+        309,
+        85,
+        406,
+        428,
+        603,
+        330,
+        60,
+        613,
+        494,
+        453,
+        118,
+        293,
+        75,
+        336,
+        272,
+        300,
+        735,
+        230,
+        214,
+        121,
+        830,
+        624,
+        129,
+        96,
+        294
+      ]
+    },
+    {
+      "client_id": 9,
+      "entropy": 1.2951565178832785,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 68211705,
+        "1": 445559,
+        "2": 1972872,
+        "3": 673032
+      },
+      "foreground_proportions": {
+        "1": 0.1441256130188199,
+        "2": 0.6381677542315726,
+        "3": 0.21770663274960755
+      },
+      "background_fraction": 0.956643399070291,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 1,
+        "2": 29,
+        "3": 4
+      },
+      "sample_indices": [
+        207,
+        346,
+        223,
+        155,
+        358,
+        33,
+        159,
+        103,
+        90,
+        237,
+        463,
+        394,
+        22,
+        114,
+        225,
+        8,
+        37,
+        157,
+        615,
+        263,
+        132,
+        414,
+        50,
+        634,
+        21,
+        171,
+        127,
+        347,
+        266,
+        424,
+        604,
+        360,
+        454,
+        781
+      ]
+    },
+    {
+      "client_id": 10,
+      "entropy": 1.4708192777523221,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 68136346,
+        "1": 688882,
+        "2": 1662432,
+        "3": 815508
+      },
+      "foreground_proportions": {
+        "1": 0.21753101374185224,
+        "2": 0.5249527760006719,
+        "3": 0.2575162102574758
+      },
+      "background_fraction": 0.9555865175583783,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 34,
+        "3": 0
+      },
+      "sample_indices": [
+        513,
+        462,
+        740,
+        807,
+        458,
+        627,
+        747,
+        620,
+        384,
+        484,
+        721,
+        405,
+        840,
+        343,
+        729,
+        279,
+        674,
+        825,
+        811,
+        820,
+        630,
+        738,
+        590,
+        778,
+        392,
+        391,
+        553,
+        736,
+        500,
+        465,
+        316,
+        252,
+        549,
+        418
+      ]
+    },
+    {
+      "client_id": 11,
+      "entropy": 1.5164040569278416,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 68150658,
+        "1": 614350,
+        "2": 1297013,
+        "3": 1241147
+      },
+      "foreground_proportions": {
+        "1": 0.19487646351637267,
+        "2": 0.41142232697120706,
+        "3": 0.39370120951242027
+      },
+      "background_fraction": 0.9557872379527372,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 3,
+        "2": 19,
+        "3": 12
+      },
+      "sample_indices": [
+        416,
+        532,
+        427,
+        718,
+        614,
+        485,
+        487,
+        546,
+        498,
+        420,
+        748,
+        851,
+        720,
+        622,
+        457,
+        784,
+        827,
+        474,
+        529,
+        711,
+        466,
+        818,
+        656,
+        665,
+        774,
+        848,
+        479,
+        704,
+        527,
+        821,
+        605,
+        616,
+        587,
+        563
+      ]
+    },
+    {
+      "client_id": 12,
+      "entropy": 1.495689862788717,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 69262248,
+        "1": 479175,
+        "2": 534747,
+        "3": 1026998
+      },
+      "foreground_proportions": {
+        "1": 0.2347838229817925,
+        "2": 0.2620127197538365,
+        "3": 0.503203457264371
+      },
+      "background_fraction": 0.9713768678552964,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 5,
+        "2": 0,
+        "3": 29
+      },
+      "sample_indices": [
+        814,
+        692,
+        726,
+        666,
+        768,
+        596,
+        623,
+        727,
+        710,
+        517,
+        523,
+        752,
+        572,
+        838,
+        770,
+        552,
+        579,
+        522,
+        530,
+        759,
+        638,
+        837,
+        762,
+        724,
+        701,
+        502,
+        750,
+        758,
+        849,
+        609,
+        773,
+        688,
+        789,
+        536
+      ]
+    },
+    {
+      "client_id": 13,
+      "entropy": 1.2594275754428714,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 68251536,
+        "1": 422316,
+        "2": 2008452,
+        "3": 620864
+      },
+      "foreground_proportions": {
+        "1": 0.13839021218810132,
+        "2": 0.6581566846854404,
+        "3": 0.20345310312645823
+      },
+      "background_fraction": 0.9572020138011259,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 2,
+        "2": 27,
+        "3": 5
+      },
+      "sample_indices": [
+        38,
+        31,
+        397,
+        283,
+        339,
+        158,
+        232,
+        671,
+        179,
+        189,
+        514,
+        545,
+        297,
+        319,
+        63,
+        206,
+        278,
+        178,
+        5,
+        681,
+        433,
+        65,
+        52,
+        88,
+        231,
+        258,
+        380,
+        473,
+        35,
+        224,
+        117,
+        520,
+        340,
+        140
+      ]
+    },
+    {
+      "client_id": 14,
+      "entropy": 0.3375514773837539,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 68554635,
+        "1": 40130,
+        "2": 2606680,
+        "3": 101723
+      },
+      "foreground_proportions": {
+        "1": 0.014600515984345103,
+        "2": 0.9483895590847918,
+        "3": 0.037009924930863115
+      },
+      "background_fraction": 0.9614528627956614,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 34,
+        "3": 0
+      },
+      "sample_indices": [
+        374,
+        376,
+        348,
+        561,
+        816,
+        597,
+        535,
+        678,
+        471,
+        772,
+        364,
+        338,
+        306,
+        415,
+        366,
+        508,
+        344,
+        464,
+        792,
+        824,
+        583,
+        618,
+        582,
+        451,
+        831,
+        733,
+        776,
+        661,
+        490,
+        743,
+        683,
+        422,
+        378,
+        648
+      ]
+    },
+    {
+      "client_id": 15,
+      "entropy": 0.9164720073226931,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 67769196,
+        "1": 211062,
+        "2": 2800495,
+        "3": 522415
+      },
+      "foreground_proportions": {
+        "1": 0.059723732955439375,
+        "2": 0.7924496855096758,
+        "3": 0.14782658153488482
+      },
+      "background_fraction": 0.9504373774808996,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 34,
+        "3": 0
+      },
+      "sample_indices": [
+        443,
+        440,
+        852,
+        475,
+        794,
+        812,
+        786,
+        717,
+        846,
+        478,
+        386,
+        434,
+        592,
+        839,
+        404,
+        791,
+        787,
+        832,
+        645,
+        402,
+        499,
+        519,
+        547,
+        795,
+        680,
+        566,
+        469,
+        595,
+        518,
+        682,
+        452,
+        809,
+        746,
+        785
+      ]
+    },
+    {
+      "client_id": 16,
+      "entropy": 1.2131059566848592,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 68161377,
+        "1": 319977,
+        "2": 2096940,
+        "3": 724874
+      },
+      "foreground_proportions": {
+        "1": 0.10184541237784436,
+        "2": 0.6674345938351723,
+        "3": 0.2307199937869833
+      },
+      "background_fraction": 0.955937567879172,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 30,
+        "3": 4
+      },
+      "sample_indices": [
+        45,
+        262,
+        149,
+        362,
+        744,
+        467,
+        480,
+        350,
+        162,
+        2,
+        245,
+        236,
+        49,
+        234,
+        356,
+        672,
+        315,
+        409,
+        24,
+        46,
+        355,
+        274,
+        216,
+        238,
+        188,
+        78,
+        124,
+        310,
+        576,
+        204,
+        313,
+        569,
+        109,
+        126
+      ]
+    },
+    {
+      "client_id": 17,
+      "entropy": 1.5146811036159555,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 67972447,
+        "1": 738902,
+        "2": 1578959,
+        "3": 1012860
+      },
+      "foreground_proportions": {
+        "1": 0.22184445950291243,
+        "2": 0.47405922021087926,
+        "3": 0.3040963202862083
+      },
+      "background_fraction": 0.9532878959880156,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 3,
+        "2": 31,
+        "3": 0
+      },
+      "sample_indices": [
+        741,
+        708,
+        641,
+        438,
+        653,
+        845,
+        725,
+        769,
+        558,
+        491,
+        696,
+        749,
+        668,
+        588,
+        492,
+        642,
+        834,
+        509,
+        446,
+        693,
+        531,
+        698,
+        643,
+        650,
+        575,
+        602,
+        685,
+        737,
+        449,
+        493,
+        625,
+        570,
+        496,
+        805
+      ]
+    },
+    {
+      "client_id": 18,
+      "entropy": 1.3556445030505184,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 68184043,
+        "1": 480873,
+        "2": 1871521,
+        "3": 766731
+      },
+      "foreground_proportions": {
+        "1": 0.15416919809241375,
+        "2": 0.6000147477257244,
+        "3": 0.2458160541818619
+      },
+      "background_fraction": 0.9562554499682259,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 1,
+        "2": 33,
+        "3": 0
+      },
+      "sample_indices": [
+        760,
+        739,
+        783,
+        578,
+        557,
+        455,
+        408,
+        524,
+        503,
+        504,
+        399,
+        556,
+        395,
+        731,
+        676,
+        732,
+        771,
+        817,
+        695,
+        813,
+        664,
+        761,
+        548,
+        526,
+        712,
+        663,
+        542,
+        567,
+        445,
+        775,
+        534,
+        823,
+        511,
+        516
+      ]
+    },
+    {
+      "client_id": 19,
+      "entropy": 1.2384548433308529,
+      "num_samples": 34,
+      "class_counts": {
+        "0": 68266552,
+        "1": 340040,
+        "2": 1998620,
+        "3": 697956
+      },
+      "foreground_proportions": {
+        "1": 0.11197991448375429,
+        "2": 0.6581734404350106,
+        "3": 0.22984664508123517
+      },
+      "background_fraction": 0.9574126075295841,
+      "empty_foreground_samples": 0,
+      "empty_foreground_fraction": 0.0,
+      "dominant_label_sample_counts": {
+        "0": 0,
+        "1": 0,
+        "2": 26,
+        "3": 8
+      },
+      "sample_indices": [
+        246,
+        217,
+        125,
+        635,
+        506,
+        389,
+        632,
+        303,
+        79,
+        780,
+        301,
+        644,
+        647,
+        375,
+        196,
+        507,
+        81,
+        419,
+        327,
+        782,
+        144,
+        142,
+        221,
+        167,
+        412,
+        390,
+        591,
+        138,
+        341,
+        766,
+        318,
+        476,
+        228,
+        393
+      ]
+    }
+  ],
+  "evaluation_partitions": {
+    "definition": "disjoint central holdout allocation matched to each client's training dominant-label profile; used only for personalized FedBN evaluation",
+    "validation": [
+      {
+        "client_id": 0,
+        "sample_indices": [
+          152,
+          123,
+          594,
+          182
+        ]
+      },
+      {
+        "client_id": 1,
+        "sample_indices": [
+          461,
+          555,
+          98,
+          796
+        ]
+      },
+      {
+        "client_id": 2,
+        "sample_indices": [
+          833,
+          275,
+          227,
+          387
+        ]
+      },
+      {
+        "client_id": 3,
+        "sample_indices": [
+          86,
+          606,
+          383,
+          328
+        ]
+      },
+      {
+        "client_id": 4,
+        "sample_indices": [
+          197,
+          793,
+          819,
+          690,
+          280
+        ]
+      },
+      {
+        "client_id": 5,
+        "sample_indices": [
+          19,
+          201,
+          808,
+          411,
+          745
+        ]
+      },
+      {
+        "client_id": 6,
+        "sample_indices": [
+          23,
+          305,
+          554,
+          269
+        ]
+      },
+      {
+        "client_id": 7,
+        "sample_indices": [
+          607,
+          323,
+          371,
+          610,
+          58
+        ]
+      },
+      {
+        "client_id": 8,
+        "sample_indices": [
+          43,
+          574,
+          368,
+          94
+        ]
+      },
+      {
+        "client_id": 9,
+        "sample_indices": [
+          80,
+          226,
+          131,
+          621,
+          562
+        ]
+      },
+      {
+        "client_id": 10,
+        "sample_indices": [
+          637,
+          444,
+          180,
+          143
+        ]
+      },
+      {
+        "client_id": 11,
+        "sample_indices": [
+          209,
+          292,
+          36,
+          765
+        ]
+      },
+      {
+        "client_id": 12,
+        "sample_indices": [
+          169,
+          699,
+          256,
+          377,
+          307
+        ]
+      },
+      {
+        "client_id": 13,
+        "sample_indices": [
+          560,
+          370,
+          139,
+          598
+        ]
+      },
+      {
+        "client_id": 14,
+        "sample_indices": [
+          130,
+          742,
+          373,
+          660
+        ]
+      },
+      {
+        "client_id": 15,
+        "sample_indices": [
+          512,
+          11,
+          589,
+          719
+        ]
+      },
+      {
+        "client_id": 16,
+        "sample_indices": [
+          528,
+          450,
+          296,
+          515
+        ]
+      },
+      {
+        "client_id": 17,
+        "sample_indices": [
+          95,
+          581,
+          184,
+          410
+        ]
+      },
+      {
+        "client_id": 18,
+        "sample_indices": [
+          286,
+          41,
+          248,
+          829
+        ]
+      },
+      {
+        "client_id": 19,
+        "sample_indices": [
+          260,
+          802,
+          32,
+          148
+        ]
+      }
+    ],
+    "test": [
+      {
+        "client_id": 0,
+        "sample_indices": [
+          119,
+          442,
+          398,
+          42
+        ]
+      },
+      {
+        "client_id": 1,
+        "sample_indices": [
+          639,
+          659,
+          488,
+          697
+        ]
+      },
+      {
+        "client_id": 2,
+        "sample_indices": [
+          815,
+          709,
+          183,
+          723
+        ]
+      },
+      {
+        "client_id": 3,
+        "sample_indices": [
+          617,
+          291,
+          804,
+          448
+        ]
+      },
+      {
+        "client_id": 4,
+        "sample_indices": [
+          359,
+          257,
+          836,
+          633,
+          777
+        ]
+      },
+      {
+        "client_id": 5,
+        "sample_indices": [
+          677,
+          550,
+          430,
+          599,
+          335
+        ]
+      },
+      {
+        "client_id": 6,
+        "sample_indices": [
+          559,
+          629,
+          459,
+          314
+        ]
+      },
+      {
+        "client_id": 7,
+        "sample_indices": [
+          9,
+          486,
+          806,
+          115,
+          537
+        ]
+      },
+      {
+        "client_id": 8,
+        "sample_indices": [
+          675,
+          265,
+          822
+        ]
+      },
+      {
+        "client_id": 9,
+        "sample_indices": [
+          779,
+          684,
+          244,
+          544
+        ]
+      },
+      {
+        "client_id": 10,
+        "sample_indices": [
+          28,
+          705,
+          510,
+          472
+        ]
+      },
+      {
+        "client_id": 11,
+        "sample_indices": [
+          797,
+          91,
+          755,
+          151
+        ]
+      },
+      {
+        "client_id": 12,
+        "sample_indices": [
+          277,
+          396,
+          273,
+          431,
+          756,
+          84
+        ]
+      },
+      {
+        "client_id": 13,
+        "sample_indices": [
+          423,
+          754,
+          57,
+          147
+        ]
+      },
+      {
+        "client_id": 14,
+        "sample_indices": [
+          70,
+          551,
+          714,
+          53
+        ]
+      },
+      {
+        "client_id": 15,
+        "sample_indices": [
+          324,
+          82,
+          288,
+          565
+        ]
+      },
+      {
+        "client_id": 16,
+        "sample_indices": [
+          611,
+          388,
+          177,
+          47,
+          600
+        ]
+      },
+      {
+        "client_id": 17,
+        "sample_indices": [
+          707,
+          87,
+          763,
+          192
+        ]
+      },
+      {
+        "client_id": 18,
+        "sample_indices": [
+          203,
+          835,
+          321,
+          128
+        ]
+      },
+      {
+        "client_id": 19,
+        "sample_indices": [
+          72,
+          543,
+          99,
+          174
+        ]
+      }
+    ]
+  }
+}

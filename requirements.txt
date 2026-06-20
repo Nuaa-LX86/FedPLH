@@ -1,0 +1,9 @@
+torch==2.7.1
+numpy==1.26.4
+matplotlib==3.10.7
+scipy==1.15.3
+pandas==2.3.3
+nibabel==5.3.2
+tqdm==4.67.1
+opacus==1.5.4
+monai==1.5.1

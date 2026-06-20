@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "created_date": "2026-06-15",
+  "global_split_seed": 0,
+  "split_sizes": {
+    "train": 683,
+    "validation": 85,
+    "test": 85
+  },
+  "main_partition": {
+    "path": "partitions/main_alpha0p5_p0/partition_evidence.json",
+    "sha256": "A193F2783C84D38233BD85BF08B442FB75C85D5C2515E2FD4FBC67786C39902F",
+    "alpha": 0.5,
+    "partition_seed": 0
+  },
+  "stress_partitions": [
+    {
+      "path": "partitions/stress_alpha0p01_p0/partition_evidence.json",
+      "sha256": "7DC7E6CD2F2377338939E7A1D7FDEF61DE5145F0F7195A77C26DAE52D7D1B915",
+      "alpha": 0.01,
+      "partition_seed": 0
+    },
+    {
+      "path": "partitions/stress_alpha0p01_p1/partition_evidence.json",
+      "sha256": "0A8ABBEDD45E36055429C1955E6E4B475E4A9468EC835B40BB8DB5828CF63007",
+      "alpha": 0.01,
+      "partition_seed": 1
+    },
+    {
+      "path": "partitions/stress_alpha0p01_p2/partition_evidence.json",
+      "sha256": "211FE3122AD6F582B743CCA1F286AEFF956465124FFB365FF6CC49EA02204F7C",
+      "alpha": 0.01,
+      "partition_seed": 2
+    }
+  ],
+  "run_counts": {
+    "main": 40,
+    "acf_ablation": 9,
+    "strong_heterogeneity": 27,
+    "total": 76
+  }
+}
