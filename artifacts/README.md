@@ -1,47 +1,29 @@
-# Paper-Facing Artifacts
+# Artifacts
 
-This directory exposes the artifact names used in the manuscript.
+This directory contains the released evidence files for the paper. The files are
+aggregate or sanitized artifacts only; raw BraTS data, checkpoints, complete
+run directories, and foundry-bound hardware files are not included.
 
-## Validated Aggregate Evidence
+## Files
 
-`validated_aggregate_evidence.json` contains the aggregate metrics and paired
-comparisons produced from the frozen final experiment:
+- `validated_aggregate_evidence.json`
+  Main aggregate evidence file used for the paper. It summarizes 76 validated
+  frozen runs: 40 main-comparison runs, 9 ACF ablation runs, and 27
+  strong-heterogeneity runs.
 
-- 40 main-comparison runs;
-- 9 ACF mechanism-ablation runs;
-- 27 strong-heterogeneity runs;
-- 76 validated runs in total.
+- `semantic_evidence_summary.json`
+  Older name for the same aggregate evidence. Kept so existing links do not
+  break.
 
-`semantic_evidence_summary.json` is retained as a backward-compatible alias for
-the same validated aggregate evidence.
+- `sanitized_profile_values.json`
+  Copy of the released hardware-profile values used by the trace-based system
+  model. This is not a full synthesis-report or PPA-release package.
 
-## Sanitized Profile Values
+- `postprocessed_summaries/`
+  Paper-facing summaries generated from the frozen evidence, including
+  `paper_results.json`, `paper_results.csv`, generated table rows, and a
+  representative history file.
 
-`sanitized_profile_values.json` mirrors the released `hardware_profile.json`
-values used by the trace-based system model. These values are sanitized
-profile inputs, not complete original synthesis reports or foundry-bound PPA
-artifacts.
-
-## Postprocessed Summaries
-
-`postprocessed_summaries/` contains paper-facing summaries reconstructed from
-the frozen run evidence:
-
-- `paper_results.json`
-- `paper_results.csv`
-- `main_table_rows.tex`
-- `representative_history.json`
-- `acf_table_rows.tex`
-
-The JSON summary is sanitized for repository release and does not expose local
-absolute paths to private run directories.
-
-## Boundaries
-
-Raw BraTS data, patient-level private artifacts, model checkpoints, complete
-per-run output directories, complete original synthesis reports, proprietary
-standard-cell libraries, and foundry-library-bound artifacts are not
-redistributed.
-
-The evidence boundaries in the root README and frozen experiment protocol apply
-to every value in this artifact package.
+The boundary statements in the root README and in
+`experiment_protocols/tetc_semantic_20260615/EXPERIMENT_PROTOCOL.md` apply to
+these files.
