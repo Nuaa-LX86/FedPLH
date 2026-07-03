@@ -1,7 +1,7 @@
 # Frozen FedPLH Experiment Protocol
 
 This protocol defines the frozen experiment used to produce the aggregate
-evidence in `artifacts/semantic_evidence_summary.json`. Historical or exploratory
+evidence in `artifacts/validated_aggregate_evidence.json`. Historical or exploratory
 outputs must not be mixed with these results.
 
 ## Fixed data definition
@@ -65,8 +65,12 @@ From the repository root on Windows PowerShell:
 ```
 
 The script verifies the frozen partition hashes before launching 76 runs and
-then builds `semantic_evidence_summary.json`. Use `-Resume` only to continue an
-interrupted run in the same output directory.
+then builds the aggregate evidence summary. In this repository release, the
+paper-facing aggregate summary is exposed as
+`artifacts/validated_aggregate_evidence.json`, with
+`artifacts/semantic_evidence_summary.json` retained as a backward-compatible
+alias. Use `-Resume` only to continue an interrupted run in the same output
+directory.
 
 The full run requires preprocessed BraTS 2021 data under
 `dataset/processed/`. It is computationally expensive; the repository includes
