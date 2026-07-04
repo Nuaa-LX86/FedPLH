@@ -146,11 +146,14 @@ artifacts/validated_aggregate_evidence.json
 
 ## Citation
 
-Citation metadata will be added once the manuscript has a stable public
-bibliographic record. Until then, cite the manuscript title and this repository.
+If you use this repository, cite the manuscript using the metadata in
+`CITATION.cff`. The citation record is intentionally marked as a preprint
+artifact until a stable public bibliographic record is available.
 
 ## License
 
-A software license has not yet been selected. Public visibility alone does not
-grant reuse rights. Add a license before treating this as a reusable open-source
-release.
+Original FedPLH code, scripts, documentation, and released aggregate evidence
+are provided under the MIT License. Third-party datasets, BraTS medical images,
+external baseline code, model checkpoints, proprietary synthesis reports,
+standard-cell libraries, and foundry-library-bound artifacts remain governed by
+their own terms.

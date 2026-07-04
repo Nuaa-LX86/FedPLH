@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use FedPLH or its released evidence package, please cite the associated manuscript."
+title: "FedPLH: A Cross-Layer Framework for Budget-Covered Privacy-Operator Execution in Edge Federated Medical Learning"
+type: software
+authors:
+  - family-names: Li
+    given-names: Xu
+  - family-names: Wang
+    given-names: Bei
+  - family-names: Yan
+    given-names: Zichen
+  - family-names: Wang
+    given-names: Chenghua
+  - family-names: Cui
+    given-names: Yijun
+  - family-names: Liu
+    given-names: Weiqiang
+repository-code: "https://github.com/Nuaa-LX86/FedPLH"
+url: "https://github.com/Nuaa-LX86/FedPLH"
+version: "preprint-artifact-2026-07"
+date-released: "2026-07-04"
+abstract: "FedPLH is a code and evidence package for trace-based evaluation of budget-covered privacy-operator execution in edge federated medical learning. The repository provides source code, frozen experiment protocols, validated aggregate evidence, sanitized profile values, and postprocessed summaries, but not raw BraTS data, private medical images, complete original synthesis reports, foundry-library-bound artifacts, or model checkpoints."
+keywords:
+  - federated learning
+  - medical image segmentation
+  - edge computing
+  - mixed-precision computing
+  - hardware-software co-design
+  - privacy-operator scheduling
+license: MIT

@@ -1,0 +1,29 @@
+MIT License
+
+Copyright (c) 2026 FedPLH authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of the original FedPLH software and released aggregate evidence files in this
+repository (the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to permit
+persons to whom the Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+This license applies only to original FedPLH code, scripts, documentation, and
+released aggregate evidence authored for this repository. It does not grant
+rights to third-party datasets, BraTS medical images, external baseline code,
+model checkpoints, proprietary synthesis reports, standard-cell libraries, or
+foundry-library-bound artifacts. Those materials remain governed by their own
+licenses, data-use terms, or access restrictions.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
