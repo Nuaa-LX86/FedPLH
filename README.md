@@ -4,84 +4,74 @@ This repository accompanies the manuscript:
 
 > **FedPLH: A Cross-Layer Framework for Budget-Covered Privacy-Operator Execution in Edge Federated Medical Learning**
 
-The codebase contains the FedPLH training pipeline, the hardware-profile-driven
-system model, and the aggregate evidence used in the paper. The main workload is
-federated 3D medical image segmentation on BraTS 2021 with a 3D U-Net backbone.
+It contains the implementation and paper-facing evidence used for the FedPLH
+study. The evaluated workload is federated 3D medical image segmentation on
+BraTS 2021 with a 3D U-Net backbone.
 
-## What Is Included
+## Contents
+
+The main code is organized as follows:
 
 ```text
-main_experiment.py         Main experiment entry point
-training/                  Federated training, aggregation, SoftDP, and ACF
-models/                    3D U-Net, optional SwinUNETR, precision wrapper
-simulator/                 Hardware/profile-based system model
-scripts/                   Preprocessing, run scripts, postprocessing, plots
-tests/                     Integrity and semantics checks
-experiment_protocols/      Frozen partitions, seeds, schedules, and protocol notes
-artifacts/                 Released aggregate evidence and paper summaries
-hardware_profile.json      Released hardware-profile values used by the model
+main_experiment.py         experiment entry point
+training/                  federated training, SoftDP processing, ACF, aggregation
+models/                    3D U-Net and precision wrappers
+simulator/                 hardware-profile-based system model
+scripts/                   preprocessing, postprocessing, plots, run scripts
+tests/                     integrity and semantics checks
+experiment_protocols/      frozen partitions, seeds, schedules, protocol notes
+artifacts/                 released aggregate evidence and paper summaries
+hardware_profile.json      released hardware-profile values used by the model
 ```
 
-The names under `artifacts/` follow the wording used in the manuscript:
+The manuscript-facing artifacts are:
 
-| Artifact | Path |
-| --- | --- |
-| validated aggregate evidence | `artifacts/validated_aggregate_evidence.json` |
-| sanitized profile values | `artifacts/sanitized_profile_values.json` |
-| postprocessed summaries | `artifacts/postprocessed_summaries/` |
-| frozen experiment protocol | `experiment_protocols/tetc_semantic_20260615/` |
+```text
+artifacts/validated_aggregate_evidence.json
+artifacts/sanitized_profile_values.json
+artifacts/postprocessed_summaries/
+experiment_protocols/tetc_semantic_20260615/
+```
 
 `artifacts/semantic_evidence_summary.json` is kept as an older alias for the
 validated aggregate evidence.
 
-## Scope Notes
+## Scope
 
-The repository is not a raw-data or full-hardware release.
+This is not a raw-data or full-hardware release. We do not redistribute BraTS
+scans, private medical images, model checkpoints, complete per-run output
+directories, complete original synthesis reports, standard-cell libraries, or
+foundry-bound artifacts.
 
-- BraTS scans are not redistributed.
-- Model checkpoints and complete per-run output directories are not included.
-- The SoftDP implementation uses aggregate-gradient clipping and noise
-  injection, not per-sample DP-SGD.
-- The reported epsilon is a nominal RDP-accountant output, not a formal
-  patient-level DP guarantee.
-- Reported energy is modeled local-training compute/memory energy. It does not
-  include SoftDP auxiliary energy, BEU auxiliary logic, communication, or server
-  aggregation energy.
-- Hardware numbers are released as sanitized profile values used by the
-  trace-based model; complete synthesis reports and foundry-bound artifacts are
-  not included.
+The released hardware values are sanitized profile values used by the
+trace-based model. The SoftDP accountant output reported in the paper is
+nominal and is not a formal patient-level differential-privacy guarantee.
 
 ## Environment
 
-The validated environment used Python 3.10. Install the Python dependencies with:
+The validated environment used Python 3.10.
 
 ```bash
 python -m venv .venv
-
-# Linux/macOS
-source .venv/bin/activate
-
-# Windows PowerShell
-.\.venv\Scripts\Activate.ps1
+source .venv/bin/activate        # Linux/macOS
+# .\.venv\Scripts\Activate.ps1   # Windows PowerShell
 
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-If pip selects the wrong PyTorch build for your machine, install the matching
-CPU or CUDA wheel from the PyTorch instructions first.
+If pip selects the wrong PyTorch build, install the CPU or CUDA wheel matching
+your machine first.
 
-## Quick Check
+## Quick Checks
 
-Run the test suite from the repository root:
+Run the tests from the repository root:
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-The release was checked with 20 passing tests in the validated environment.
-
-For a small functional check without BraTS, run:
+For a small smoke test that does not require BraTS:
 
 ```bash
 python main_experiment.py \
@@ -99,11 +89,12 @@ python main_experiment.py \
   --output_root outputs/smoke
 ```
 
-Synthetic runs are only smoke tests and should not be cited as paper evidence.
+Synthetic runs are only software checks and should not be cited as paper
+evidence.
 
 ## BraTS Data
 
-BraTS 2021 data must be obtained through the official access process. After
+BraTS 2021 must be obtained through the official access process. After
 downloading it, preprocess with:
 
 ```bash
@@ -112,48 +103,27 @@ python scripts/preprocess_brats_3d.py \
   --output_root dataset/processed
 ```
 
-Expected processed layout:
-
-```text
-dataset/processed/
-`-- train/
-    |-- images/
-    |   `-- <case-id>.npy
-    `-- masks/
-        `-- <case-id>.npy
-```
-
 ## Frozen Protocol
 
-The frozen 76-run protocol is described in:
+The frozen TETC protocol is described in:
 
 ```text
 experiment_protocols/tetc_semantic_20260615/EXPERIMENT_PROTOCOL.md
 ```
 
-On Windows PowerShell, the full run can be started with:
-
-```powershell
-.\scripts\run_tetc_semantic_final.ps1 -PythonExe python
-```
-
-This run is computationally expensive. The already released aggregate evidence
-is in:
-
-```text
-artifacts/validated_aggregate_evidence.json
-```
+The full run is computationally expensive. The released aggregate evidence used
+for the manuscript is available under `artifacts/`.
 
 ## Citation
 
-If you use this repository, cite the manuscript using the metadata in
-`CITATION.cff`. The citation record is intentionally marked as a preprint
-artifact until a stable public bibliographic record is available.
+If you use this repository, cite the manuscript using `CITATION.cff`. The
+citation metadata is marked as a preprint artifact until a stable bibliographic
+record is available.
 
 ## License
 
 Original FedPLH code, scripts, documentation, and released aggregate evidence
 are provided under the MIT License. Third-party datasets, BraTS medical images,
 external baseline code, model checkpoints, proprietary synthesis reports,
-standard-cell libraries, and foundry-library-bound artifacts remain governed by
-their own terms.
+standard-cell libraries, and foundry-bound artifacts remain governed by their
+own terms.
