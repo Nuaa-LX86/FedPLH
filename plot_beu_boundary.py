@@ -65,6 +65,15 @@ def _analysis_input_sha256(payload: dict, required_fields: Sequence[str]) -> str
     return hashlib.sha256(canonical).hexdigest()
 
 
+def _write_json(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(payload, indent=2),
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
 def compute_credit_factor_sensitivity(
     history_paths: Sequence[Path],
     *,
@@ -400,17 +409,13 @@ def main() -> None:
         data["credit_factor_sensitivity"] = sensitivity
         if args.credit_output:
             credit_output = Path(args.credit_output)
-            credit_output.parent.mkdir(parents=True, exist_ok=True)
-            credit_output.write_text(
-                json.dumps(sensitivity, indent=2),
-                encoding="utf-8",
-            )
+            _write_json(credit_output, sensitivity)
     elif args.credit_output:
         raise ValueError("--credit_output requires --history_glob")
     output_path = Path(args.output)
     plot_boundary(data, output_path)
     json_path = output_path.with_suffix(".json")
-    json_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    _write_json(json_path, data)
 
     print(
         f"threshold={data['coverage_threshold_multiplier']:.6f}, "
