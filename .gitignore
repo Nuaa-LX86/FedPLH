@@ -46,6 +46,7 @@ tensorboard/
 # Generated figures and temporary files
 figures/generated/
 paper_figures_*/
+artifacts/*.reproduced.*
 *.tmp
 *.bak
 *.swp

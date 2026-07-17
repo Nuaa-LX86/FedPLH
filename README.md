@@ -30,6 +30,9 @@ The manuscript-facing artifacts are:
 artifacts/validated_aggregate_evidence.json
 artifacts/sanitized_profile_values.json
 artifacts/postprocessed_summaries/
+artifacts/beu_credit_factor_sensitivity.json
+artifacts/beu_credit_factor_inputs/
+artifacts/hardware_comparison_provenance.csv
 experiment_protocols/tetc_semantic_20260615/
 ```
 
@@ -91,6 +94,22 @@ python main_experiment.py \
 
 Synthetic runs are only software checks and should not be cited as paper
 evidence.
+
+Reproduce the BEU credit-factor sensitivity result with the released aggregate
+inputs:
+
+```bash
+python plot_beu_boundary.py \
+  --profile hardware_profile.json \
+  --paper_results artifacts/postprocessed_summaries/paper_results.json \
+  --method HMPE-ACF \
+  --history_glob "artifacts/beu_credit_factor_inputs/seed*/training_history.json" \
+  --credit_output artifacts/beu_credit_factor_sensitivity.reproduced.json \
+  --output artifacts/Fig6_BEU_Boundary.reproduced.pdf
+```
+
+The command checks for five seeds and 80 rounds per seed. These inputs contain
+participant-mean cycle counts only; they are not per-client or straggler traces.
 
 ## BraTS Data
 

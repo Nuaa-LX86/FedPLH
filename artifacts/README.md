@@ -24,6 +24,18 @@ run directories, and foundry-bound hardware files are not included.
   `paper_results.json`, `paper_results.csv`, generated table rows, and a
   representative history file.
 
+- `beu_credit_factor_sensitivity.json`
+  Five-seed, 400-round participant-mean sensitivity of BEU coverage to the
+  admitted slack-credit factor.
+
+- `beu_credit_factor_inputs/`
+  The three aggregate arrays used to reproduce that sensitivity result:
+  `round`, `delta_c_cycles`, and `c_priv_cycles`.
+
+- `hardware_comparison_provenance.csv`
+  Source and derivation status for values considered in the manuscript's
+  hardware-comparison table, including values omitted from the final table.
+
 The boundary statements in the root README and in
 `experiment_protocols/tetc_semantic_20260615/EXPERIMENT_PROTOCOL.md` apply to
 these files.

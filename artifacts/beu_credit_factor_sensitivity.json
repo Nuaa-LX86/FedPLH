@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "analysis": "BEU schedulable-credit-factor sensitivity",
+  "scope": "Participant-mean round-level records from frozen HMPE-ACF traces; not a per-client, per-update, or critical-path-straggler analysis.",
+  "definition": "required_credit_factor = c_priv_cycles / delta_c_cycles",
+  "input_hash_basis": "Canonical JSON projection of round, delta_c_cycles, and c_priv_cycles; unrelated history fields are excluded.",
+  "expected_seed_count": 5,
+  "expected_round_count_per_seed": 80,
+  "seed_count": 5,
+  "record_count": 400,
+  "mean_required_credit_factor": 0.042900316701288126,
+  "median_required_credit_factor": 0.04323347357041396,
+  "p95_required_credit_factor": 0.04662600601102141,
+  "p99_required_credit_factor": 0.04662600601102141,
+  "minimum_required_credit_factor": 0.035942482140278544,
+  "maximum_required_credit_factor": 0.04662600601102141,
+  "full_coverage_credit_factor": 0.04662600601102141,
+  "quantile_method": "linear",
+  "per_seed": [
+    {
+      "seed_id": "seed0",
+      "round_count": 80,
+      "maximum_required_credit_factor": 0.04662600601102141
+    },
+    {
+      "seed_id": "seed1",
+      "round_count": 80,
+      "maximum_required_credit_factor": 0.04662600601102141
+    },
+    {
+      "seed_id": "seed2",
+      "round_count": 80,
+      "maximum_required_credit_factor": 0.04662600601102141
+    },
+    {
+      "seed_id": "seed3",
+      "round_count": 80,
+      "maximum_required_credit_factor": 0.04662600601102141
+    },
+    {
+      "seed_id": "seed4",
+      "round_count": 80,
+      "maximum_required_credit_factor": 0.04662600601102141
+    }
+  ],
+  "inputs": [
+    {
+      "seed_id": "seed0",
+      "file": "seed0/training_history.json",
+      "sha256": "51240b2790d7b1078c002467d35cb85ec8759bcf8d1e70f1ccd912fb67ab4b32",
+      "round_count": 80
+    },
+    {
+      "seed_id": "seed1",
+      "file": "seed1/training_history.json",
+      "sha256": "ea0953aedc88b6340f654b7c9842ccab1730de08aa8c4d181d3a33ddd7ee0e45",
+      "round_count": 80
+    },
+    {
+      "seed_id": "seed2",
+      "file": "seed2/training_history.json",
+      "sha256": "ba97529a679b0f6848d699c3a3f7c241fc6bca12f64fb1bc2084fdc1a6dd2e05",
+      "round_count": 80
+    },
+    {
+      "seed_id": "seed3",
+      "file": "seed3/training_history.json",
+      "sha256": "53acb4deac3a4a214a7c84825dd8c851e15c947ace36110865e3c99095439413",
+      "round_count": 80
+    },
+    {
+      "seed_id": "seed4",
+      "file": "seed4/training_history.json",
+      "sha256": "37f5cb7056f1131a99af98f789a2b6810da57c3c3050fd6875a93d093463470c",
+      "round_count": 80
+    }
+  ]
+}

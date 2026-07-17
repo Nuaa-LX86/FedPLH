@@ -17,7 +17,10 @@ from dataset.dataset_loader import (
 )
 from models.precision_wrapper import HMPEPrecisionEmulator
 from models.unet3d import UNet3D
-from plot_beu_boundary import compute_boundary
+from plot_beu_boundary import (
+    compute_boundary,
+    compute_credit_factor_sensitivity,
+)
 from simulator.acf_simulator import ACFSimulator
 from training.acf_scheduler import ACFScheduler
 from training.aggregation import (
@@ -364,6 +367,91 @@ class IntegrityTests(unittest.TestCase):
             24.171164225134926,
         )
         self.assertAlmostEqual(result["visible_cost_ms_at_30x"], 214.77272727272728)
+
+    def test_credit_factor_sensitivity_uses_round_aligned_histories(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            paths = []
+            for seed, ratios in enumerate(([0.05, 0.10], [0.15, 0.20])):
+                path = root / f"seed{seed}" / "training_history.json"
+                path.parent.mkdir(parents=True)
+                payload = {
+                    "round": [0, 1],
+                    "delta_c_cycles": [100.0, 100.0],
+                    "c_priv_cycles": [ratio * 100.0 for ratio in ratios],
+                }
+                path.write_text(json.dumps(payload), encoding="utf-8")
+                paths.append(path)
+
+            result = compute_credit_factor_sensitivity(paths)
+            original_hash = result["inputs"][0]["sha256"]
+            payload = json.loads(paths[0].read_text(encoding="utf-8"))
+            payload["unrelated_metric"] = [999.0, 999.0]
+            paths[0].write_text(json.dumps(payload), encoding="utf-8")
+            projected_result = compute_credit_factor_sensitivity(paths)
+
+        self.assertEqual(result["seed_count"], 2)
+        self.assertEqual(result["record_count"], 4)
+        self.assertAlmostEqual(result["median_required_credit_factor"], 0.125)
+        self.assertAlmostEqual(result["maximum_required_credit_factor"], 0.20)
+        self.assertEqual(len(result["inputs"]), 2)
+        self.assertTrue(all(len(item["sha256"]) == 64 for item in result["inputs"]))
+        self.assertEqual(projected_result["inputs"][0]["sha256"], original_hash)
+
+    def test_credit_factor_sensitivity_rejects_invalid_cycles(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            path = Path(temporary_directory) / "seed0" / "training_history.json"
+            path.parent.mkdir(parents=True)
+            path.write_text(
+                json.dumps(
+                    {
+                        "round": [0],
+                        "delta_c_cycles": [0.0],
+                        "c_priv_cycles": [1.0],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "non-positive"):
+                compute_credit_factor_sensitivity([path])
+
+    def test_credit_factor_sensitivity_rejects_missing_fields(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            path = Path(temporary_directory) / "seed0" / "training_history.json"
+            path.parent.mkdir(parents=True)
+            path.write_text(
+                json.dumps({"round": [0], "delta_c_cycles": [1.0]}),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "missing required fields"):
+                compute_credit_factor_sensitivity([path])
+
+    def test_credit_factor_sensitivity_rejects_unexpected_seed_or_round_count(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            path = Path(temporary_directory) / "seed0" / "training_history.json"
+            path.parent.mkdir(parents=True)
+            path.write_text(
+                json.dumps(
+                    {
+                        "round": [0, 1],
+                        "delta_c_cycles": [100.0, 100.0],
+                        "c_priv_cycles": [5.0, 5.0],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "Expected 2 seed histories"):
+                compute_credit_factor_sensitivity(
+                    [path],
+                    expected_seed_count=2,
+                    expected_round_count=2,
+                )
+            with self.assertRaisesRegex(ValueError, "Expected 3 rounds"):
+                compute_credit_factor_sensitivity(
+                    [path],
+                    expected_seed_count=1,
+                    expected_round_count=3,
+                )
 
     def test_fixed_resource_aggregation_scales_with_clients(self):
         simulator = ACFSimulator("hardware_profile.json")
