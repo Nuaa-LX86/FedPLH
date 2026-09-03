@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-09-03T08:08:39.538625+00:00",
+  "generated_at_utc": "2026-09-03T08:25:53.581301+00:00",
   "scope": "sanitized TPDS paper-facing evidence; no raw data, checkpoints, RTL, or Vivado reports",
   "files": {
     "frozen_experiment_protocols/shared_brats_partition_alpha0p5/client_distribution.csv": "b0c66d2166482df04968bfedf0eb97c61080dc7da1504e0887bdb161e801aaeb",
@@ -23,11 +23,11 @@
     "sanitized_profile_values/rtl_test_manifest.json": "33623085e2ecf05b50ce2c95a82098ed634d7690dce8acd7d92d67c5708fd261",
     "sanitized_profile_values/saif_power_manifest.json": "5239e1f50c2d0c85318419b0a051f5d6f7306e8912a4b399d793e0446e7ae064",
     "sanitized_profile_values/selected_operating_points.json": "8538bde87a1a6047958a8f28cd21faf05d9e7d38d72ff3bae2349b4aedaa853f",
-    "validated_aggregate_evidence/beu_credit_factor_inputs/seed0/training_history.json": "25535f0838452186d94eb59f6faebae888f1e0d32ed0638def9d67849a7475ca",
-    "validated_aggregate_evidence/beu_credit_factor_inputs/seed1/training_history.json": "21654ea148a96fb53962f2cceabd064e0cc47faeed2f238da43e6d9cc8ef226d",
-    "validated_aggregate_evidence/beu_credit_factor_inputs/seed2/training_history.json": "83497767e51e31b13d864e9a060909df4b84d6595302021edde7bd6f82fdd2e1",
-    "validated_aggregate_evidence/beu_credit_factor_inputs/seed3/training_history.json": "12187a264d9ec683b033e97b98e53331a9f624db5157273eb83904e5e26cd954",
-    "validated_aggregate_evidence/beu_credit_factor_inputs/seed4/training_history.json": "0aeb24cf348bc2d0a3364ee607b727645f68a94c1287f2589a6f311032739f53",
+    "validated_aggregate_evidence/beu_credit_factor_inputs/seed0/training_history.json": "3cedbf28174ecc5e9736b1edf52f53fd4efc8c6bc4b0a7f83045360d30db2cb8",
+    "validated_aggregate_evidence/beu_credit_factor_inputs/seed1/training_history.json": "a6c99f40a3785b313fe6e5976936a67c80e38b1265e6e73b8a5b38dbdfb1849d",
+    "validated_aggregate_evidence/beu_credit_factor_inputs/seed2/training_history.json": "eb2d0db5964ec0d0592eaaa80e0e81ff08d5b54aaa4201896df134a802ba26c4",
+    "validated_aggregate_evidence/beu_credit_factor_inputs/seed3/training_history.json": "f715b22b0f3d21cc7e36175edcd15ad46cea6c2ca97a29a721708c7bb94c2d36",
+    "validated_aggregate_evidence/beu_credit_factor_inputs/seed4/training_history.json": "5f5f99f18f10bf62091ff15e806a718461712ffebf300d10057996cda752bdfb",
     "validated_aggregate_evidence/beu_credit_factor_sensitivity.json": "fea9c57a9128d75ef943cf54bcf369294f7d18779e798ef678b6f72283056aa8",
     "validated_aggregate_evidence/hmpe_training_contract_audit.json": "826a28ae4d13e2ed4085686bb956de23325762017a0728f0b6611064e68a2c58",
     "validated_aggregate_evidence/sota_adapter_five_seed_audit.json": "e4e81c8ad01e98429941515b1196ee6b1814884e2317ed18482cb1d58c2c057c",
@@ -35,6 +35,6 @@
     "validated_aggregate_evidence/tpds_bibliography_audit.json": "90611203ce990ee14af9e25756eea579808659f1a8b95c93693cc60d4726f7b3",
     "validated_aggregate_evidence/tpds_figure_manifest.json": "940b84bb6babc31c0985211725f37fbab029709f710f926b836aacfd7cc97f88",
     "validated_aggregate_evidence/tpds_result_macro_manifest.json": "a6771357ac45796cc42f7bad1c4bea74def5663f5492e019a08dc9e9c505ed88",
-    "validated_aggregate_evidence/tpds_submission_qa.json": "2d0071abddf5853e1011cc1fd104bc14eac982baadb55c00c1f75fedf046dde5"
+    "validated_aggregate_evidence/tpds_submission_qa.json": "56de11cb25932d346a3cac5e7d44a7b554686015f9364a5f7014a70b7966cedf"
   }
 }

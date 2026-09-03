@@ -6,6 +6,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
+import statistics
 from pathlib import Path
 
 
@@ -19,6 +21,17 @@ def sha256(path: Path) -> str:
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def linear_quantile(values: list[float], probability: float) -> float:
+    ordered = sorted(values)
+    position = (len(ordered) - 1) * probability
+    lower = math.floor(position)
+    upper = math.ceil(position)
+    if lower == upper:
+        return ordered[lower]
+    weight = position - lower
+    return ordered[lower] * (1.0 - weight) + ordered[upper] * weight
 
 
 def main() -> int:
@@ -67,6 +80,44 @@ def main() -> int:
     )
     if credit.get("seed_count") != 5 or credit.get("record_count") != 400:
         failures.append("BEU credit evidence is not 5 seeds x 80 rounds")
+    ratios: list[float] = []
+    for seed in range(5):
+        payload = load_json(
+            root
+            / "validated_aggregate_evidence"
+            / "beu_credit_factor_inputs"
+            / f"seed{seed}"
+            / "training_history.json"
+        )
+        rounds = payload.get("round", [])
+        slack = payload.get("delta_c_cycles", [])
+        costs = payload.get("c_priv_cycles", [])
+        if not (len(rounds) == len(slack) == len(costs) == 80):
+            failures.append(f"BEU input seed{seed} is not an 80-round record")
+            continue
+        for delta_c, c_priv in zip(slack, costs):
+            if float(delta_c) <= 0 or float(c_priv) < 0:
+                failures.append(f"BEU input seed{seed} contains invalid cycle counts")
+                break
+            ratios.append(float(c_priv) / float(delta_c))
+
+    if len(ratios) == 400:
+        recomputed = {
+            "mean_required_credit_factor": statistics.fmean(ratios),
+            "median_required_credit_factor": statistics.median(ratios),
+            "p95_required_credit_factor": linear_quantile(ratios, 0.95),
+            "p99_required_credit_factor": linear_quantile(ratios, 0.99),
+            "minimum_required_credit_factor": min(ratios),
+            "maximum_required_credit_factor": max(ratios),
+            "full_coverage_credit_factor": max(ratios),
+        }
+        for field, actual in recomputed.items():
+            reported = float(credit.get(field, math.nan))
+            if not math.isclose(actual, reported, rel_tol=1e-12, abs_tol=1e-15):
+                failures.append(
+                    f"BEU credit summary mismatch for {field}: "
+                    f"reported={reported}, recomputed={actual}"
+                )
 
     if failures:
         for failure in failures:
