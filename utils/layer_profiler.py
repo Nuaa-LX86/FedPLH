@@ -9,7 +9,7 @@ def profile_model_layers(model: nn.Module,
                          input_size: Tuple[int, ...] = (1, 4, 64, 64, 64),
                          device: str = None) -> pd.DataFrame:
     """
-    Operator-level workload analysis for U-Net and Transformer models.
+    [TCAD Enhanced] 支持 U-Net/Transformer 的全算子计算特征分析
     """
     if device is None:
         try:

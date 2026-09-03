@@ -8,7 +8,7 @@ import matplotlib.patches as mpatches
 import numpy as np
 import json
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Sequence
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -84,49 +84,67 @@ class PlotGenerator:
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-    # ── Fig 5: Convergence + Privacy meter ──────────────────────────────────
-    def plot_training_curves(self, history: Dict, save_name: str = 'Fig5_Convergence'):
-        fig, axes = plt.subplots(1, 3, figsize=(6.5, 2.2))
-        rounds = history.get('round', list(range(len(history.get('train_loss', [])))))
+    # ── Five-seed convergence trajectories ──────────────────────────────────
+    def plot_training_curves(
+        self,
+        histories: Sequence[Dict] | Dict,
+        save_name: str = 'Fig5_Convergence',
+    ):
+        if isinstance(histories, dict):
+            histories = [histories]
+        histories = list(histories)
+        if not histories:
+            raise ValueError("At least one training history is required")
 
-        c = PALETTE['HMPE-ACF']
+        rounds = np.asarray(histories[0].get('round', []), dtype=float)
+        if rounds.size == 0:
+            raise ValueError("Training histories must contain a nonempty 'round' field")
+        for history in histories:
+            if list(history.get('round', [])) != list(histories[0].get('round', [])):
+                raise ValueError("All training histories must use the same round grid")
 
-        # (a) Val Dice
-        ax = axes[0]
-        for key in ['val_dice', 'val_mean_dice', 'val_acc']:
-            if key in history:
-                ax.plot(rounds, history[key], color=c, lw=1.5)
-                break
-        ax.set_xlabel('Communication Round')
-        ax.set_ylabel('Val Dice (%)')
-        ax.set_title('(a) Validation Metric')
-        ax.grid(True, ls='--', alpha=0.4)
-        ax.set_xlim(left=0)
+        panels = (
+            ('val_dice', 'Validation Dice (%)', '(a) Validation Dice',
+             PALETTE['HMPE-ACF']),
+            ('train_loss', 'Training loss', '(b) Training loss',
+             PALETTE['FedBN']),
+        )
+        fig, axes = plt.subplots(2, 1, figsize=(3.5, 3.65), sharex=True)
 
-        # (b) Train loss
-        ax = axes[1]
-        if 'train_loss' in history:
-            ax.plot(rounds, history['train_loss'], color=PALETTE['FedBN'], lw=1.5)
-        ax.set_xlabel('Communication Round')
-        ax.set_ylabel('Loss')
-        ax.set_title('(b) Training Loss')
-        ax.grid(True, ls='--', alpha=0.4)
-        ax.set_xlim(left=0)
+        for ax, (field, ylabel, title, color) in zip(axes, panels):
+            values = np.asarray(
+                [history[field] for history in histories],
+                dtype=float,
+            )
+            if values.shape != (len(histories), len(rounds)):
+                raise ValueError(
+                    f"Field {field!r} does not align across training histories"
+                )
+            for trajectory in values:
+                ax.plot(
+                    rounds,
+                    trajectory,
+                    color=color,
+                    lw=0.75,
+                    alpha=0.25,
+                    zorder=1,
+                )
+            ax.plot(
+                rounds,
+                values.mean(axis=0),
+                color=color,
+                lw=2.0,
+                zorder=2,
+            )
+            ax.set_ylabel(ylabel)
+            ax.set_title(title, pad=4)
+            ax.set_xlim(float(rounds.min()), float(rounds.max()))
+            ax.grid(True, ls='--', alpha=0.4, lw=0.5)
+            ax.spines['top'].set_visible(False)
+            ax.spines['right'].set_visible(False)
 
-        # (c) Privacy budget ε
-        ax = axes[2]
-        if 'epsilon' in history and history['epsilon']:
-            ax.plot(rounds, history['epsilon'], color=PALETTE['FedPAQ'], lw=1.5)
-            ax.set_ylabel(r'Cumulative max-client $\epsilon$')
-        else:
-            ax.text(0.5, 0.5, 'No privacy accounting', ha='center', va='center',
-                    transform=ax.transAxes, fontsize=8, color='gray')
-        ax.set_xlabel('Communication Round')
-        ax.set_title('(c) Nominal RDP\nAccountant Output')
-        ax.grid(True, ls='--', alpha=0.4)
-        ax.set_xlim(left=0)
-
-        plt.tight_layout(pad=0.5)
+        axes[-1].set_xlabel('Communication round')
+        fig.subplots_adjust(left=0.18, right=0.985, bottom=0.13, top=0.94, hspace=0.34)
         self._save(fig, save_name)
 
     # ── Fig 6: SOTA bar chart (Dice / Norm. Latency / Norm. Energy) ─────────
@@ -257,8 +275,11 @@ class PlotGenerator:
         self._save(fig, save_name)
 
     # ── BEU latency breakdown (论文 Fig6) ────────────────────────────────────
-    def plot_beu_latency_breakdown(self, results: Dict,
-                                   save_name: str = 'Fig6_BEU_Latency_Breakdown'):
+    def plot_beu_latency_breakdown(
+        self,
+        results: Dict,
+        save_name: str = 'Fig4_BEU_Breakdown',
+    ):
         """
         单轮时延分解：Compute / DP_visible / DP_bg / Comm / Agg
         对比 FP32_noDP, FP32_softDP, HMPE-ACF
@@ -273,7 +294,7 @@ class PlotGenerator:
         n = len(present)
 
         compute_vals, dp_vis_vals, dp_bg_vals = [], [], []
-        comm_vals, agg_vals, misc_vals, total_vals = [], [], [], []
+        comm_vals, agg_vals, misc_vals, total_vals, total_sds = [], [], [], [], []
         for k in present:
             m = results[k]['metrics']
             total_lat    = _get_metric(m, 'avg_latency_ms')
@@ -305,25 +326,63 @@ class PlotGenerator:
             agg_vals.append(agg)
             misc_vals.append(misc)
             total_vals.append(total_lat)
+            total_sds.append(
+                _get_metric(
+                    results[k].get('metrics_std', {}),
+                    'avg_latency_ms',
+                )
+            )
 
-        fig, ax = plt.subplots(figsize=(3.5, 3.0))
+        fig, ax = plt.subplots(figsize=(3.5, 3.25))
         x = np.arange(n)
         width = 0.55
 
-        b1 = ax.bar(x, compute_vals, width, label='Compute',
-                    color=LAT_COLORS['Compute'], edgecolor='white', lw=0.5)
-        b2 = ax.bar(x, dp_vis_vals, width, bottom=compute_vals,
-                    label='Visible SoftDP', color=LAT_COLORS['DP_vis'],
-                    edgecolor='white', lw=0.5)
-        b4 = ax.bar(x, comm_vals, width,
-                    bottom=[c + v for c, v in zip(compute_vals, dp_vis_vals)],
-                    label='Comm', color=LAT_COLORS['Comm'],
-                    edgecolor='white', lw=0.5)
-        b5 = ax.bar(x, agg_vals, width,
-                    bottom=[c + v + cm for c, v, cm in
-                            zip(compute_vals, dp_vis_vals, comm_vals)],
-                    label='Agg', color=LAT_COLORS['Agg'],
-                    edgecolor='white', lw=0.5)
+        ax.bar(
+            x,
+            compute_vals,
+            width,
+            label='Compute',
+            color=LAT_COLORS['Compute'],
+            edgecolor='#333333',
+            lw=0.45,
+            hatch='///',
+        )
+        ax.bar(
+            x,
+            dp_vis_vals,
+            width,
+            bottom=compute_vals,
+            label='Visible SoftDP',
+            color=LAT_COLORS['DP_vis'],
+            edgecolor='#333333',
+            lw=0.45,
+            hatch='xx',
+        )
+        ax.bar(
+            x,
+            comm_vals,
+            width,
+            bottom=[c + v for c, v in zip(compute_vals, dp_vis_vals)],
+            label='Communication',
+            color=LAT_COLORS['Comm'],
+            edgecolor='#333333',
+            lw=0.45,
+            hatch='\\\\',
+        )
+        ax.bar(
+            x,
+            agg_vals,
+            width,
+            bottom=[
+                c + v + cm
+                for c, v, cm in zip(compute_vals, dp_vis_vals, comm_vals)
+            ],
+            label='Aggregation',
+            color=LAT_COLORS['Agg'],
+            edgecolor='#333333',
+            lw=0.45,
+            hatch='..',
+        )
         if any(value > 0 for value in misc_vals):
             ax.bar(
                 x,
@@ -340,32 +399,92 @@ class PlotGenerator:
                 ],
                 label='Misc',
                 color=LAT_COLORS['Misc'],
-                edgecolor='white',
-                lw=0.5,
+                edgecolor='#333333',
+                lw=0.45,
+                hatch='--',
             )
 
-        for i in range(n):
-            total = total_vals[i]
-            annotation = f'{total:.0f} ms'
-            if dp_bg_vals[i] > 0:
-                annotation += (
-                    f'\nbudget-covered\nSoftDP: {dp_bg_vals[i]:.1f} ms'
-                )
-            ax.text(i, total + max(total_vals) * 0.02, annotation,
-                    ha='center', va='bottom', fontsize=7.5, fontweight='bold')
+        ax.errorbar(
+            x,
+            total_vals,
+            yerr=total_sds,
+            fmt='none',
+            ecolor='#222222',
+            elinewidth=0.9,
+            capsize=2.5,
+            capthick=0.9,
+            zorder=5,
+        )
+        for i, total in enumerate(total_vals):
+            ax.text(
+                i,
+                total + total_sds[i] + max(total_vals) * 0.025,
+                f'{total:.0f} ms',
+                ha='center',
+                va='bottom',
+                fontsize=7.5,
+                fontweight='bold',
+            )
+
+        fedplh_index = present.index('HMPE-ACF')
+        covered = dp_bg_vals[fedplh_index]
+        bracket_x = fedplh_index + width * 0.62
+        bracket_bottom = total_vals[fedplh_index]
+        bracket_top = bracket_bottom + covered
+        ax.plot(
+            [bracket_x, bracket_x],
+            [bracket_bottom, bracket_top],
+            color='#555555',
+            ls='--',
+            lw=0.9,
+            clip_on=False,
+        )
+        ax.plot(
+            [bracket_x - 0.04, bracket_x + 0.04],
+            [bracket_bottom, bracket_bottom],
+            color='#555555',
+            ls='--',
+            lw=0.9,
+            clip_on=False,
+        )
+        ax.plot(
+            [bracket_x - 0.04, bracket_x + 0.04],
+            [bracket_top, bracket_top],
+            color='#555555',
+            ls='--',
+            lw=0.9,
+            clip_on=False,
+        )
+        ax.text(
+            bracket_x + 0.06,
+            bracket_top + 5,
+            f'Budget-covered SoftDP:\n{covered:.2f} ms\n(outside critical path)',
+            ha='left',
+            va='bottom',
+            fontsize=7.0,
+            color='#333333',
+        )
 
         ax.set_xticks(x)
         ax.set_xticklabels(x_labels, fontsize=8)
         ax.set_ylabel('Avg per-round latency (ms)', fontsize=8)
-        ax.set_title('Critical-path latency decomposition\n(mean over five seeds)', fontsize=8)
-        ax.legend(loc='upper right', fontsize=7, framealpha=0.8,
-                  ncol=1, handlelength=1.2)
+        ax.legend(
+            loc='lower center',
+            bbox_to_anchor=(0.5, 1.015),
+            ncol=2,
+            fontsize=7.0,
+            frameon=False,
+            handlelength=1.2,
+            columnspacing=1.0,
+            handletextpad=0.45,
+            borderaxespad=0.0,
+        )
         ax.grid(True, axis='y', ls='--', alpha=0.4, lw=0.5)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
-        ax.set_ylim(0, max(total_vals) * 1.25)
+        ax.set_ylim(0, max(total_vals) * 1.18)
 
-        plt.tight_layout(pad=0.5)
+        fig.subplots_adjust(left=0.17, right=0.98, bottom=0.15, top=0.80)
         self._save(fig, save_name)
 
     # ── Fig 7: SAC scalability ────────────────────────────────────────────────
@@ -449,33 +568,49 @@ class PlotGenerator:
         print(f"Output dir:  {self.output_dir.resolve()}")
         print("=" * 72)
 
-        # ── Fig5: Convergence ──────────────────────────────────────────────
-        hist_path = results_path / "summaries" / "representative_history.json"
-        if not hist_path.exists():
-            hist_path = results_path / "training_history.json"
-        if hist_path.exists():
-            with open(hist_path, encoding='utf-8') as f:
-                history = json.load(f)
-            self.plot_training_curves(history, save_name="Fig5_Convergence")
-            print("Fig5_Convergence generated")
-        else:
-            print("Skip Fig5: training_history.json not found")
-
-        # ── Fig6: SOTA bar chart ───────────────────────────────────────────
+        # ── Locate paper results ───────────────────────────────────────────
         sota_path = results_path / "summaries" / "paper_results.json"
+        if not sota_path.exists():
+            sota_path = (
+                results_path / "core" / "unet" / "summaries"
+                / "paper_results.json"
+            )
         if not sota_path.exists():
             sota_path = results_path / "summaries" / "sota_results.json"
         if sota_path.exists():
             with open(sota_path, encoding='utf-8') as f:
                 payload = json.load(f)
             results = payload.get("results", payload)
-            self.plot_sota_summary(results, save_name="Fig6_SOTA_Comparison")
-            print("Fig6_SOTA_Comparison generated")
-            # BEU latency breakdown
-            self.plot_beu_latency_breakdown(results, save_name="Fig6b_BEU_Breakdown")
-            print("Fig6b_BEU_Breakdown generated")
+            self.plot_beu_latency_breakdown(
+                results,
+                save_name="Fig4_BEU_Breakdown",
+            )
+            print("Fig4_BEU_Breakdown generated")
+
+            source_directory = (
+                payload.get('postprocessing', {}).get('source_directory')
+            )
+            histories = []
+            if source_directory:
+                source_root = Path(source_directory)
+                for seed in range(5):
+                    history_path = (
+                        source_root / "core" / "unet" / "HMPE-ACF"
+                        / f"seed{seed}" / "training_history.json"
+                    )
+                    if history_path.exists():
+                        with open(history_path, encoding='utf-8') as f:
+                            histories.append(json.load(f))
+            if len(histories) == 5:
+                self.plot_training_curves(
+                    histories,
+                    save_name="Fig5_Convergence",
+                )
+                print("Fig5_Convergence generated")
+            else:
+                print("Skip Fig5: five FedPLH training histories not found")
         else:
-            print("Skip Fig6: ablation/ablation_results.json not found")
+            print("Skip Figs 4--5: paper_results.json not found")
 
         # ── Fig7: SAC scalability ──────────────────────────────────────────
         scal_path = results_path / "scalability" / "scalability_results.json"

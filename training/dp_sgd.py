@@ -215,7 +215,7 @@ class RDPAccountant:
 
 class BEUBudgetManager:
     """
-    BEU hardware model: dual-threshold hysteresis control.
+    [TCAD Core] BEU hardware logic: dual-threshold hysteresis control.
 
     设计目标（与论文 3.3 节/算法 2 对齐）：
       1) 追踪低精度计算释放的“时间盈余”预算（cycles）

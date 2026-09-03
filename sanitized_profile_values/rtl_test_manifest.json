@@ -1,0 +1,317 @@
+{
+  "generated_at_utc": "2026-09-02T14:22:58.174407+00:00",
+  "vivado_bin": "not_released/external_path/bin",
+  "status": "passed",
+  "tests": [
+    {
+      "top": "pe_int8_vector_tb",
+      "record_name": "pe_int8_vector_tb",
+      "status": "passed",
+      "expected_marker": "PASS: 72 INT8 PE vectors matched",
+      "return_code": 0,
+      "log": "not_released/external_path/pe_int8_vector_tb.log",
+      "log_sha256": "0bbaa5fdd99f3e14a7384d0cbdc1c9236dfd322b2d58f04f9b992f0df5fcc122",
+      "source_sha256": {
+        "rtl\\upstream_hmpe\\three_input_ec.v": "a29e769689cd725d6a12fe09b3048794654ace1a4a5dd67c454d6707b869a7b4",
+        "rtl\\upstream_hmpe\\radix4_booth.v": "696f10d7b630aad502eb5a57bc4e53aacc9297dca724e51c7c0b3b5137ea85e9",
+        "generated\\hmpe_accuracy_patched\\PEC.v": "422e892deaa92440248953d3b1290a77fcf1b73302c9d1d04e5cde65f7dc7c8e",
+        "rtl\\upstream_hmpe\\mux2x1.v": "1c62b6c7e54137ec2516399e711779e0c11123982b16338d515e045fcba41e6c",
+        "rtl\\upstream_hmpe\\LZD.v": "11c884630505218bc6d78a449f227bae6cc4b5424876b1021c899b7c179c6740",
+        "generated\\hmpe_accuracy_patched\\FP_MultiPrecision_PE.v": "1ef0c558df384fd2edaf565c1e9e821b344aaf5ba55360c1ca1e630005b1b1dc",
+        "rtl\\upstream_hmpe\\four_input_ec.v": "4dc1ed94596e6a2385d5f674bee3407492f8dcb27dd6139eca9d0254d450ccbd",
+        "rtl\\upstream_hmpe\\CSLA.v": "6621d1b94428ca7682b0da3709e60bbd41fdb47a179b6e12329fb4871397ae5d",
+        "rtl\\upstream_hmpe\\compressor4to2ATL1.v": "408cb4ed112e157ece25a24159449c05d18550e321cc7195476113171db36dd2",
+        "rtl\\upstream_hmpe\\compressor42.v": "e59b26b7b68133a2abd9725b9ec723855b4e1142307bb365393ab81bfb71f79b",
+        "rtl\\upstream_hmpe\\compressor32.v": "2e477cc69cdd9b9fbda589577833cb15ad4ec88108529a0151ae652c67f5effb",
+        "rtl\\upstream_hmpe\\complement2s.v": "0ad4d0913421af77ff8dd500a09395768179cdff991c116eb43a6faef1f429ab",
+        "rtl\\upstream_hmpe\\comp.v": "e95ad0c404253d12d4011d739bc72d9f429b22f017a9267b37ac4e0521d8eb89",
+        "rtl\\upstream_hmpe\\CLA_4b.v": "e717f8277fee46b03a3ce799d3322a7f9b60953334d7942ffcc8ab3c17a42cea",
+        "rtl\\upstream_hmpe\\booth_code.v": "993e3493e5f2e1f68eac19134a5860bfa5e0983f49cde6bd84c69f06ec62a514",
+        "rtl\\upstream_hmpe\\Alignment_Shifter.v": "d08c56bedeb00d26a20a4104f30ec6b9aef99a418f32e56859d98dbb80c2e06f",
+        "rtl\\upstream_hmpe\\Adder_Tree.v": "759122df36dad5dbea18f3961e57b4375435c65d1620d333c50158a3c36a8d0a",
+        "tb\\hmpe_int8_vector_tb.sv": "382e64f5a9a173b6459ec394b51e143e23e66f9ceb4fa8c04e1b1acfc0462dd7",
+        "tb\\vectors\\pe_inputs.mem": "2483d6f0ba806a575b2a7a89fefb3c901cc2d25606a23ec52ecc97183564337b"
+      },
+      "output_artifacts": []
+    },
+    {
+      "top": "hmpe_mode_vector_tb",
+      "record_name": "hmpe_mode_vector_tb",
+      "status": "passed",
+      "expected_marker": "PASS: 8000 mixed-mode HMPE vectors matched",
+      "return_code": 0,
+      "log": "not_released/external_path/hmpe_mode_vector_tb.log",
+      "log_sha256": "ea78cb410f34286da19809f83b0bd155990fc713f2b46538a13958f6cfce4bb9",
+      "source_sha256": {
+        "rtl\\upstream_hmpe\\three_input_ec.v": "a29e769689cd725d6a12fe09b3048794654ace1a4a5dd67c454d6707b869a7b4",
+        "rtl\\upstream_hmpe\\radix4_booth.v": "696f10d7b630aad502eb5a57bc4e53aacc9297dca724e51c7c0b3b5137ea85e9",
+        "generated\\hmpe_accuracy_patched\\PEC.v": "422e892deaa92440248953d3b1290a77fcf1b73302c9d1d04e5cde65f7dc7c8e",
+        "rtl\\upstream_hmpe\\mux2x1.v": "1c62b6c7e54137ec2516399e711779e0c11123982b16338d515e045fcba41e6c",
+        "rtl\\upstream_hmpe\\LZD.v": "11c884630505218bc6d78a449f227bae6cc4b5424876b1021c899b7c179c6740",
+        "generated\\hmpe_accuracy_patched\\FP_MultiPrecision_PE.v": "1ef0c558df384fd2edaf565c1e9e821b344aaf5ba55360c1ca1e630005b1b1dc",
+        "rtl\\upstream_hmpe\\four_input_ec.v": "4dc1ed94596e6a2385d5f674bee3407492f8dcb27dd6139eca9d0254d450ccbd",
+        "rtl\\upstream_hmpe\\CSLA.v": "6621d1b94428ca7682b0da3709e60bbd41fdb47a179b6e12329fb4871397ae5d",
+        "rtl\\upstream_hmpe\\compressor4to2ATL1.v": "408cb4ed112e157ece25a24159449c05d18550e321cc7195476113171db36dd2",
+        "rtl\\upstream_hmpe\\compressor42.v": "e59b26b7b68133a2abd9725b9ec723855b4e1142307bb365393ab81bfb71f79b",
+        "rtl\\upstream_hmpe\\compressor32.v": "2e477cc69cdd9b9fbda589577833cb15ad4ec88108529a0151ae652c67f5effb",
+        "rtl\\upstream_hmpe\\complement2s.v": "0ad4d0913421af77ff8dd500a09395768179cdff991c116eb43a6faef1f429ab",
+        "rtl\\upstream_hmpe\\comp.v": "e95ad0c404253d12d4011d739bc72d9f429b22f017a9267b37ac4e0521d8eb89",
+        "rtl\\upstream_hmpe\\CLA_4b.v": "e717f8277fee46b03a3ce799d3322a7f9b60953334d7942ffcc8ab3c17a42cea",
+        "rtl\\upstream_hmpe\\booth_code.v": "993e3493e5f2e1f68eac19134a5860bfa5e0983f49cde6bd84c69f06ec62a514",
+        "rtl\\upstream_hmpe\\Alignment_Shifter.v": "d08c56bedeb00d26a20a4104f30ec6b9aef99a418f32e56859d98dbb80c2e06f",
+        "rtl\\upstream_hmpe\\Adder_Tree.v": "759122df36dad5dbea18f3961e57b4375435c65d1620d333c50158a3c36a8d0a",
+        "tb\\hmpe_mode_vector_tb.sv": "dc9f44a422a6008f6ff768dc72f10776523c2cacd131d7e48cea2238cd8d00cc",
+        "tb\\vectors\\hmpe_modes.mem": "5325c6c45cca22f51a2d219ddf2b2265197545a9882a7f896b4665de22c9eb57"
+      },
+      "output_artifacts": [
+        {
+          "path": "not_released/external_path/hmpe_mode_vector_tb_hmpe_mode_results.txt",
+          "sha256": "9acc50ebd4b893fd187b0d68d11de81d45c9ca6d330c317f3cb3e69de8d2ec1d"
+        }
+      ]
+    },
+    {
+      "top": "hmpe_ideal_vector_tb",
+      "record_name": "hmpe_ideal_reference",
+      "status": "passed",
+      "expected_marker": "PASS: 8000 HMPE vectors matched the ideal dot-product reference",
+      "return_code": 0,
+      "log": "not_released/external_path/hmpe_ideal_reference.log",
+      "log_sha256": "991536b56fe3638989969f1992bf1d2e5f7a51b0e373b9133dd3004c71746cd5",
+      "source_sha256": {
+        "rtl\\upstream_hmpe\\three_input_ec.v": "a29e769689cd725d6a12fe09b3048794654ace1a4a5dd67c454d6707b869a7b4",
+        "rtl\\upstream_hmpe\\radix4_booth.v": "696f10d7b630aad502eb5a57bc4e53aacc9297dca724e51c7c0b3b5137ea85e9",
+        "generated\\hmpe_accuracy_patched\\PEC.v": "422e892deaa92440248953d3b1290a77fcf1b73302c9d1d04e5cde65f7dc7c8e",
+        "rtl\\upstream_hmpe\\mux2x1.v": "1c62b6c7e54137ec2516399e711779e0c11123982b16338d515e045fcba41e6c",
+        "rtl\\upstream_hmpe\\LZD.v": "11c884630505218bc6d78a449f227bae6cc4b5424876b1021c899b7c179c6740",
+        "generated\\hmpe_accuracy_patched\\FP_MultiPrecision_PE.v": "1ef0c558df384fd2edaf565c1e9e821b344aaf5ba55360c1ca1e630005b1b1dc",
+        "rtl\\upstream_hmpe\\four_input_ec.v": "4dc1ed94596e6a2385d5f674bee3407492f8dcb27dd6139eca9d0254d450ccbd",
+        "rtl\\upstream_hmpe\\CSLA.v": "6621d1b94428ca7682b0da3709e60bbd41fdb47a179b6e12329fb4871397ae5d",
+        "rtl\\upstream_hmpe\\compressor4to2ATL1.v": "408cb4ed112e157ece25a24159449c05d18550e321cc7195476113171db36dd2",
+        "rtl\\upstream_hmpe\\compressor42.v": "e59b26b7b68133a2abd9725b9ec723855b4e1142307bb365393ab81bfb71f79b",
+        "rtl\\upstream_hmpe\\compressor32.v": "2e477cc69cdd9b9fbda589577833cb15ad4ec88108529a0151ae652c67f5effb",
+        "rtl\\upstream_hmpe\\complement2s.v": "0ad4d0913421af77ff8dd500a09395768179cdff991c116eb43a6faef1f429ab",
+        "rtl\\upstream_hmpe\\comp.v": "e95ad0c404253d12d4011d739bc72d9f429b22f017a9267b37ac4e0521d8eb89",
+        "rtl\\upstream_hmpe\\CLA_4b.v": "e717f8277fee46b03a3ce799d3322a7f9b60953334d7942ffcc8ab3c17a42cea",
+        "rtl\\upstream_hmpe\\booth_code.v": "993e3493e5f2e1f68eac19134a5860bfa5e0983f49cde6bd84c69f06ec62a514",
+        "rtl\\upstream_hmpe\\Alignment_Shifter.v": "d08c56bedeb00d26a20a4104f30ec6b9aef99a418f32e56859d98dbb80c2e06f",
+        "rtl\\upstream_hmpe\\Adder_Tree.v": "759122df36dad5dbea18f3961e57b4375435c65d1620d333c50158a3c36a8d0a",
+        "tb\\hmpe_ideal_vector_tb.sv": "f4fe2a48db3459b18e882ffe60ddccc1af51d2763cce4e607fc7bed53718ec4a",
+        "tb\\vectors\\hmpe_modes_ideal.mem": "5325c6c45cca22f51a2d219ddf2b2265197545a9882a7f896b4665de22c9eb57"
+      },
+      "output_artifacts": [],
+      "mode_summary": [
+        {
+          "mode": 1,
+          "mismatches": 0,
+          "vectors": 1000
+        },
+        {
+          "mode": 2,
+          "mismatches": 0,
+          "vectors": 1000
+        },
+        {
+          "mode": 3,
+          "mismatches": 0,
+          "vectors": 1000
+        },
+        {
+          "mode": 4,
+          "mismatches": 0,
+          "vectors": 1000
+        },
+        {
+          "mode": 5,
+          "mismatches": 0,
+          "vectors": 1000
+        },
+        {
+          "mode": 6,
+          "mismatches": 0,
+          "vectors": 1000
+        },
+        {
+          "mode": 7,
+          "mismatches": 0,
+          "vectors": 1000
+        },
+        {
+          "mode": 8,
+          "mismatches": 0,
+          "vectors": 1000
+        }
+      ]
+    },
+    {
+      "top": "hmpe_array_smoke_tb",
+      "record_name": "hmpe_array_smoke_tb",
+      "status": "passed",
+      "expected_marker": "PASS: 2-lane HMPE array smoke test matched",
+      "return_code": 0,
+      "log": "not_released/external_path/hmpe_array_smoke_tb.log",
+      "log_sha256": "b4b156dcdd8e5a6918e6c9445ac070d54a1f5c9f27a000edc86ee909b9966e77",
+      "source_sha256": {
+        "rtl\\upstream_hmpe\\three_input_ec.v": "a29e769689cd725d6a12fe09b3048794654ace1a4a5dd67c454d6707b869a7b4",
+        "rtl\\upstream_hmpe\\radix4_booth.v": "696f10d7b630aad502eb5a57bc4e53aacc9297dca724e51c7c0b3b5137ea85e9",
+        "generated\\hmpe_accuracy_patched\\PEC.v": "422e892deaa92440248953d3b1290a77fcf1b73302c9d1d04e5cde65f7dc7c8e",
+        "rtl\\upstream_hmpe\\mux2x1.v": "1c62b6c7e54137ec2516399e711779e0c11123982b16338d515e045fcba41e6c",
+        "rtl\\upstream_hmpe\\LZD.v": "11c884630505218bc6d78a449f227bae6cc4b5424876b1021c899b7c179c6740",
+        "generated\\hmpe_accuracy_patched\\FP_MultiPrecision_PE.v": "1ef0c558df384fd2edaf565c1e9e821b344aaf5ba55360c1ca1e630005b1b1dc",
+        "rtl\\upstream_hmpe\\four_input_ec.v": "4dc1ed94596e6a2385d5f674bee3407492f8dcb27dd6139eca9d0254d450ccbd",
+        "rtl\\upstream_hmpe\\CSLA.v": "6621d1b94428ca7682b0da3709e60bbd41fdb47a179b6e12329fb4871397ae5d",
+        "rtl\\upstream_hmpe\\compressor4to2ATL1.v": "408cb4ed112e157ece25a24159449c05d18550e321cc7195476113171db36dd2",
+        "rtl\\upstream_hmpe\\compressor42.v": "e59b26b7b68133a2abd9725b9ec723855b4e1142307bb365393ab81bfb71f79b",
+        "rtl\\upstream_hmpe\\compressor32.v": "2e477cc69cdd9b9fbda589577833cb15ad4ec88108529a0151ae652c67f5effb",
+        "rtl\\upstream_hmpe\\complement2s.v": "0ad4d0913421af77ff8dd500a09395768179cdff991c116eb43a6faef1f429ab",
+        "rtl\\upstream_hmpe\\comp.v": "e95ad0c404253d12d4011d739bc72d9f429b22f017a9267b37ac4e0521d8eb89",
+        "rtl\\upstream_hmpe\\CLA_4b.v": "e717f8277fee46b03a3ce799d3322a7f9b60953334d7942ffcc8ab3c17a42cea",
+        "rtl\\upstream_hmpe\\booth_code.v": "993e3493e5f2e1f68eac19134a5860bfa5e0983f49cde6bd84c69f06ec62a514",
+        "rtl\\upstream_hmpe\\Alignment_Shifter.v": "d08c56bedeb00d26a20a4104f30ec6b9aef99a418f32e56859d98dbb80c2e06f",
+        "rtl\\upstream_hmpe\\Adder_Tree.v": "759122df36dad5dbea18f3961e57b4375435c65d1620d333c50158a3c36a8d0a",
+        "rtl\\client\\hmpe_core_wrapper.sv": "eddee23756c4ee84195d70891f2e2908cf4972df7f75dd88b6ebee987be33aa2",
+        "rtl\\client\\hmpe_array.sv": "aa101fe5c3a323c6632781539a2a8b8c22dc66f64ed8739494d8713bd28446a1",
+        "tb\\hmpe_array_smoke_tb.sv": "f15ff204a27306f9d01cfa431a8ffc287bb12dab14e2d88938f4118a5d19d241"
+      },
+      "output_artifacts": []
+    },
+    {
+      "top": "beu_budget_control_tb",
+      "record_name": "beu_budget_control_tb",
+      "status": "passed",
+      "expected_marker": "PASS: BEU 10004 directed/random updates matched the reference equations",
+      "return_code": 0,
+      "log": "not_released/external_path/beu_budget_control_tb.log",
+      "log_sha256": "372923e1600608bdec0f18f30b60b6f75da174215b4f868a899fa3db4c4ea910",
+      "source_sha256": {
+        "rtl\\beu\\beu_budget_control.sv": "79aaf8c2486841f1d19ba2b3663439031bdc304e3e68c936a947f62ba6f907d7",
+        "tb\\beu_budget_control_tb.sv": "ab24897f1cb555b5717533955aa5ab520e9cb1963afa52f52a332c2cc97c20b1"
+      },
+      "output_artifacts": []
+    },
+    {
+      "top": "sac_stream_aggregator_tb",
+      "record_name": "sac_stream_aggregator_tb",
+      "status": "passed",
+      "expected_marker": "PASS: SAC mixed-client numeric check and 1002-beat stream stress passed",
+      "return_code": 0,
+      "log": "not_released/external_path/sac_stream_aggregator_tb.log",
+      "log_sha256": "42a5f9c0aa48235b99ff8c322d4aa27adc0fdd5814303dc862f29bf06f9aae00",
+      "source_sha256": {
+        "rtl\\sac\\fp_format_to_fp32.sv": "4634a7c8908d67ea459ea3e633152e00518a1f4445eba55fad27a350c93f2cac",
+        "rtl\\sac\\fp32_axis_wrappers.sv": "a1f28c3d24f9ba7b244ac7bcf4b1b1deba2049248597e1b4cc7e385cba522fa2",
+        "rtl\\sac\\sac_accum_bank.sv": "b2afe045c52507a903f328535bdf27a6469b87dd415630cced68572980a9ec35",
+        "rtl\\sac\\sac_stream_aggregator.sv": "ba16f8cab4da46e984f2228b51cb994fb6b1dd0f4f7a36e489db78f19738f9a9",
+        "rtl\\sac\\sac_stream_aggregator_p32.sv": "b7a8f0e879c283c6c15ec223ff8f326a94a934ba7e6cfa3a6867e3d3aa5a2a75",
+        "rtl\\sac\\sac_stream_aggregator_wrapper.sv": "5d5e198b3d6ca38272d98205535f41cd1baf891bc7d873adba0ecac8a88dec78",
+        "rtl\\server\\sac_stream_buffer.sv": "d10eef2fa699efb11cef28ed9e08976340452e4a389ef51c2a0e38ad3369e294",
+        "rtl\\server\\fedplh_server_core.sv": "9be0cb5b4e60d9d087587d19751e30a2e4a470f9e65ac8c199e1fe8a3f3ff117",
+        "tb\\sac_stream_aggregator_tb.sv": "1123ad452f017d210879da23d6e7b674852bbabd375582babe5d9aa714172d71"
+      },
+      "output_artifacts": []
+    },
+    {
+      "top": "sac_stream_aggregator_p32_tb",
+      "record_name": "sac_stream_aggregator_p32_tb",
+      "status": "passed",
+      "expected_marker": "PASS: SAC mixed-client numeric check and 1002-beat stream stress passed",
+      "return_code": 0,
+      "log": "not_released/external_path/sac_stream_aggregator_p32_tb.log",
+      "log_sha256": "3b99ef7e48265bfa5bc9cf48619f5be4bd8ab98b4774b23f011275cdc2976919",
+      "source_sha256": {
+        "rtl\\sac\\fp_format_to_fp32.sv": "4634a7c8908d67ea459ea3e633152e00518a1f4445eba55fad27a350c93f2cac",
+        "rtl\\sac\\fp32_axis_wrappers.sv": "a1f28c3d24f9ba7b244ac7bcf4b1b1deba2049248597e1b4cc7e385cba522fa2",
+        "rtl\\sac\\sac_accum_bank.sv": "b2afe045c52507a903f328535bdf27a6469b87dd415630cced68572980a9ec35",
+        "rtl\\sac\\sac_stream_aggregator.sv": "ba16f8cab4da46e984f2228b51cb994fb6b1dd0f4f7a36e489db78f19738f9a9",
+        "rtl\\sac\\sac_stream_aggregator_p32.sv": "b7a8f0e879c283c6c15ec223ff8f326a94a934ba7e6cfa3a6867e3d3aa5a2a75",
+        "rtl\\sac\\sac_stream_aggregator_wrapper.sv": "5d5e198b3d6ca38272d98205535f41cd1baf891bc7d873adba0ecac8a88dec78",
+        "rtl\\server\\sac_stream_buffer.sv": "d10eef2fa699efb11cef28ed9e08976340452e4a389ef51c2a0e38ad3369e294",
+        "rtl\\server\\fedplh_server_core.sv": "9be0cb5b4e60d9d087587d19751e30a2e4a470f9e65ac8c199e1fe8a3f3ff117",
+        "tb\\sac_stream_aggregator_tb.sv": "1123ad452f017d210879da23d6e7b674852bbabd375582babe5d9aa714172d71",
+        "tb\\sac_stream_aggregator_p32_tb.sv": "9dde8e625d194fa02f4e409c85cd82e0458cf4f45d9b45e74831f3e9e89b5f76"
+      },
+      "output_artifacts": []
+    },
+    {
+      "top": "sac_p32_pipeline_tb",
+      "record_name": "sac_p32_pipeline_tb",
+      "status": "passed",
+      "expected_marker": "PASS: SAC P32 back-to-back pipeline and same-row hazard passed",
+      "return_code": 0,
+      "log": "not_released/external_path/sac_p32_pipeline_tb.log",
+      "log_sha256": "457b6ffe0e054390eb654b15ba791c6ec7a10707bcd643ae02047ee492d878ea",
+      "source_sha256": {
+        "rtl\\sac\\fp_format_to_fp32.sv": "4634a7c8908d67ea459ea3e633152e00518a1f4445eba55fad27a350c93f2cac",
+        "rtl\\sac\\fp32_axis_wrappers.sv": "a1f28c3d24f9ba7b244ac7bcf4b1b1deba2049248597e1b4cc7e385cba522fa2",
+        "rtl\\sac\\sac_accum_bank.sv": "b2afe045c52507a903f328535bdf27a6469b87dd415630cced68572980a9ec35",
+        "rtl\\sac\\sac_stream_aggregator.sv": "ba16f8cab4da46e984f2228b51cb994fb6b1dd0f4f7a36e489db78f19738f9a9",
+        "rtl\\sac\\sac_stream_aggregator_p32.sv": "b7a8f0e879c283c6c15ec223ff8f326a94a934ba7e6cfa3a6867e3d3aa5a2a75",
+        "rtl\\sac\\sac_stream_aggregator_wrapper.sv": "5d5e198b3d6ca38272d98205535f41cd1baf891bc7d873adba0ecac8a88dec78",
+        "rtl\\server\\sac_stream_buffer.sv": "d10eef2fa699efb11cef28ed9e08976340452e4a389ef51c2a0e38ad3369e294",
+        "rtl\\server\\fedplh_server_core.sv": "9be0cb5b4e60d9d087587d19751e30a2e4a470f9e65ac8c199e1fe8a3f3ff117",
+        "tb\\sac_p32_pipeline_tb.sv": "6e7b11223f7a60498947531d93b6ed2c29fb9d324935a89301c3a1344e8b522e"
+      },
+      "output_artifacts": []
+    },
+    {
+      "top": "hmpe_bitexact_reference_check",
+      "record_name": "hmpe_bitexact_reference_check",
+      "status": "passed",
+      "expected_marker": "HMPE bit-exact reference check: passed",
+      "return_code": 0,
+      "log": "not_released/external_path/hmpe_bitexact_reference_check.log",
+      "log_sha256": "b3d933ded2fad05686e6920ad581516bf3a2bc8b08c69930dccef8a256190551",
+      "source_sha256": {
+        "reference/hmpe_bitexact.py": "26b7f9ff40b41d0116f1bbb428d896a95146404e6b7659b25a72c5718df92277",
+        "scripts/verify_hmpe_bitexact_reference.py": "bdc2f4338b5e27d504a6e277f77c34648654828a80a3fd49e73d983b4c2e2115",
+        "tb/vectors/hmpe_modes.mem": "5325c6c45cca22f51a2d219ddf2b2265197545a9882a7f896b4665de22c9eb57"
+      },
+      "output_artifacts": [
+        {
+          "path": "not_released/external_path/hmpe_bitexact_reference_check.json",
+          "sha256": "3790bac7592789d2c9ec9189174f694010219fcd54c2442c8f8b63ed599d0b50"
+        }
+      ]
+    }
+  ],
+  "generation_artifacts": [
+    {
+      "path": "scripts/generate_hmpe_mode_vectors.py",
+      "sha256": "d10c1c67b0b7cfe37fc49f877cedf0817e1055977b5c70b0b473a6aa00cf6ad4"
+    },
+    {
+      "path": "scripts/materialize_hmpe_patch.py",
+      "sha256": "61fa58be51b6d05f6dddec9670f5b519e089503a009d6988f95d742e6e64c6ef"
+    },
+    {
+      "path": "scripts/materialize_hmpe_accuracy_patch.py",
+      "sha256": "53094ca84881e4742a03e2c56e00c42d36418871226b0f81bab146b5203c36ca"
+    },
+    {
+      "path": "generated/hmpe_accuracy_patched/accuracy_patch.json",
+      "sha256": "845dff33b5e6a530606324539f46d2197a5bbc488aece781036105600bef1a73"
+    },
+    {
+      "path": "reference/hmpe_bitexact.py",
+      "sha256": "26b7f9ff40b41d0116f1bbb428d896a95146404e6b7659b25a72c5718df92277"
+    },
+    {
+      "path": "tb/vectors/hmpe_modes.json",
+      "sha256": "30d2321f5751c5fc686de75ea241c819b4c0cee6ab08bf193144e41ab6ff5ff6"
+    },
+    {
+      "path": "tb/vectors/hmpe_modes_ideal.mem",
+      "sha256": "5325c6c45cca22f51a2d219ddf2b2265197545a9882a7f896b4665de22c9eb57"
+    },
+    {
+      "path": "scripts/summarize_hmpe_errors.py",
+      "sha256": "cc7cfc97142b3016845496972b907ff95ccc9b3fe82ebbac822ed103a931fc97"
+    },
+    {
+      "path": "evidence/hmpe_numeric_error_summary.json",
+      "sha256": "63fdb75eff7ea65d5dba3eefa553c4ec347126aec7488dde8cf46278ce28b47f"
+    }
+  ],
+  "hmpe_numeric_scope": "Eight modes use 1000 deterministic vectors each. Functional pass/fail uses the independent bit-level production contract and a separate gate uses the exact rational dot product rounded to FP32 ties-to-even. Floating inputs include finite normals, positive zero, negative zero, and mixed-zero lanes; integer inputs are unsigned.",
+  "known_gap": "Subnormals are flushed to zero. NaN, infinity, signed-integer, and full IEEE-754 conformance are outside the verified scope."
+}

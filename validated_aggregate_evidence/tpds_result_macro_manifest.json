@@ -1,0 +1,54 @@
+{
+  "generated_at_utc": "2026-09-03T07:29:35.818261+00:00",
+  "status": "passed",
+  "tool": {
+    "path": "not_released/external_path/export_tpds_result_values.py",
+    "sha256": "82c791cc391d1d372a862919f7cd7350a77f943956e7d77cfd97102f8e62661f"
+  },
+  "output": "not_released/external_path/generated_result_values.tex",
+  "output_sha256": "be7cba0d8ffc6925bcf0b13c40ec94bde1283d4f32309f01f0497d7f9c696717",
+  "inputs": [
+    {
+      "path": "not_released/external_path/paper_results.json",
+      "sha256": "3a324246a99a9adb2dc983c99c1530f0257b80367abd33b4234613354939f513"
+    },
+    {
+      "path": "not_released/external_path/sota_adapter_five_seed_audit.json",
+      "sha256": "3aeb4c0b677af0c90b2f19e323e57f842f5c2fc2964f4671661c2d6098fbc238"
+    },
+    {
+      "path": "not_released/external_path/Fig6_BEU_Boundary.json",
+      "sha256": "c33a4e6a51761c781e280ce8fd82ac666ca665fa8080d3de25e16e4f6e857597"
+    },
+    {
+      "path": "not_released/external_path/beu_credit_factor_sensitivity.json",
+      "sha256": "66d1b4f8ff83f0a975875fb83bf9fa2b186cb76eb74c45acbb467f5d801869f7"
+    },
+    {
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "0b6991b6cb1fdd8904fd5dd71149e45e06dce5a14ac7e48cb533b91bef046573"
+    },
+    {
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "b5a106e4353b122db5172d13aef1ee5c69b1ff1a5fca75e882ca81b54e4e6772"
+    },
+    {
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "e0c7eae342363e6c549dbea6cdcd80b5d198b9919dc246ade2d263737e031601"
+    },
+    {
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "34a6e594d46f950427dc068efa0bf88e21c6d2899aef5b63043a0beadc25681a"
+    },
+    {
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "c6254acaa646c08472b8bd54f6a9cf9c8f07c75a075d3a94e192185a32ff8986"
+    }
+  ],
+  "closure": {
+    "fedplh_softdp_total_ms": 266.99457636842124,
+    "fedplh_visible_ms": 0.0,
+    "fedplh_covered_ms": 266.99457636842124,
+    "serial_latency_mean_ms": 161713.2403141486
+  }
+}

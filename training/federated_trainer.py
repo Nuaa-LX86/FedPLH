@@ -18,6 +18,13 @@ from .aggregation import (
     weighted_reduce_states,
 )
 from .dp_sgd import BEUBudgetManager, DPSGDOptimizer, RDPAccountant
+from .fedmpq_proxy import FedMPQProxyScheduler
+from .sota_adapters import (
+    aggregate_fedclam_states,
+    aggregate_fedevi_states,
+    calculate_overfitting_penalty,
+    calculate_vlr,
+)
 
 from simulator.acf_simulator import ACFSimulator
 from utils.reproducibility import derive_seed, make_torch_generator
@@ -93,6 +100,10 @@ class FederatedTrainer:
             raise ValueError("comm_interval must be positive")
         self.is_fedbn = self.strategy == "FedBN"
         self.is_fedpaq = self.strategy == "FedPAQ"
+        self.is_fedmpq_proxy = self.strategy == "FedMPQProxy"
+        self.is_fedevi = self.strategy == "FedEvi"
+        self.is_fedclam = self.strategy == "FedCLAM"
+        self.fedclam_momentum = {}
         if self.comm_interval != 1:
             raise ValueError(
                 "Every recorded round is a server communication round; "
@@ -106,6 +117,17 @@ class FederatedTrainer:
         )
         if self.is_fedpaq and self.fedpaq_local_update_steps <= 0:
             raise ValueError("FedPAQ local_update_steps must be positive")
+        self.fedmpq_client_budgets = [
+            int(value)
+            for value in self.acf_policy.get("client_budgets", [])
+        ]
+        self.fedmpq_group_lasso_lambda = float(
+            self.acf_policy.get("group_lasso_lambda", 0.01)
+        )
+        self.fedmpq_pruning_threshold = float(
+            self.acf_policy.get("pruning_threshold", 0.03)
+        )
+        self.fedmpq_proxy_scheduler = None
         self.run_seed = int(run_seed)
         self.client_schedule = client_schedule
         self.use_amp = bool(use_amp)
@@ -163,7 +185,7 @@ class FederatedTrainer:
         """
         Return a cached HW cost profile for one training step under a given precision.
         This does NOT change training behavior; it only produces latency/energy estimates
-        for paper-quality reporting.
+        for paper-quality reporting (TCAD).
 
         Returns keys:
           - cycles_fp32, cycles_actual, surplus_cycles
@@ -407,6 +429,29 @@ class FederatedTrainer:
         finally:
             del evaluation_model
 
+    @torch.no_grad()
+    def _mean_loss_on_loader(self, model, loader, round_idx: int) -> float:
+        was_training = model.training
+        model.eval()
+        losses = []
+        for data, target in loader:
+            data = data.to(self.device)
+            target = target.to(self.device)
+            output = model(data)
+            if target.ndim == output.ndim:
+                target = target.argmax(dim=1)
+            if self.is_fedevi:
+                loss = self.criterion(output, target, round_idx + 1)
+            elif self.is_fedclam:
+                loss = self.criterion(output, target, data, round_idx)
+            else:
+                loss = self.criterion(output, target)
+            losses.append(float(loss.item()))
+        model.train(was_training)
+        if not losses:
+            raise ValueError("Client validation loader is empty")
+        return float(np.mean(losses))
+
     # --------------------------------------------------------------------------
     # Client update
     # --------------------------------------------------------------------------
@@ -419,6 +464,7 @@ class FederatedTrainer:
         precision: str,
         round_idx: int,
         max_steps: Optional[int] = None,
+        eval_loader=None,
     ):
         # (1) init client model
         client_model = copy.deepcopy(self.global_model)
@@ -457,6 +503,14 @@ class FederatedTrainer:
         if beu_mgr is not None and hasattr(beu_mgr, "reset_stats"):
             # 每轮重置统计量，但不重置预算桶（预算需要跨轮累计）
             beu_mgr.reset_stats()
+
+        initial_validation_loss = None
+        if self.is_fedclam:
+            if eval_loader is None:
+                raise ValueError("FedCLAM requires a client validation loader")
+            initial_validation_loss = self._mean_loss_on_loader(
+                client_model, eval_loader, round_idx
+            )
 
         # (3) optimizer
         base_opt = self.optimizer_fn(client_model.parameters())
@@ -550,7 +604,17 @@ class FederatedTrainer:
         cycles_per_step = 0.0
         energy_per_step_mJ = 0.0
         if in_shape is not None:
-            step_prof = self._get_hw_step_profile(client_model, in_shape, precision)
+            profile_precision = precision
+            if (
+                isinstance(precision, dict)
+                and hasattr(client_model, "profile_precision")
+            ):
+                profile_precision = client_model.profile_precision()
+            step_prof = self._get_hw_step_profile(
+                client_model,
+                in_shape,
+                profile_precision,
+            )
             try:
                 batch_surplus = float(step_prof.get("surplus_cycles", 0.0))
                 cycles_per_step = float(step_prof.get("cycles_actual", 0.0))
@@ -593,7 +657,17 @@ class FederatedTrainer:
                     if target.ndim == output.ndim:
                         target = torch.argmax(target, dim=1)
 
-                    loss = self.criterion(output, target)
+                    if self.is_fedevi:
+                        loss = self.criterion(output, target, round_idx + 1)
+                    elif self.is_fedclam:
+                        loss = self.criterion(output, target, data, round_idx)
+                    else:
+                        loss = self.criterion(output, target)
+                    if self.is_fedmpq_proxy:
+                        loss = loss + (
+                            self.fedmpq_group_lasso_lambda
+                            * client_model.bit_group_lasso()
+                        )
 
                 if not torch.isfinite(loss):
                     raise FloatingPointError(
@@ -616,6 +690,25 @@ class FederatedTrainer:
             if stop_training:
                 break
 
+        assigned_bit_widths = None
+        pruned_bit_widths = None
+        bit_width_delta = None
+        if self.is_fedmpq_proxy:
+            assigned_bit_widths = {
+                name: int(str(value).upper().replace("INT", ""))
+                for name, value in precision.items()
+            }
+            pruned_bit_widths = client_model.prune_msb(
+                self.fedmpq_pruning_threshold
+            )
+            bit_width_delta = {
+                name: (
+                    int(assigned_bit_widths[name])
+                    - int(pruned_bit_widths[name])
+                )
+                for name in assigned_bit_widths
+            }
+
         # (5) save client states
         if self.is_fedbn:
             self.client_bn_states[client_id] = {
@@ -637,6 +730,31 @@ class FederatedTrainer:
             "num_examples_processed": int(num_examples_processed),
             "privacy_events": privacy_events,
         }
+        if self.is_fedclam:
+            trained_validation_loss = self._mean_loss_on_loader(
+                client_model, eval_loader, round_idx
+            )
+            metrics.update({
+                "initial_validation_loss": float(initial_validation_loss),
+                "trained_validation_loss": float(trained_validation_loss),
+                "val_loss_ratio": calculate_vlr(
+                    initial_validation_loss,
+                    trained_validation_loss,
+                    float(self.acf_policy.get("beta", 1.0)),
+                ),
+                "overfitting_penalty": calculate_overfitting_penalty(
+                    metrics["loss"],
+                    trained_validation_loss,
+                    float(self.acf_policy.get("alpha", 1.0)),
+                ),
+            })
+        if self.is_fedmpq_proxy:
+            metrics["average_bit_width"] = float(
+                client_model.average_bit_width()
+            )
+            metrics["fedmpq_assigned_bit_widths"] = assigned_bit_widths
+            metrics["fedmpq_pruned_bit_widths"] = pruned_bit_widths
+            metrics["fedmpq_bit_width_delta"] = bit_width_delta
 
         # ── 论文命题支撑：计算 ΔC(p) 与 Cpriv 的比值，验证 HRpriv=1.0 主张 ──
         delta_c_cycles = float(step_prof.get("surplus_cycles", 0.0)) * num_steps if step_prof else 0.0
@@ -700,6 +818,15 @@ class FederatedTrainer:
         ]
         if len(client_num_samples) != len(client_loaders):
             raise ValueError("client_stats and client_loaders must have equal length")
+        if self.is_fedmpq_proxy:
+            if len(self.fedmpq_client_budgets) != len(client_loaders):
+                raise ValueError(
+                    "FedMPQ proxy requires one bit budget per client"
+                )
+            self.fedmpq_proxy_scheduler = FedMPQProxyScheduler(
+                self.global_model.layer_parameter_counts(),
+                self.fedmpq_client_budgets,
+            )
         self._initialize_fedbn_states(len(client_loaders))
         fedbn_val_loaders = getattr(
             client_stats,
@@ -879,7 +1006,9 @@ class FederatedTrainer:
             for cid in cids:
                 budget = self.beu_managers[cid].budget_cycles if cid in self.beu_managers else 0.0
                 policy = self.acf_policy["compute"]
-                if policy == "Mixed":
+                if self.is_fedmpq_proxy:
+                    prec = self.fedmpq_proxy_scheduler.policy_for(cid)
+                elif policy == "Mixed":
                     prec = self.acf_scheduler.get_execution_plan(cid, r, budget)["compute"]
                 else:
                     prec = policy
@@ -896,6 +1025,11 @@ class FederatedTrainer:
                         if self.is_fedpaq
                         else None
                     ),
+                    eval_loader=(
+                        fedbn_val_loaders[cid]
+                        if (self.is_fedclam and fedbn_val_loaders is not None)
+                        else None
+                    ),
                 )
                 states.append(s)
                 metrics.append(m)
@@ -908,10 +1042,23 @@ class FederatedTrainer:
             fedpaq_quantization = []
 
             if is_agg:
-                aggregation_weights = normalize_client_weights(
-                    cids,
-                    client_num_samples,
-                )
+                if self.is_fedclam:
+                    aggregation_weights = [1.0 / len(cids)] * len(cids)
+                elif self.is_fedmpq_proxy:
+                    raw_weights = [
+                        float(client_num_samples[cid])
+                        * float(self.fedmpq_client_budgets[cid])
+                        for cid in cids
+                    ]
+                    denominator = float(sum(raw_weights))
+                    aggregation_weights = [
+                        value / denominator for value in raw_weights
+                    ]
+                else:
+                    aggregation_weights = normalize_client_weights(
+                        cids,
+                        client_num_samples,
+                    )
                 if self.is_fedpaq:
                     round_base_state = copy.deepcopy(
                         self.global_model.state_dict()
@@ -946,6 +1093,33 @@ class FederatedTrainer:
                         for cid, stats in zip(cids, quantization_stats)
                     ]
                     aggregation_method = "sample_weighted_adapted_fedpaq"
+                elif self.is_fedevi:
+                    if fedbn_val_loaders is None:
+                        raise ValueError("FedEvi requires client validation loaders")
+                    avg_state, aggregation_weights, fedevi_scores = aggregate_fedevi_states(
+                        self.global_model,
+                        states,
+                        aggregation_weights,
+                        [fedbn_val_loaders[cid] for cid in cids],
+                        self.device,
+                        gamma=float(self.acf_policy.get("gamma", 1.0)),
+                    )
+                    aggregation_method = "adapted_fedevi_uncertainty_weighted"
+                    for metric, score in zip(metrics, fedevi_scores):
+                        metric["fedevi_distributional_uncertainty"] = float(score[0])
+                        metric["fedevi_data_uncertainty"] = float(score[1])
+                elif self.is_fedclam:
+                    avg_state, self.fedclam_momentum = aggregate_fedclam_states(
+                        self.global_model.state_dict(),
+                        states,
+                        cids,
+                        metrics,
+                        self.fedclam_momentum,
+                        r,
+                        agg_lr=float(self.acf_policy.get("agg_lr", 1.0)),
+                        zero_init=bool(self.acf_policy.get("zero_init", False)),
+                    )
+                    aggregation_method = "adapted_fedclam_client_momentum"
                 else:
                     excluded_keys = self.bn_state_keys if self.is_fedbn else set()
                     avg_state = weighted_reduce_states(
@@ -954,23 +1128,51 @@ class FederatedTrainer:
                         reference_state=self.global_model.state_dict(),
                         excluded_keys=excluded_keys,
                     )
-                    aggregation_method = (
-                        "sample_weighted_fedbn_shared_state"
-                        if self.is_fedbn
-                        else "sample_weighted_fedavg"
-                    )
+                    if self.is_fedmpq_proxy:
+                        aggregation_method = (
+                            "budget_and_sample_weighted_fedmpq_proxy"
+                        )
+                    else:
+                        aggregation_method = (
+                            "sample_weighted_fedbn_shared_state"
+                            if self.is_fedbn
+                            else "sample_weighted_fedavg"
+                        )
                     aggregation_excluded_key_count = len(excluded_keys)
 
                 self.global_model.load_state_dict(avg_state, strict=True)
+                if self.is_fedmpq_proxy:
+                    self.fedmpq_proxy_scheduler.update(
+                        cids,
+                        [
+                            metric["fedmpq_pruned_bit_widths"]
+                            for metric in metrics
+                        ],
+                        [
+                            metric["fedmpq_bit_width_delta"]
+                            for metric in metrics
+                        ],
+                        aggregation_weights,
+                    )
 
                 model_numel = sum(
                     parameter.numel()
                     for parameter in self.global_model.parameters()
                 )
-                payload_bits_per_value = 32
+                payload_bits_per_value = 32.0
                 if self.is_fedpaq:
                     payload_bits_per_value = (
                         int(math.ceil(math.log2(self.fedpaq_levels + 1))) + 1
+                    )
+                elif self.is_fedmpq_proxy:
+                    payload_bits_per_value = float(
+                        np.average(
+                            [
+                                metric["average_bit_width"]
+                                for metric in metrics
+                            ],
+                            weights=aggregation_weights,
+                        )
                     )
                 payload_ratio = float(payload_bits_per_value / 32.0)
                 model_size_mb = (
@@ -1205,7 +1407,7 @@ class FederatedTrainer:
             "final_epsilon": float(history["epsilon"][-1]) if history.get("epsilon") else 0.0,
             "privacy_accounting_scope": "cumulative maximum over all clients",
 
-            # Time-to-accuracy system metric.
+            # time-to-accuracy (TCAD-friendly system metric)
             "t2a_ratio": float(t2a_ratio),
             "t2a_target_val_dice": float(t2a_target),
             "t2a_round": int(t2a_round),

@@ -1,0 +1,7180 @@
+{
+  "status": "selected_post_route_profiles",
+  "blockers": [],
+  "metadata": {
+    "board": "Xilinx Alveo VCU128",
+    "device_part": "xcvu37p-fsvh2892-2L-e",
+    "vivado_version": "2026.1",
+    "report_stage": "post_route_ooc",
+    "target_part_available": true,
+    "modeled_memory_bandwidth_gbps": 32.0,
+    "bandwidth_unit": "decimal GB/s (10^9 bytes/s)",
+    "bandwidth_scope": "phase-1 sensitivity assumption; replace with board measurement in phase 2",
+    "floating_point_ip": {
+      "implementation": "Xilinx Floating-Point IP",
+      "instances": [
+        {
+          "module": "fedplh_fp32_add",
+          "component_reference": "xilinx.com:ip:floating_point:7.1",
+          "operation": "Add_Subtract",
+          "latency_cycles": 6,
+          "target_part": "xcvu37p-fsvh2892-2L-e",
+          "xci_sha256": "a33877b93c0626d2a5aba20880f1a2d238d322573ceb1a638bfeb2e15055ccb3"
+        },
+        {
+          "module": "fedplh_fp32_mul",
+          "component_reference": "xilinx.com:ip:floating_point:7.1",
+          "operation": "Multiply",
+          "latency_cycles": 4,
+          "target_part": "xcvu37p-fsvh2892-2L-e",
+          "xci_sha256": "55b07f4ce1e7190c366fab000281c905ef96747002e1480603e904256d11b879"
+        }
+      ]
+    }
+  },
+  "implementations": {
+    "client_core": {
+      "deployment_role": "institution_side",
+      "top_module": "fedplh_client_core",
+      "selected_run": {
+        "status": "post_route_complete",
+        "top": "fedplh_client_core",
+        "part": "xcvu37p-fsvh2892-2L-e",
+        "target_frequency_mhz": 190,
+        "num_hmpe": 4,
+        "sac_parallel_elements": 0,
+        "wns_ns": "0.089",
+        "whs_ns": "0.043",
+        "power_activity": "saif_annotated",
+        "source_stage_manifest_sha256": "a1b7eb4fe4ba370e59e8fa59ab82251e321a07c8369f56d93ed99aee505df1bf",
+        "source_stage_manifest": "not_released/external_path/vivado_source_stage_manifest.json",
+        "fp_ip_xci_sha256": {
+          "not_released/external_path/fedplh_fp32_add.xci": "a33877b93c0626d2a5aba20880f1a2d238d322573ceb1a638bfeb2e15055ccb3",
+          "not_released/external_path/fedplh_fp32_mul.xci": "55b07f4ce1e7190c366fab000281c905ef96747002e1480603e904256d11b879"
+        },
+        "timing": {
+          "wns_ns": 0.089,
+          "tns_ns": 0.0,
+          "whs_ns": 0.043,
+          "ths_ns": 0.0
+        },
+        "constraint_checks": {
+          "no_clock": 0,
+          "unconstrained_internal_endpoints": 0,
+          "timing_loops": 0
+        },
+        "route_status": {
+          "routing_error_nets": 0
+        },
+        "drc_status": {
+          "critical_warning_checks": 0,
+          "error_checks": 0
+        },
+        "resources": {
+          "lut": 69538,
+          "ff": 16760,
+          "dsp": 4,
+          "bram": 0.0,
+          "uram": 0,
+          "lut_pct": 5.33,
+          "ff_pct": 0.64,
+          "dsp_pct": 0.04,
+          "bram_pct": 0.0,
+          "uram_pct": 0.0
+        },
+        "hierarchy": [
+          {
+            "instance": "fedplh_client_core",
+            "module": "(top)",
+            "lut": 69538,
+            "ff": 16760,
+            "dsp": 4,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "u_beu",
+            "module": "beu_budget_control",
+            "lut": 697,
+            "ff": 388,
+            "dsp": 4,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "u_hmpe_array",
+            "module": "hmpe_array",
+            "lut": 68841,
+            "ff": 16372,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_hmpe[0].u_core",
+            "module": "hmpe_core_wrapper__1",
+            "lut": 17227,
+            "ff": 4093,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "u_hmpe",
+            "module": "FP_MultiPrecision_PE__1",
+            "lut": 17226,
+            "ff": 4093,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "(u_hmpe)",
+            "module": "FP_MultiPrecision_PE__1",
+            "lut": 3282,
+            "ff": 3643,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS0",
+            "module": "Alignment_Shifter__63",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS1",
+            "module": "Alignment_Shifter__62",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS10",
+            "module": "Alignment_Shifter__53",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS11",
+            "module": "Alignment_Shifter__52",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS12",
+            "module": "Alignment_Shifter__51",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS13",
+            "module": "Alignment_Shifter__50",
+            "lut": 246,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS14",
+            "module": "Alignment_Shifter__64",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS15",
+            "module": "Alignment_Shifter__49",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS16",
+            "module": "Alignment_Shifter__48",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS17",
+            "module": "Alignment_Shifter__47",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS18",
+            "module": "Alignment_Shifter__65",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS19",
+            "module": "Alignment_Shifter__66",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS2",
+            "module": "Alignment_Shifter__61",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS20",
+            "module": "Alignment_Shifter__67",
+            "lut": 246,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS21",
+            "module": "Alignment_Shifter__46",
+            "lut": 245,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS22",
+            "module": "Alignment_Shifter__45",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS23",
+            "module": "Alignment_Shifter__44",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS24",
+            "module": "Alignment_Shifter__68",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS25",
+            "module": "Alignment_Shifter__69",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS26",
+            "module": "Alignment_Shifter__43",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS27",
+            "module": "Alignment_Shifter__42",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS28",
+            "module": "Alignment_Shifter__70",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS29",
+            "module": "Alignment_Shifter__71",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS3",
+            "module": "Alignment_Shifter__60",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS30",
+            "module": "Alignment_Shifter__41",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS31",
+            "module": "Alignment_Shifter__40",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS32",
+            "module": "Alignment_Shifter__39",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS33",
+            "module": "Alignment_Shifter__38",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS34",
+            "module": "Alignment_Shifter__37",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS35",
+            "module": "Alignment_Shifter__36",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS4",
+            "module": "Alignment_Shifter__59",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS5",
+            "module": "Alignment_Shifter__58",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS6",
+            "module": "Alignment_Shifter__57",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS7",
+            "module": "Alignment_Shifter__56",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS8",
+            "module": "Alignment_Shifter__55",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS9",
+            "module": "Alignment_Shifter__54",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "EXP_com",
+            "module": "PEC__1",
+            "lut": 2955,
+            "ff": 450,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "(EXP_com)",
+            "module": "PEC__1",
+            "lut": 1346,
+            "ff": 450,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec0",
+            "module": "four_input_ec__21",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec1",
+            "module": "four_input_ec__20",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec10",
+            "module": "four_input_ec__11",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec11",
+            "module": "three_input_ec__1",
+            "lut": 54,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec2",
+            "module": "four_input_ec__19",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec3",
+            "module": "four_input_ec__18",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec4",
+            "module": "four_input_ec__17",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec5",
+            "module": "four_input_ec__16",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec6",
+            "module": "four_input_ec__15",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec7",
+            "module": "four_input_ec__14",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec8",
+            "module": "four_input_ec__13",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec9",
+            "module": "four_input_ec__12",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "adder_tree",
+            "module": "Adder_Tree__1",
+            "lut": 1946,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "(adder_tree)",
+            "module": "Adder_Tree__1",
+            "lut": 54,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS00",
+            "module": "compressor4to2ATL1__33",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS01",
+            "module": "compressor4to2ATL1__32",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS02",
+            "module": "compressor4to2ATL1__31",
+            "lut": 110,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS03",
+            "module": "compressor4to2ATL1__30",
+            "lut": 117,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS04",
+            "module": "compressor4to2ATL1__29",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS05",
+            "module": "compressor4to2ATL1__28",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS06",
+            "module": "compressor4to2ATL1__27",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS07",
+            "module": "compressor4to2ATL1__26",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS08",
+            "module": "compressor4to2ATL1__25",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS10",
+            "module": "compressor4to2ATL1__24",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS11",
+            "module": "compressor4to2ATL1__23",
+            "lut": 119,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS12",
+            "module": "compressor4to2ATL1__22",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS13",
+            "module": "compressor4to2ATL1__21",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS20",
+            "module": "compressor4to2ATL1__20",
+            "lut": 120,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS21",
+            "module": "compressor4to2ATL1__19",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS30",
+            "module": "compressor4to2ATL1__18",
+            "lut": 123,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS40",
+            "module": "compressor4to2ATL1__17",
+            "lut": 129,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "lzd",
+            "module": "LZD__1",
+            "lut": 81,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_hmpe[1].u_core",
+            "module": "hmpe_core_wrapper__2",
+            "lut": 17234,
+            "ff": 4093,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "u_hmpe",
+            "module": "FP_MultiPrecision_PE__2",
+            "lut": 17233,
+            "ff": 4093,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "(u_hmpe)",
+            "module": "FP_MultiPrecision_PE__2",
+            "lut": 3306,
+            "ff": 3643,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS0",
+            "module": "Alignment_Shifter__99",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS1",
+            "module": "Alignment_Shifter__98",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS10",
+            "module": "Alignment_Shifter__89",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS11",
+            "module": "Alignment_Shifter__88",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS12",
+            "module": "Alignment_Shifter__87",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS13",
+            "module": "Alignment_Shifter__86",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS14",
+            "module": "Alignment_Shifter__100",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS15",
+            "module": "Alignment_Shifter__85",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS16",
+            "module": "Alignment_Shifter__84",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS17",
+            "module": "Alignment_Shifter__83",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS18",
+            "module": "Alignment_Shifter__101",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS19",
+            "module": "Alignment_Shifter__102",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS2",
+            "module": "Alignment_Shifter__97",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS20",
+            "module": "Alignment_Shifter__103",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS21",
+            "module": "Alignment_Shifter__82",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS22",
+            "module": "Alignment_Shifter__81",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS23",
+            "module": "Alignment_Shifter__80",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS24",
+            "module": "Alignment_Shifter__104",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS25",
+            "module": "Alignment_Shifter__105",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS26",
+            "module": "Alignment_Shifter__79",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS27",
+            "module": "Alignment_Shifter__78",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS28",
+            "module": "Alignment_Shifter__106",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS29",
+            "module": "Alignment_Shifter__107",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS3",
+            "module": "Alignment_Shifter__96",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS30",
+            "module": "Alignment_Shifter__77",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS31",
+            "module": "Alignment_Shifter__76",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS32",
+            "module": "Alignment_Shifter__75",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS33",
+            "module": "Alignment_Shifter__74",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS34",
+            "module": "Alignment_Shifter__73",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS35",
+            "module": "Alignment_Shifter__72",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS4",
+            "module": "Alignment_Shifter__95",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS5",
+            "module": "Alignment_Shifter__94",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS6",
+            "module": "Alignment_Shifter__93",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS7",
+            "module": "Alignment_Shifter__92",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS8",
+            "module": "Alignment_Shifter__91",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS9",
+            "module": "Alignment_Shifter__90",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "EXP_com",
+            "module": "PEC__2",
+            "lut": 3021,
+            "ff": 450,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "(EXP_com)",
+            "module": "PEC__2",
+            "lut": 1381,
+            "ff": 450,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec0",
+            "module": "four_input_ec__32",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec1",
+            "module": "four_input_ec__31",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec10",
+            "module": "four_input_ec__22",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec11",
+            "module": "three_input_ec__2",
+            "lut": 54,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec2",
+            "module": "four_input_ec__30",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec3",
+            "module": "four_input_ec__29",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec4",
+            "module": "four_input_ec__28",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec5",
+            "module": "four_input_ec__27",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec6",
+            "module": "four_input_ec__26",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec7",
+            "module": "four_input_ec__25",
+            "lut": 114,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec8",
+            "module": "four_input_ec__24",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec9",
+            "module": "four_input_ec__23",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "adder_tree",
+            "module": "Adder_Tree__2",
+            "lut": 1874,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "(adder_tree)",
+            "module": "Adder_Tree__2",
+            "lut": 54,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS00",
+            "module": "compressor4to2ATL1__50",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS01",
+            "module": "compressor4to2ATL1__49",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS02",
+            "module": "compressor4to2ATL1__48",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS03",
+            "module": "compressor4to2ATL1__47",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS04",
+            "module": "compressor4to2ATL1__46",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS05",
+            "module": "compressor4to2ATL1__45",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS06",
+            "module": "compressor4to2ATL1__44",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS07",
+            "module": "compressor4to2ATL1__43",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS08",
+            "module": "compressor4to2ATL1__42",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS10",
+            "module": "compressor4to2ATL1__41",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS11",
+            "module": "compressor4to2ATL1__40",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS12",
+            "module": "compressor4to2ATL1__39",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS13",
+            "module": "compressor4to2ATL1__38",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS20",
+            "module": "compressor4to2ATL1__37",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS21",
+            "module": "compressor4to2ATL1__36",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS30",
+            "module": "compressor4to2ATL1__35",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS40",
+            "module": "compressor4to2ATL1__34",
+            "lut": 110,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "lzd",
+            "module": "LZD__2",
+            "lut": 81,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_hmpe[2].u_core",
+            "module": "hmpe_core_wrapper__3",
+            "lut": 17209,
+            "ff": 4093,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "u_hmpe",
+            "module": "FP_MultiPrecision_PE__3",
+            "lut": 17208,
+            "ff": 4093,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "(u_hmpe)",
+            "module": "FP_MultiPrecision_PE__3",
+            "lut": 3295,
+            "ff": 3643,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS0",
+            "module": "Alignment_Shifter__135",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS1",
+            "module": "Alignment_Shifter__134",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS10",
+            "module": "Alignment_Shifter__125",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS11",
+            "module": "Alignment_Shifter__124",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS12",
+            "module": "Alignment_Shifter__123",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS13",
+            "module": "Alignment_Shifter__122",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS14",
+            "module": "Alignment_Shifter__136",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS15",
+            "module": "Alignment_Shifter__121",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS16",
+            "module": "Alignment_Shifter__120",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS17",
+            "module": "Alignment_Shifter__119",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS18",
+            "module": "Alignment_Shifter__137",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS19",
+            "module": "Alignment_Shifter__138",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS2",
+            "module": "Alignment_Shifter__133",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS20",
+            "module": "Alignment_Shifter__139",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS21",
+            "module": "Alignment_Shifter__118",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS22",
+            "module": "Alignment_Shifter__117",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS23",
+            "module": "Alignment_Shifter__116",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS24",
+            "module": "Alignment_Shifter__140",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS25",
+            "module": "Alignment_Shifter__141",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS26",
+            "module": "Alignment_Shifter__115",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS27",
+            "module": "Alignment_Shifter__114",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS28",
+            "module": "Alignment_Shifter__142",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS29",
+            "module": "Alignment_Shifter__143",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS3",
+            "module": "Alignment_Shifter__132",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS30",
+            "module": "Alignment_Shifter__113",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS31",
+            "module": "Alignment_Shifter__112",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS32",
+            "module": "Alignment_Shifter__111",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS33",
+            "module": "Alignment_Shifter__110",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS34",
+            "module": "Alignment_Shifter__109",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS35",
+            "module": "Alignment_Shifter__108",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS4",
+            "module": "Alignment_Shifter__131",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS5",
+            "module": "Alignment_Shifter__130",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS6",
+            "module": "Alignment_Shifter__129",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS7",
+            "module": "Alignment_Shifter__128",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS8",
+            "module": "Alignment_Shifter__127",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS9",
+            "module": "Alignment_Shifter__126",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "EXP_com",
+            "module": "PEC__3",
+            "lut": 2990,
+            "ff": 450,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "(EXP_com)",
+            "module": "PEC__3",
+            "lut": 1373,
+            "ff": 450,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec0",
+            "module": "four_input_ec__43",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec1",
+            "module": "four_input_ec__42",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec10",
+            "module": "four_input_ec__33",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec11",
+            "module": "three_input_ec__3",
+            "lut": 54,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec2",
+            "module": "four_input_ec__41",
+            "lut": 114,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec3",
+            "module": "four_input_ec__40",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec4",
+            "module": "four_input_ec__39",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec5",
+            "module": "four_input_ec__38",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec6",
+            "module": "four_input_ec__37",
+            "lut": 114,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec7",
+            "module": "four_input_ec__36",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec8",
+            "module": "four_input_ec__35",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec9",
+            "module": "four_input_ec__34",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "adder_tree",
+            "module": "Adder_Tree__3",
+            "lut": 1893,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "(adder_tree)",
+            "module": "Adder_Tree__3",
+            "lut": 54,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS00",
+            "module": "compressor4to2ATL1__67",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS01",
+            "module": "compressor4to2ATL1__66",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS02",
+            "module": "compressor4to2ATL1__65",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS03",
+            "module": "compressor4to2ATL1__64",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS04",
+            "module": "compressor4to2ATL1__63",
+            "lut": 107,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS05",
+            "module": "compressor4to2ATL1__62",
+            "lut": 109,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS06",
+            "module": "compressor4to2ATL1__61",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS07",
+            "module": "compressor4to2ATL1__60",
+            "lut": 107,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS08",
+            "module": "compressor4to2ATL1__59",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS10",
+            "module": "compressor4to2ATL1__58",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS11",
+            "module": "compressor4to2ATL1__57",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS12",
+            "module": "compressor4to2ATL1__56",
+            "lut": 110,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS13",
+            "module": "compressor4to2ATL1__55",
+            "lut": 109,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS20",
+            "module": "compressor4to2ATL1__54",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS21",
+            "module": "compressor4to2ATL1__53",
+            "lut": 111,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS30",
+            "module": "compressor4to2ATL1__52",
+            "lut": 111,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS40",
+            "module": "compressor4to2ATL1__51",
+            "lut": 115,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "lzd",
+            "module": "LZD__3",
+            "lut": 83,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_hmpe[3].u_core",
+            "module": "hmpe_core_wrapper",
+            "lut": 17171,
+            "ff": 4093,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "u_hmpe",
+            "module": "FP_MultiPrecision_PE",
+            "lut": 17170,
+            "ff": 4093,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "(u_hmpe)",
+            "module": "FP_MultiPrecision_PE",
+            "lut": 3290,
+            "ff": 3643,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS0",
+            "module": "Alignment_Shifter__1",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS1",
+            "module": "Alignment_Shifter__2",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS10",
+            "module": "Alignment_Shifter__11",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS11",
+            "module": "Alignment_Shifter__12",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS12",
+            "module": "Alignment_Shifter__13",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS13",
+            "module": "Alignment_Shifter__14",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS14",
+            "module": "Alignment_Shifter",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS15",
+            "module": "Alignment_Shifter__15",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS16",
+            "module": "Alignment_Shifter__16",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS17",
+            "module": "Alignment_Shifter__17",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS18",
+            "module": "Alignment_Shifter__35",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS19",
+            "module": "Alignment_Shifter__34",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS2",
+            "module": "Alignment_Shifter__3",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS20",
+            "module": "Alignment_Shifter__33",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS21",
+            "module": "Alignment_Shifter__18",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS22",
+            "module": "Alignment_Shifter__19",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS23",
+            "module": "Alignment_Shifter__20",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS24",
+            "module": "Alignment_Shifter__32",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS25",
+            "module": "Alignment_Shifter__31",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS26",
+            "module": "Alignment_Shifter__21",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS27",
+            "module": "Alignment_Shifter__22",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS28",
+            "module": "Alignment_Shifter__30",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS29",
+            "module": "Alignment_Shifter__29",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS3",
+            "module": "Alignment_Shifter__4",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS30",
+            "module": "Alignment_Shifter__23",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS31",
+            "module": "Alignment_Shifter__24",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS32",
+            "module": "Alignment_Shifter__25",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS33",
+            "module": "Alignment_Shifter__26",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS34",
+            "module": "Alignment_Shifter__27",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS35",
+            "module": "Alignment_Shifter__28",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS4",
+            "module": "Alignment_Shifter__5",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS5",
+            "module": "Alignment_Shifter__6",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS6",
+            "module": "Alignment_Shifter__7",
+            "lut": 226,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS7",
+            "module": "Alignment_Shifter__8",
+            "lut": 187,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS8",
+            "module": "Alignment_Shifter__9",
+            "lut": 192,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "AS9",
+            "module": "Alignment_Shifter__10",
+            "lut": 243,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "EXP_com",
+            "module": "PEC",
+            "lut": 2972,
+            "ff": 450,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "(EXP_com)",
+            "module": "PEC",
+            "lut": 1357,
+            "ff": 450,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec0",
+            "module": "four_input_ec__1",
+            "lut": 114,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec1",
+            "module": "four_input_ec__2",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec10",
+            "module": "four_input_ec",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec11",
+            "module": "three_input_ec",
+            "lut": 54,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec2",
+            "module": "four_input_ec__3",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec3",
+            "module": "four_input_ec__4",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec4",
+            "module": "four_input_ec__5",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec5",
+            "module": "four_input_ec__6",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec6",
+            "module": "four_input_ec__7",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec7",
+            "module": "four_input_ec__8",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec8",
+            "module": "four_input_ec__9",
+            "lut": 113,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ec9",
+            "module": "four_input_ec__10",
+            "lut": 112,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "adder_tree",
+            "module": "Adder_Tree",
+            "lut": 1873,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "(adder_tree)",
+            "module": "Adder_Tree",
+            "lut": 54,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS00",
+            "module": "compressor4to2ATL1__1",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS01",
+            "module": "compressor4to2ATL1__2",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS02",
+            "module": "compressor4to2ATL1__3",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS03",
+            "module": "compressor4to2ATL1__4",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS04",
+            "module": "compressor4to2ATL1__5",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS05",
+            "module": "compressor4to2ATL1__6",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS06",
+            "module": "compressor4to2ATL1__7",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS07",
+            "module": "compressor4to2ATL1__8",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS08",
+            "module": "compressor4to2ATL1__9",
+            "lut": 106,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS10",
+            "module": "compressor4to2ATL1__10",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS11",
+            "module": "compressor4to2ATL1__11",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS12",
+            "module": "compressor4to2ATL1__12",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS13",
+            "module": "compressor4to2ATL1__13",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS20",
+            "module": "compressor4to2ATL1__14",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS21",
+            "module": "compressor4to2ATL1__15",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS30",
+            "module": "compressor4to2ATL1__16",
+            "lut": 108,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "CS40",
+            "module": "compressor4to2ATL1",
+            "lut": 109,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "lzd",
+            "module": "LZD",
+            "lut": 80,
+            "ff": 0,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          }
+        ],
+        "power": {
+          "total_w": 4.674,
+          "dynamic_w": 1.516,
+          "static_w": 3.158,
+          "confidence": "High",
+          "simulation_activity_file": "not_released/external_path/activity.saif",
+          "design_nets_matched": "44%   (52002/117086)"
+        },
+        "timing_gate_pass": true,
+        "resource_gate_pass": true,
+        "constraint_gate_pass": true,
+        "route_gate_pass": true,
+        "drc_gate_pass": true
+      },
+      "selected_hmpe_count": 4,
+      "resource_breakdown": {
+        "hmpe_array": {
+          "lut": 68841,
+          "ff": 16372,
+          "dsp": 0,
+          "bram": 0.0,
+          "uram": 0
+        },
+        "beu": {
+          "lut": 697,
+          "ff": 388,
+          "dsp": 4,
+          "bram": 0.0,
+          "uram": 0
+        },
+        "client_interconnect_control": {
+          "lut": 0,
+          "ff": 0,
+          "dsp": 0,
+          "bram": 0,
+          "uram": 0
+        },
+        "subtotal": {
+          "lut": 69538,
+          "ff": 16760,
+          "dsp": 4,
+          "bram": 0.0,
+          "uram": 0
+        }
+      },
+      "timing": {
+        "wns_ns": 0.089,
+        "tns_ns": 0.0,
+        "whs_ns": 0.043,
+        "ths_ns": 0.0
+      },
+      "power": {
+        "total_w": 4.674,
+        "dynamic_w": 1.516,
+        "static_w": 3.158,
+        "confidence": "High",
+        "simulation_activity_file": "not_released/external_path/activity.saif",
+        "design_nets_matched": "44%   (52002/117086)"
+      },
+      "validation_level": "RTL verified; VCU128 post-route and SAIF annotated"
+    },
+    "server_core": {
+      "deployment_role": "aggregation_server",
+      "top_module": "fedplh_server_core",
+      "selected_run": {
+        "status": "post_route_complete",
+        "top": "fedplh_server_core",
+        "part": "xcvu37p-fsvh2892-2L-e",
+        "target_frequency_mhz": 250,
+        "num_hmpe": 0,
+        "sac_parallel_elements": 32,
+        "wns_ns": "0.082",
+        "whs_ns": "0.043",
+        "power_activity": "saif_annotated",
+        "source_stage_manifest_sha256": "a1b7eb4fe4ba370e59e8fa59ab82251e321a07c8369f56d93ed99aee505df1bf",
+        "source_stage_manifest": "not_released/external_path/vivado_source_stage_manifest.json",
+        "fp_ip_xci_sha256": {
+          "not_released/external_path/fedplh_fp32_add.xci": "a33877b93c0626d2a5aba20880f1a2d238d322573ceb1a638bfeb2e15055ccb3",
+          "not_released/external_path/fedplh_fp32_mul.xci": "55b07f4ce1e7190c366fab000281c905ef96747002e1480603e904256d11b879"
+        },
+        "timing": {
+          "wns_ns": 0.082,
+          "tns_ns": 0.0,
+          "whs_ns": 0.043,
+          "ths_ns": 0.0
+        },
+        "constraint_checks": {
+          "no_clock": 0,
+          "unconstrained_internal_endpoints": 0,
+          "timing_loops": 0
+        },
+        "route_status": {
+          "routing_error_nets": 0
+        },
+        "drc_status": {
+          "critical_warning_checks": 0,
+          "error_checks": 0
+        },
+        "resources": {
+          "lut": 13674,
+          "ff": 16065,
+          "dsp": 128,
+          "bram": 16.0,
+          "uram": 0,
+          "lut_pct": 1.05,
+          "ff_pct": 0.62,
+          "dsp_pct": 1.42,
+          "bram_pct": 0.79,
+          "uram_pct": 0.0
+        },
+        "hierarchy": [
+          {
+            "instance": "fedplh_server_core",
+            "module": "(top)",
+            "lut": 13674,
+            "ff": 16065,
+            "dsp": 128,
+            "bram": 16.0,
+            "uram": 0
+          },
+          {
+            "instance": "u_sac",
+            "module": "sac_stream_aggregator",
+            "lut": 13373,
+            "ff": 15438,
+            "dsp": 128,
+            "bram": 16.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_packet_pipeline.u_impl",
+            "module": "sac_stream_aggregator_p32",
+            "lut": 13373,
+            "ff": 15438,
+            "dsp": 128,
+            "bram": 16.0,
+            "uram": 0
+          },
+          {
+            "instance": "(g_packet_pipeline.u_impl)",
+            "module": "sac_stream_aggregator_p32",
+            "lut": 3045,
+            "ff": 4910,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[0].u_add",
+            "module": "fp32_add_pipe__xdcDup__1",
+            "lut": 175,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add",
+            "lut": 175,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22",
+            "lut": 175,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv",
+            "lut": 175,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add",
+            "lut": 174,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp",
+            "lut": 174,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[0].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__1",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[10].u_add",
+            "module": "fp32_add_pipe__xdcDup__11",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD3068",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD3069",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD3070",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD3071",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD3072",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3090",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[10].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__11",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD830",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD831",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD832",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD833",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD834",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[11].u_add",
+            "module": "fp32_add_pipe__xdcDup__12",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD3147",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD3148",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD3149",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD3150",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD3151",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3169",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[11].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__12",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD898",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD899",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD900",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD901",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD902",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[12].u_add",
+            "module": "fp32_add_pipe__xdcDup__13",
+            "lut": 175,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD3226",
+            "lut": 175,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD3227",
+            "lut": 175,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD3228",
+            "lut": 175,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD3229",
+            "lut": 174,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD3230",
+            "lut": 174,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3248",
+            "lut": 88,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[12].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__13",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD966",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD967",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD968",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD969",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD970",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[13].u_add",
+            "module": "fp32_add_pipe__xdcDup__14",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD3305",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD3306",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD3307",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD3308",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD3309",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3327",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[13].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__14",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1034",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1035",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1036",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1037",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1038",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[14].u_add",
+            "module": "fp32_add_pipe__xdcDup__15",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD3384",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD3385",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD3386",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD3387",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD3388",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3406",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[14].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__15",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1102",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1103",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1104",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1105",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1106",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[15].u_add",
+            "module": "fp32_add_pipe__xdcDup__16",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD3463",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD3464",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD3465",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD3466",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD3467",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3485",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[15].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__16",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1170",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1171",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1172",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1173",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1174",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[16].u_add",
+            "module": "fp32_add_pipe__xdcDup__17",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD3542",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD3543",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD3544",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD3545",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD3546",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3564",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[16].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__17",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1238",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1239",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1240",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1241",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1242",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[17].u_add",
+            "module": "fp32_add_pipe__xdcDup__18",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD3621",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD3622",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD3623",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD3624",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD3625",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3643",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[17].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__18",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1306",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1307",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1308",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1309",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1310",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[18].u_add",
+            "module": "fp32_add_pipe__xdcDup__19",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD3700",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD3701",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD3702",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD3703",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD3704",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3722",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[18].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__19",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1374",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1375",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1376",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1377",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1378",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[19].u_add",
+            "module": "fp32_add_pipe__xdcDup__20",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD3779",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD3780",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD3781",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD3782",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD3783",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3801",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[19].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__20",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1442",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1443",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1444",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1445",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1446",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[1].u_add",
+            "module": "fp32_add_pipe__xdcDup__2",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD2357",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD2358",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD2359",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD2360",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD2361",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD2379",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[1].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__2",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD218",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD219",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD220",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD221",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD222",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[20].u_add",
+            "module": "fp32_add_pipe__xdcDup__21",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD3858",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD3859",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD3860",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD3861",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD3862",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3880",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[20].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__21",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1510",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1511",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1512",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1513",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1514",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[21].u_add",
+            "module": "fp32_add_pipe__xdcDup__22",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD3937",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD3938",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD3939",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD3940",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD3941",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3959",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[21].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__22",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1578",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1579",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1580",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1581",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1582",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[22].u_add",
+            "module": "fp32_add_pipe__xdcDup__23",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD4016",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD4017",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD4018",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD4019",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD4020",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD4038",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[22].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__23",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1646",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1647",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1648",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1649",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1650",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[23].u_add",
+            "module": "fp32_add_pipe__xdcDup__24",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD4095",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD4096",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD4097",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD4098",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD4099",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD4117",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[23].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__24",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1714",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1715",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1716",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1717",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1718",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[24].u_add",
+            "module": "fp32_add_pipe__xdcDup__25",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD4174",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD4175",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD4176",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD4177",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD4178",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD4196",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[24].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__25",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1782",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1783",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1784",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1785",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1786",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[25].u_add",
+            "module": "fp32_add_pipe__xdcDup__26",
+            "lut": 177,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD4253",
+            "lut": 177,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD4254",
+            "lut": 177,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD4255",
+            "lut": 177,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD4256",
+            "lut": 176,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD4257",
+            "lut": 176,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD4275",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[25].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__26",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1850",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1851",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1852",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1853",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1854",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[26].u_add",
+            "module": "fp32_add_pipe__xdcDup__27",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD4332",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD4333",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD4334",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD4335",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD4336",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD4354",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[26].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__27",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1918",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1919",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1920",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1921",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1922",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[27].u_add",
+            "module": "fp32_add_pipe__xdcDup__28",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD4411",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD4412",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD4413",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD4414",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD4415",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD4433",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[27].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__28",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD1986",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD1987",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD1988",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD1989",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD1990",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[28].u_add",
+            "module": "fp32_add_pipe__xdcDup__29",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD4490",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD4491",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD4492",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD4493",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD4494",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD4512",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[28].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__29",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD2054",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD2055",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD2056",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD2057",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD2058",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[29].u_add",
+            "module": "fp32_add_pipe__xdcDup__30",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD4569",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD4570",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD4571",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD4572",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD4573",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD4591",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[29].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__30",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD2122",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD2123",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD2124",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD2125",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD2126",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[2].u_add",
+            "module": "fp32_add_pipe__xdcDup__3",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD2436",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD2437",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD2438",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD2439",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD2440",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD2458",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[2].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__3",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD286",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD287",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD288",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD289",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD290",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[30].u_add",
+            "module": "fp32_add_pipe__xdcDup__31",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD4648",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD4649",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD4650",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD4651",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD4652",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD4670",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[30].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__31",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD2190",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD2191",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD2192",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD2193",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD2194",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[31].u_add",
+            "module": "fp32_add_pipe",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD4727",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD4728",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD4729",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD4730",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD4731",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD4749",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[31].u_mul",
+            "module": "fp32_mul_pipe",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD2258",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD2259",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD2260",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD2261",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD2262",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[3].u_add",
+            "module": "fp32_add_pipe__xdcDup__4",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD2515",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD2516",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD2517",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD2518",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD2519",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD2537",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[3].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__4",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD354",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD355",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD356",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD357",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD358",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[4].u_add",
+            "module": "fp32_add_pipe__xdcDup__5",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD2594",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD2595",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD2596",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD2597",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD2598",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD2616",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[4].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__5",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD422",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD423",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD424",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD425",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD426",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[5].u_add",
+            "module": "fp32_add_pipe__xdcDup__6",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD2673",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD2674",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD2675",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD2676",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD2677",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD2695",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[5].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__6",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD490",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD491",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD492",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD493",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD494",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[6].u_add",
+            "module": "fp32_add_pipe__xdcDup__7",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD2752",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD2753",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD2754",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD2755",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD2756",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD2774",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[6].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__7",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD558",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD559",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD560",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD561",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD562",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[7].u_add",
+            "module": "fp32_add_pipe__xdcDup__8",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD2831",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD2832",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD2833",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD2834",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD2835",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD2853",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[7].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__8",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD626",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD627",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD628",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD629",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD630",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[8].u_add",
+            "module": "fp32_add_pipe__xdcDup__9",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD2910",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD2911",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD2912",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD2913",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD2914",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD2932",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[8].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__9",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD694",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD695",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD696",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD697",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD698",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[9].u_add",
+            "module": "fp32_add_pipe__xdcDup__10",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_add_HD2989",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_HD2990",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_add_floating_point_v7_1_22_viv_HD2991",
+            "lut": 176,
+            "ff": 222,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "ADDSUB_OP.ADDSUB",
+            "module": "fedplh_fp32_add_flt_add_HD2992",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP.OP",
+            "module": "fedplh_fp32_add_flt_add_dsp_HD2993",
+            "lut": 175,
+            "ff": 215,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "DSP48E1_BODY.EXP",
+            "module": "fedplh_fp32_add_flt_add_exp_sp_HD3011",
+            "lut": 89,
+            "ff": 70,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_lane[9].u_mul",
+            "module": "fp32_mul_pipe__xdcDup__10",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "g_ip.u_ip",
+            "module": "fedplh_fp32_mul_HD762",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "U0",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_HD763",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_synth",
+            "module": "fedplh_fp32_mul_floating_point_v7_1_22_viv_HD764",
+            "lut": 102,
+            "ff": 107,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "MULT.OP",
+            "module": "fedplh_fp32_mul_flt_mult_HD765",
+            "lut": 101,
+            "ff": 102,
+            "dsp": 2,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "i_non_prim.EXP",
+            "module": "fedplh_fp32_mul_flt_mult_exp_HD766",
+            "lut": 73,
+            "ff": 33,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          },
+          {
+            "instance": "u_stream_buffer",
+            "module": "sac_stream_buffer",
+            "lut": 301,
+            "ff": 627,
+            "dsp": 0,
+            "bram": 0.0,
+            "uram": 0
+          }
+        ],
+        "power": {
+          "total_w": 4.45,
+          "dynamic_w": 1.296,
+          "static_w": 3.154,
+          "confidence": "High",
+          "simulation_activity_file": "not_released/external_path/activity.saif",
+          "design_nets_matched": "17%   (7303/44245)"
+        },
+        "timing_gate_pass": true,
+        "resource_gate_pass": true,
+        "constraint_gate_pass": true,
+        "route_gate_pass": true,
+        "drc_gate_pass": true
+      },
+      "selected_parallel_elements": 32,
+      "resource_breakdown": {
+        "sac": {
+          "lut": 13373,
+          "ff": 15438,
+          "dsp": 128,
+          "bram": 16.0,
+          "uram": 0
+        },
+        "server_buffers_control": {
+          "lut": 301,
+          "ff": 627,
+          "dsp": 0,
+          "bram": 0,
+          "uram": 0
+        },
+        "raw_stream_buffer_hierarchy_row": {
+          "lut": 301,
+          "ff": 627,
+          "dsp": 0,
+          "bram": 0.0,
+          "uram": 0
+        },
+        "cross_hierarchy_optimization_adjustment": {
+          "lut": 0.0,
+          "ff": 0.0,
+          "dsp": 0.0,
+          "bram": 0.0,
+          "uram": 0.0
+        },
+        "subtotal": {
+          "lut": 13674,
+          "ff": 16065,
+          "dsp": 128,
+          "bram": 16.0,
+          "uram": 0
+        }
+      },
+      "timing": {
+        "wns_ns": 0.082,
+        "tns_ns": 0.0,
+        "whs_ns": 0.043,
+        "ths_ns": 0.0
+      },
+      "power": {
+        "total_w": 4.45,
+        "dynamic_w": 1.296,
+        "static_w": 3.154,
+        "confidence": "High",
+        "simulation_activity_file": "not_released/external_path/activity.saif",
+        "design_nets_matched": "17%   (7303/44245)"
+      },
+      "validation_level": "RTL verified; VCU128 post-route and SAIF annotated"
+    }
+  },
+  "combined_ip_footprint": {
+    "not_deployed_together": true,
+    "resources": {
+      "lut": 83212,
+      "ff": 32825,
+      "dsp": 132,
+      "bram": 16,
+      "uram": 0
+    },
+    "purpose": "common-device-and-tool resource context only"
+  },
+  "resources": {
+    "hmpe": {
+      "lut": 68841,
+      "ff": 16372,
+      "dsp": 0,
+      "bram": 0.0,
+      "uram": 0
+    },
+    "beu": {
+      "lut": 697,
+      "ff": 388,
+      "dsp": 4,
+      "bram": 0.0,
+      "uram": 0
+    },
+    "sac": {
+      "lut": 13373,
+      "ff": 15438,
+      "dsp": 128,
+      "bram": 16.0,
+      "uram": 0
+    },
+    "interconnect_control": {
+      "lut": 301,
+      "ff": 627,
+      "dsp": 0,
+      "bram": 0,
+      "uram": 0
+    },
+    "integrated_total": {
+      "lut": 83212,
+      "ff": 32825,
+      "dsp": 132,
+      "bram": 16,
+      "uram": 0
+    }
+  },
+  "runtime_parameters": {
+    "operation_definition": "manifest/operation_convention.json",
+    "hmpe_array_count": 4,
+    "sac_parallel_elements": 32,
+    "sac_throughput_bytes_per_cycle": 32.0,
+    "memory_bandwidth_gbps": 32.0,
+    "memory_bandwidth_measured": false,
+    "hmpe": {
+      "array_count": 4,
+      "latency_cycles": 5,
+      "mode_power": {
+        "bf16": {
+          "mode_id": 5,
+          "target_frequency_mhz": 190.0,
+          "clock_period_ns": 5.2631578947368425,
+          "power": {
+            "total_w": 4.599,
+            "dynamic_w": 1.443,
+            "static_w": 3.157,
+            "confidence": "High",
+            "simulation_activity_file": "not_released/external_path/activity_mode_bf16.saif",
+            "design_nets_matched": "44%   (52002/117086)"
+          },
+          "hmpe_array_dynamic_w": 1.433,
+          "saif_sha256": "b09d2143c3d075c036988cd5a8e6b5e0586c9b0b749fde6a83383eee01dc5680",
+          "power_report_sha256": "a9101e7690bccc3822cebe4d66bfce757b9d59d41188f9583a6590998f9cf5bd"
+        },
+        "fp16": {
+          "mode_id": 6,
+          "target_frequency_mhz": 190.0,
+          "clock_period_ns": 5.2631578947368425,
+          "power": {
+            "total_w": 4.475,
+            "dynamic_w": 1.32,
+            "static_w": 3.154,
+            "confidence": "High",
+            "simulation_activity_file": "not_released/external_path/activity_mode_fp16.saif",
+            "design_nets_matched": "44%   (52002/117086)"
+          },
+          "hmpe_array_dynamic_w": 1.31,
+          "saif_sha256": "40f2521e4b05bc8df47b60c1666218704eb9009cf1ffca0cfb0139e898cdc86b",
+          "power_report_sha256": "69ce9ed96bcfe80813f6f82019353cc4211ea3989dfd94ffa68789a3222df83b"
+        },
+        "fp32": {
+          "mode_id": 8,
+          "target_frequency_mhz": 190.0,
+          "clock_period_ns": 5.2631578947368425,
+          "power": {
+            "total_w": 4.306,
+            "dynamic_w": 1.155,
+            "static_w": 3.151,
+            "confidence": "High",
+            "simulation_activity_file": "not_released/external_path/activity_mode_fp32.saif",
+            "design_nets_matched": "44%   (52002/117086)"
+          },
+          "hmpe_array_dynamic_w": 1.145,
+          "saif_sha256": "fd5d260f0009fbaa156f82877b533cd0dc124ae89fb555e76429e0a627b60910",
+          "power_report_sha256": "4618a771f4d610987ccf7e89eed562eeebce6ced43f82def169a60fc0283c125"
+        },
+        "fp8_e4m3": {
+          "mode_id": 4,
+          "target_frequency_mhz": 190.0,
+          "clock_period_ns": 5.2631578947368425,
+          "power": {
+            "total_w": 4.524,
+            "dynamic_w": 1.368,
+            "static_w": 3.155,
+            "confidence": "High",
+            "simulation_activity_file": "not_released/external_path/activity_mode_fp8_e4m3.saif",
+            "design_nets_matched": "44%   (52002/117086)"
+          },
+          "hmpe_array_dynamic_w": 1.358,
+          "saif_sha256": "4e7b7d676e7c72a625bcc91226e323bf5cf1b0b0627f10acf62c99409c32ae79",
+          "power_report_sha256": "600fcbb59b4f580a721dda4284de89f4eb0956e39d4dcbcdf245a9995bfc986b"
+        },
+        "fp8_e5m2": {
+          "mode_id": 3,
+          "target_frequency_mhz": 190.0,
+          "clock_period_ns": 5.2631578947368425,
+          "power": {
+            "total_w": 4.624,
+            "dynamic_w": 1.466,
+            "static_w": 3.157,
+            "confidence": "High",
+            "simulation_activity_file": "not_released/external_path/activity_mode_fp8_e5m2.saif",
+            "design_nets_matched": "44%   (52002/117086)"
+          },
+          "hmpe_array_dynamic_w": 1.456,
+          "saif_sha256": "1cabc116851774117206aef8ce10b1839c1dcc73c0bc3d10802c3ff05bb04f32",
+          "power_report_sha256": "9572b4c4ce60256124826c038b81519422be2b017ad8fd867984306469e875cf"
+        },
+        "int4": {
+          "mode_id": 1,
+          "target_frequency_mhz": 190.0,
+          "clock_period_ns": 5.2631578947368425,
+          "power": {
+            "total_w": 3.723,
+            "dynamic_w": 0.584,
+            "static_w": 3.139,
+            "confidence": "High",
+            "simulation_activity_file": "not_released/external_path/activity_mode_int4.saif",
+            "design_nets_matched": "44%   (52002/117086)"
+          },
+          "hmpe_array_dynamic_w": 0.574,
+          "saif_sha256": "eebfc832432b410127ac86dcae355990176a75c1f5914fd401ee95d23affde93",
+          "power_report_sha256": "ff4fd337af8bfcdec495f3346de88a947ca24bacb21291485ff9475f925d3660"
+        },
+        "int8": {
+          "mode_id": 2,
+          "target_frequency_mhz": 190.0,
+          "clock_period_ns": 5.2631578947368425,
+          "power": {
+            "total_w": 3.751,
+            "dynamic_w": 0.611,
+            "static_w": 3.14,
+            "confidence": "High",
+            "simulation_activity_file": "not_released/external_path/activity_mode_int8.saif",
+            "design_nets_matched": "44%   (52002/117086)"
+          },
+          "hmpe_array_dynamic_w": 0.601,
+          "saif_sha256": "6464e38b3d3c328d9ef9ea8eca5600f4a0884fe601154bdd2d8f02abe4fc8d45",
+          "power_report_sha256": "1ac9f00def1d2cc22b518f0849897a94d6bf7186f67b8e3743781e564ddb3f9f"
+        },
+        "tf32": {
+          "mode_id": 7,
+          "target_frequency_mhz": 190.0,
+          "clock_period_ns": 5.2631578947368425,
+          "power": {
+            "total_w": 4.589,
+            "dynamic_w": 1.433,
+            "static_w": 3.157,
+            "confidence": "High",
+            "simulation_activity_file": "not_released/external_path/activity_mode_tf32.saif",
+            "design_nets_matched": "44%   (52002/117086)"
+          },
+          "hmpe_array_dynamic_w": 1.423,
+          "saif_sha256": "99b87ab059de8d2e4547cc03f7b6037a194684ccc73dac39e18d12808a004ea5",
+          "power_report_sha256": "4c29b850fd99a0ebcad1d83362dd2228277ffebdafcc727d4fb8eb7ad984bb0e"
+        }
+      }
+    },
+    "beu": {
+      "control_latency_cycles": 1,
+      "operator_cost_source": "modeled SoftDP cycle monitor",
+      "softdp_operand_datapath_implemented": false
+    },
+    "sac": {
+      "parallel_elements": 32,
+      "accepted_input_bytes_per_cycle": 32.0,
+      "completion_amortized_bytes_per_cycle": 26.94736842105263,
+      "packet_pipeline_initiation_interval": 1,
+      "pipeline_fill_drain_cycles": 12,
+      "address_hazard_policy": "overlapping in-flight accumulator row/mask pairs are stalled until commit",
+      "fp32_multiply_latency_cycles": 4,
+      "fp32_add_latency_cycles": 6,
+      "memory_bandwidth_gbps": 32.0
+    }
+  },
+  "power": {
+    "activity_source": "SAIF required; vectorless power is excluded"
+  },
+  "validation": {
+    "rtl_test_manifest": "evidence/rtl_test_manifest.json",
+    "rtl_evidence_audit": {
+      "status": "passed",
+      "manifest_status": "passed",
+      "failures": [],
+      "manifest_sha256": "5754e821acd0d4af363655493eca1a173c698fe75f75d3375ce374fd5a3ba5ae"
+    },
+    "bitstream_generated": false,
+    "board_test_completed": false,
+    "board_test_count": 0,
+    "mismatch_count": "not_performed"
+  },
+  "source_report_hashes": [
+    {
+      "path": "not_released/external_path/fedplh_fp32_add.xci",
+      "sha256": "a33877b93c0626d2a5aba20880f1a2d238d322573ceb1a638bfeb2e15055ccb3"
+    },
+    {
+      "path": "not_released/external_path/fedplh_fp32_mul.xci",
+      "sha256": "55b07f4ce1e7190c366fab000281c905ef96747002e1480603e904256d11b879"
+    },
+    {
+      "path": "not_released/external_path/rtl_test_manifest.json",
+      "sha256": "5754e821acd0d4af363655493eca1a173c698fe75f75d3375ce374fd5a3ba5ae"
+    },
+    {
+      "path": "not_released/external_path/operation_convention.json",
+      "sha256": "b87d9d92612fb37fa3037116e8351e5fc989be266f9f99ff32adda06e819f82f"
+    },
+    {
+      "path": "not_released/external_path/source_hash_manifest.json",
+      "sha256": "7c93bfa48facfbc41c33a4532ecef5156b96d9ad905f9ad750e9f9059e49a8d6"
+    },
+    {
+      "path": "not_released/external_path/metrics.json",
+      "sha256": "de1ef1defa4a7b7524ab2a7ae4f81fe1845a709644ad429337c954da0502e945"
+    },
+    {
+      "path": "not_released/external_path/utilization.rpt",
+      "sha256": "4762614d6559b64b8726741a3c0a47e55ec392abe4b5f1a30813f00ceaff99ad"
+    },
+    {
+      "path": "not_released/external_path/utilization_hierarchical.rpt",
+      "sha256": "a81272e55dbf2ffdf0c1c5547b7480739830b2084f31c1495e533c4d96930acb"
+    },
+    {
+      "path": "not_released/external_path/timing_summary.rpt",
+      "sha256": "44474804ef30a8e5beff1dcd5f050a6c436fbb7ccca81311b8c38c8a37819de4"
+    },
+    {
+      "path": "not_released/external_path/route_status.rpt",
+      "sha256": "d2f0416a6e7160deee086b1eeccb049962a8e92d362f582bfd9e49afadce805e"
+    },
+    {
+      "path": "not_released/external_path/drc.rpt",
+      "sha256": "884ce3874c1cfa1d5a25d4f5bc0f261f0db2c03a603034d209da84ff9d2698ce"
+    },
+    {
+      "path": "not_released/external_path/activity.saif",
+      "sha256": "b8cad825a9ed3135ece35489318a28d78b53b1ca9346418fd108b0c0a3f8a223"
+    },
+    {
+      "path": "not_released/external_path/saif_workload.log",
+      "sha256": "5eaf3d2eb45317cb613c5617328f9cf2756d44419742b87c2b627c67040fb71c"
+    },
+    {
+      "path": "not_released/external_path/power_saif.rpt",
+      "sha256": "e3631f054e3db0d36b1d39ce709c32ae5cc8352e3e6c9a075afc6f35eec3f268"
+    },
+    {
+      "path": "not_released/external_path/power_saif.rpt.unmatched.rpt",
+      "sha256": "17fbaec499e67117760c7a3dac21aab563cec805c8136c0447afb9a5afeeda09"
+    },
+    {
+      "path": "not_released/external_path/vivado_source_stage_manifest.json",
+      "sha256": "a1b7eb4fe4ba370e59e8fa59ab82251e321a07c8369f56d93ed99aee505df1bf"
+    },
+    {
+      "path": "not_released/external_path/metrics.json",
+      "sha256": "0b5178756a536c0739eebbede23066e10d5b028222a78243625edd33c48e510e"
+    },
+    {
+      "path": "not_released/external_path/utilization.rpt",
+      "sha256": "07866fd13a70629a410b98084f6d67c7c612ce32efccecce2ae9d80eb914135d"
+    },
+    {
+      "path": "not_released/external_path/utilization_hierarchical.rpt",
+      "sha256": "34d622a4b89c3bab039776a5bc5421b4d4ac6a8846efd677747aa39fedfdceb5"
+    },
+    {
+      "path": "not_released/external_path/timing_summary.rpt",
+      "sha256": "17032b778d3ca2a8cae5e85c00dbd407fd8b5f885ca4f4a39ba07ff976b0f453"
+    },
+    {
+      "path": "not_released/external_path/route_status.rpt",
+      "sha256": "0889972d32fca70f4c4b71df2d77ec6606209e1fad4c38ab4d064ee556e19e85"
+    },
+    {
+      "path": "not_released/external_path/drc.rpt",
+      "sha256": "5464ad92b9a809710a9ff1a0cdc74ed47e30684ee879d6f7ea98045d2de4169c"
+    },
+    {
+      "path": "not_released/external_path/activity.saif",
+      "sha256": "28f683cb79b020f073362dbdb136ce5d423b53476cea591a6c2a7058b11a9d9c"
+    },
+    {
+      "path": "not_released/external_path/saif_workload.log",
+      "sha256": "4430d9315d895e1baec61439c0aa577a08c3190b61b2490b8cd9931ae5377455"
+    },
+    {
+      "path": "not_released/external_path/power_saif.rpt",
+      "sha256": "15b5c6d3cfaea14fe77d2d8bfa8bb2f08bb20407d93ffac4f78f14782ae7db3d"
+    },
+    {
+      "path": "not_released/external_path/power_saif.rpt.unmatched.rpt",
+      "sha256": "a9e1761992ced39644be95b85a45561d0d5bca6ec3b61b36dc091969b52a1cec"
+    },
+    {
+      "path": "not_released/external_path/vivado_source_stage_manifest.json",
+      "sha256": "a1b7eb4fe4ba370e59e8fa59ab82251e321a07c8369f56d93ed99aee505df1bf"
+    },
+    {
+      "path": "not_released/external_path/sac_throughput_characterization.json",
+      "sha256": "550897a259ab9b91933725443929361d55c32f36724214f8d2ebcab93938271e"
+    },
+    {
+      "path": "not_released/external_path/activity_mode_bf16.saif",
+      "sha256": "b09d2143c3d075c036988cd5a8e6b5e0586c9b0b749fde6a83383eee01dc5680"
+    },
+    {
+      "path": "not_released/external_path/saif_workload_mode_bf16.log",
+      "sha256": "40b7675c7e78940c069148f24653675274cc42fe013d63d38a344678bd9ae7f1"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_bf16.rpt",
+      "sha256": "a9101e7690bccc3822cebe4d66bfce757b9d59d41188f9583a6590998f9cf5bd"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_bf16.rpt.unmatched.rpt",
+      "sha256": "da8885c514693a57bafc792a336c2dfd342839a0d2fa37b6fc4aeff1e72164ca"
+    },
+    {
+      "path": "not_released/external_path/activity_mode_fp16.saif",
+      "sha256": "40f2521e4b05bc8df47b60c1666218704eb9009cf1ffca0cfb0139e898cdc86b"
+    },
+    {
+      "path": "not_released/external_path/saif_workload_mode_fp16.log",
+      "sha256": "63ecb8943f9a5d335675e0911ddf1427d1a50218d3588875219b4853f7c64694"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_fp16.rpt",
+      "sha256": "69ce9ed96bcfe80813f6f82019353cc4211ea3989dfd94ffa68789a3222df83b"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_fp16.rpt.unmatched.rpt",
+      "sha256": "aaf0d138be349d22dd959ab6f035552ab1834a22c68658d8999d70471d3f4382"
+    },
+    {
+      "path": "not_released/external_path/activity_mode_fp32.saif",
+      "sha256": "fd5d260f0009fbaa156f82877b533cd0dc124ae89fb555e76429e0a627b60910"
+    },
+    {
+      "path": "not_released/external_path/saif_workload_mode_fp32.log",
+      "sha256": "8be7118d79bb677d577748562ebcfb47145e24002104b4193f4009c83dcd2ef6"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_fp32.rpt",
+      "sha256": "4618a771f4d610987ccf7e89eed562eeebce6ced43f82def169a60fc0283c125"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_fp32.rpt.unmatched.rpt",
+      "sha256": "46918c60b72f08774f12ffdd38fdd4dcae202e7d2fae6b38630de3aaf0a89ee9"
+    },
+    {
+      "path": "not_released/external_path/activity_mode_fp8_e4m3.saif",
+      "sha256": "4e7b7d676e7c72a625bcc91226e323bf5cf1b0b0627f10acf62c99409c32ae79"
+    },
+    {
+      "path": "not_released/external_path/saif_workload_mode_fp8_e4m3.log",
+      "sha256": "f7df845e2531bd576ea8e5289b6a0c9a0f609f2faff380df8f95a7181aebd79c"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_fp8_e4m3.rpt",
+      "sha256": "600fcbb59b4f580a721dda4284de89f4eb0956e39d4dcbcdf245a9995bfc986b"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_fp8_e4m3.rpt.unmatched.rpt",
+      "sha256": "246935eb36de68817b6c43614a7322e0863326bbe564b98ec5034b851dffb41f"
+    },
+    {
+      "path": "not_released/external_path/activity_mode_fp8_e5m2.saif",
+      "sha256": "1cabc116851774117206aef8ce10b1839c1dcc73c0bc3d10802c3ff05bb04f32"
+    },
+    {
+      "path": "not_released/external_path/saif_workload_mode_fp8_e5m2.log",
+      "sha256": "301826901eed8667f3349cc7f9c0468b5a4e47051ca91ca0cd580a6901cee8d6"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_fp8_e5m2.rpt",
+      "sha256": "9572b4c4ce60256124826c038b81519422be2b017ad8fd867984306469e875cf"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_fp8_e5m2.rpt.unmatched.rpt",
+      "sha256": "7006f60f05a976ff0b5be9cefe221c31a7eba38c759a3ef8b7eb7e06307381ba"
+    },
+    {
+      "path": "not_released/external_path/activity_mode_int4.saif",
+      "sha256": "eebfc832432b410127ac86dcae355990176a75c1f5914fd401ee95d23affde93"
+    },
+    {
+      "path": "not_released/external_path/saif_workload_mode_int4.log",
+      "sha256": "f60d177a5b746bc9243ff9124a057c59b2e5803d3b01dce44f0976d4c49e101b"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_int4.rpt",
+      "sha256": "ff4fd337af8bfcdec495f3346de88a947ca24bacb21291485ff9475f925d3660"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_int4.rpt.unmatched.rpt",
+      "sha256": "1f11c0eb7d71c2b4a67830622eb6585755fd3fd2d7a925b2d5817864cc3d8230"
+    },
+    {
+      "path": "not_released/external_path/activity_mode_int8.saif",
+      "sha256": "6464e38b3d3c328d9ef9ea8eca5600f4a0884fe601154bdd2d8f02abe4fc8d45"
+    },
+    {
+      "path": "not_released/external_path/saif_workload_mode_int8.log",
+      "sha256": "c7a4811ff81427d829d26d19edf4a1eecd4e6a9dff2e391bba8f2ff6724bf48e"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_int8.rpt",
+      "sha256": "1ac9f00def1d2cc22b518f0849897a94d6bf7186f67b8e3743781e564ddb3f9f"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_int8.rpt.unmatched.rpt",
+      "sha256": "5a42dd078423a2e892a9964a037f7575b8adaec6c59031e26c9841399178b149"
+    },
+    {
+      "path": "not_released/external_path/activity_mode_tf32.saif",
+      "sha256": "99b87ab059de8d2e4547cc03f7b6037a194684ccc73dac39e18d12808a004ea5"
+    },
+    {
+      "path": "not_released/external_path/saif_workload_mode_tf32.log",
+      "sha256": "355c83d4f90bd946c83019d3c2ee447055e13df9378a3dd832c05514400950bd"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_tf32.rpt",
+      "sha256": "4c29b850fd99a0ebcad1d83362dd2228277ffebdafcc727d4fb8eb7ad984bb0e"
+    },
+    {
+      "path": "not_released/external_path/power_saif_mode_tf32.rpt.unmatched.rpt",
+      "sha256": "786168da4dc18698a2e2e93a2515adf06e538b642a5e41638f51b2e3a999e9d7"
+    },
+    {
+      "path": "not_released/external_path/saif_power_manifest.json",
+      "sha256": "5128d702acc3a5b095e4fe7357c439f0b5a7db92b2ebcc9a0d4c2cdbf4b53a21"
+    }
+  ]
+}

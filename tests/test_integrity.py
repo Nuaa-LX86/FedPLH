@@ -457,31 +457,57 @@ class IntegrityTests(unittest.TestCase):
         simulator = ACFSimulator("hardware_profile.json")
         latency_10 = simulator.simulate_aggregation(10, 50, "PEC")
         latency_20 = simulator.simulate_aggregation(20, 50, "PEC")
-        pipeline_ms = simulator._cycles_to_ms(14)
+        pec = simulator.hw_profile["federation_costs"]["PEC_hardware"]
+        server_clock_mhz = float(
+            pec.get("clock_frequency_MHz", simulator.server_clock_freq_mhz)
+        )
+        pipeline_ms = float(pec["pipeline_depth"]) / (server_clock_mhz * 1e6) * 1e3
         self.assertAlmostEqual(
             latency_20 - pipeline_ms,
             2.0 * (latency_10 - pipeline_ms),
         )
 
-    def test_sac_is_memory_bandwidth_limited(self):
+    def test_sac_uses_profile_derived_bottleneck(self):
         simulator = ACFSimulator("hardware_profile.json")
-        lane_bandwidth_gbps = 32.0 * simulator.clock_freq_mhz / 1000.0
-        self.assertGreater(lane_bandwidth_gbps, simulator.mem_bw_gbps)
+        pec = simulator.hw_profile["federation_costs"]["PEC_hardware"]
+        server_clock_mhz = float(
+            pec.get("clock_frequency_MHz", simulator.server_clock_freq_mhz)
+        )
+        lane_bandwidth_gbps = (
+            float(pec["throughput_bytes_per_cycle"])
+            * int(pec.get("parallel_lanes", 1))
+            * server_clock_mhz
+            / 1000.0
+        )
+        effective_bandwidth_gbps = min(lane_bandwidth_gbps, simulator.mem_bw_gbps)
         expected_ms = (
-            10 * 1000 * 1024 * 1024 / (32.0 * 1e9) * 1e3
-            + 14 / (1408.0 * 1e6) * 1e3
+            10 * 1000 * 1024 * 1024 / (effective_bandwidth_gbps * 1e9) * 1e3
+            + float(pec["pipeline_depth"]) / (server_clock_mhz * 1e6) * 1e3
         )
         actual_ms = simulator.simulate_aggregation(1000, 10, "PEC")
         self.assertAlmostEqual(actual_ms, expected_ms, places=12)
 
-    def test_software_conversion_factor_is_explicit_and_approaches_12x(self):
+    def test_software_conversion_factor_respects_sac_bottleneck(self):
         simulator = ACFSimulator("hardware_profile.json")
         software = simulator.hw_profile["federation_costs"]["software_baseline"]
         self.assertEqual(software["software_conversion_factor"], 12.0)
         self.assertNotIn("instruction_overhead_per_byte", software)
+        pec = simulator.hw_profile["federation_costs"]["PEC_hardware"]
+        server_clock_mhz = float(
+            pec.get("clock_frequency_MHz", simulator.server_clock_freq_mhz)
+        )
+        lane_bandwidth_gbps = (
+            float(pec["throughput_bytes_per_cycle"])
+            * int(pec.get("parallel_lanes", 1))
+            * server_clock_mhz
+            / 1000.0
+        )
+        expected_ratio = 12.0 * min(
+            lane_bandwidth_gbps, simulator.mem_bw_gbps
+        ) / simulator.mem_bw_gbps
         sac_ms = simulator.simulate_aggregation(1000, 10, "PEC")
         cpu_ms = simulator.simulate_aggregation(1000, 10, "Software")
-        self.assertAlmostEqual(cpu_ms / sac_ms, 12.0, delta=0.001)
+        self.assertAlmostEqual(cpu_ms / sac_ms, expected_ratio, delta=0.001)
 
 
 if __name__ == "__main__":

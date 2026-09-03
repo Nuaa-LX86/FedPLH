@@ -65,6 +65,14 @@ def _analysis_input_sha256(payload: dict, required_fields: Sequence[str]) -> str
     return hashlib.sha256(canonical).hexdigest()
 
 
+def _file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
 def _write_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
@@ -199,11 +207,16 @@ def compute_boundary(
         raise ValueError("frequency_mhz must be positive")
 
     threshold = delta_c_cycles / c_priv_cycles
+    plot_max_multiplier = max(float(max_multiplier), 30.0, 1.25 * threshold)
+    if plot_max_multiplier / 0.5 > 100.0:
+        sweep = np.geomspace(0.5, plot_max_multiplier, 500)
+    else:
+        sweep = np.linspace(0.5, plot_max_multiplier, 400)
     multipliers = np.unique(
         np.concatenate(
             [
-                np.linspace(0.5, max_multiplier, 400),
-                np.asarray([1.0, threshold, 30.0]),
+                sweep,
+                np.asarray([1.0, threshold, 30.0, plot_max_multiplier]),
             ]
         )
     )
@@ -223,6 +236,7 @@ def compute_boundary(
         "c_priv_cycles": c_priv_cycles,
         "frequency_mhz": frequency_mhz,
         "coverage_threshold_multiplier": threshold,
+        "plot_max_multiplier": plot_max_multiplier,
         "visible_cost_ms_at_30x": visible_at(30.0),
         "profile_basis": (
             "Five-seed, per-round mean over participating clients; "
@@ -243,6 +257,7 @@ def plot_boundary(data: dict, output_path: Path) -> None:
     coverage_ratio = np.asarray(data["coverage_ratio"])
     visible_ms = np.asarray(data["uncovered_cost_ms"])
     threshold = float(data["coverage_threshold_multiplier"])
+    use_log_x = float(np.max(multipliers) / np.min(multipliers)) > 100.0
 
     fig, axes = plt.subplots(1, 2, figsize=(7.16, 2.75))
 
@@ -275,14 +290,15 @@ def plot_boundary(data: dict, output_path: Path) -> None:
     axes[0].annotate(
         r"Evaluated point: $m=1$",
         xy=(1.0, 1.0),
-        xytext=(4.0, 0.88),
+        xytext=((2.2 if use_log_x else 4.0), 0.88),
         fontsize=7,
         arrowprops={"arrowstyle": "->", "lw": 0.75},
     )
+    boundary_text_x = max(2.0, threshold / 10.0) if use_log_x else max(2.0, 0.60 * threshold)
     axes[0].annotate(
         f"Full-coverage boundary\n$m={threshold:.3f}$",
         xy=(threshold, 1.0),
-        xytext=(14.0, 0.73),
+        xytext=(boundary_text_x, 0.73),
         fontsize=7,
         arrowprops={"arrowstyle": "->", "lw": 0.75},
     )
@@ -290,10 +306,11 @@ def plot_boundary(data: dict, output_path: Path) -> None:
     axes[1].plot(multipliers, visible_ms, color="#E15759", lw=1.8)
     axes[1].axvline(threshold, color="#E15759", ls="--", lw=1.2)
     axes[1].scatter([1.0], [0.0], color="#222222", s=20, zorder=4)
+    visible_max = max(float(np.max(visible_ms)), 1.0)
     axes[1].annotate(
         r"Evaluated point: $m=1$, 0 ms",
         xy=(1.0, 0.0),
-        xytext=(4.0, 58.0),
+        xytext=((2.2 if use_log_x else 4.0), 0.30 * visible_max),
         fontsize=7,
         arrowprops={"arrowstyle": "->", "lw": 0.75},
     )
@@ -304,18 +321,29 @@ def plot_boundary(data: dict, output_path: Path) -> None:
         s=18,
         zorder=3,
     )
+    visible_at_30x = float(data["visible_cost_ms_at_30x"])
+    if visible_at_30x > 0.005:
+        label_30x = f"30x: {visible_at_30x:.1f} ms"
+        text_30x_y = 0.72 * visible_at_30x
+    else:
+        label_30x = "30x remains fully covered"
+        text_30x_y = 0.18 * visible_max
     axes[1].annotate(
-        f"30x: {data['visible_cost_ms_at_30x']:.1f} ms",
-        xy=(30.0, data["visible_cost_ms_at_30x"]),
-        xytext=(21.0, data["visible_cost_ms_at_30x"] * 0.72),
+        label_30x,
+        xy=(30.0, visible_at_30x),
+        xytext=((8.0 if use_log_x else 21.0), text_30x_y),
         fontsize=7,
         arrowprops={"arrowstyle": "->", "lw": 0.8},
     )
     axes[1].set_xlabel(r"Privacy-cost multiplier $m$")
     axes[1].set_ylabel("Uncovered latency (ms)")
     axes[1].set_title("(b) Uncovered modeled cost", pad=7)
+    axes[1].set_ylim(0.0, 1.08 * visible_max)
 
     for axis in axes:
+        if use_log_x:
+            axis.set_xscale("log")
+        axis.set_xlim(float(np.min(multipliers)), float(np.max(multipliers)))
         axis.grid(True, ls="--", alpha=0.35)
         axis.spines["top"].set_visible(False)
         axis.spines["right"].set_visible(False)
@@ -373,14 +401,16 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    profile = load_profile(Path(args.profile))
+    profile_path = Path(args.profile)
+    profile = load_profile(profile_path)
     frequency_mhz = float(
         profile["design_parameters"]["clock_frequency_MHz"]
     )
 
-    if args.paper_results:
+    paper_results_path = Path(args.paper_results) if args.paper_results else None
+    if paper_results_path is not None:
         delta_c_cycles, c_priv_cycles = load_cycles_from_paper_results(
-            Path(args.paper_results),
+            paper_results_path,
             args.method,
         )
     elif args.delta_c_cycles is not None and args.c_priv_cycles is not None:
@@ -397,6 +427,7 @@ def main() -> None:
         frequency_mhz,
         args.max_multiplier,
     )
+    history_paths: list[Path] = []
     if args.history_glob:
         history_paths = [
             Path(path) for path in glob.glob(args.history_glob, recursive=True)
@@ -414,6 +445,23 @@ def main() -> None:
         raise ValueError("--credit_output requires --history_glob")
     output_path = Path(args.output)
     plot_boundary(data, output_path)
+    png_path = output_path.with_suffix(".png")
+    input_paths = [profile_path, *history_paths]
+    if paper_results_path is not None:
+        input_paths.append(paper_results_path)
+    data["provenance"] = {
+        "tool": {
+            "path": str(Path(__file__).resolve()),
+            "sha256": _file_sha256(Path(__file__)),
+        },
+        "inputs": {
+            str(path.resolve()): _file_sha256(path) for path in input_paths
+        },
+        "outputs": {
+            str(output_path.resolve()): _file_sha256(output_path),
+            str(png_path.resolve()): _file_sha256(png_path),
+        },
+    }
     json_path = output_path.with_suffix(".json")
     _write_json(json_path, data)
 

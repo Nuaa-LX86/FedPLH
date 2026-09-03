@@ -30,6 +30,9 @@ class ACFSimulator:
         # 提取关键参数
         self.clock_freq_mhz = self.hw_profile['design_parameters']['clock_frequency_MHz']
         self.clock_period_ns = 1000.0 / self.clock_freq_mhz
+        self.server_clock_freq_mhz = self.hw_profile['design_parameters'].get(
+            'server_clock_frequency_MHz', self.clock_freq_mhz
+        )
 
         self.mem_bw_gbps = self.hw_profile['design_parameters']['memory_bandwidth_GBps']
         self.bytes_per_cycle = self.mem_bw_gbps / (self.clock_freq_mhz / 1000.0)
@@ -48,6 +51,7 @@ class ACFSimulator:
             "metadata": {"source": "Default Config"},
             "design_parameters": {
                 "clock_frequency_MHz": 1000,
+                "server_clock_frequency_MHz": 1000,
                 "memory_bandwidth_GBps": 32.0,
                 "ops_per_cycle": {
                     "FP32": 1024, "BF16": 2048, "FP16": 2048,
@@ -248,6 +252,11 @@ class ACFSimulator:
         if method == 'PEC':
             # PEC: O(1) 可扩展性
             pec_config = self.hw_profile['federation_costs']['PEC_hardware']
+            server_clock_mhz = float(
+                pec_config.get('clock_frequency_MHz', self.server_clock_freq_mhz)
+            )
+            if server_clock_mhz <= 0:
+                raise ValueError("PEC server clock frequency must be positive")
             pipeline_depth = float(pec_config['pipeline_depth'])
             throughput = float(pec_config['throughput_bytes_per_cycle'])
             parallel_lanes = int(pec_config.get('parallel_lanes', 1))
@@ -256,14 +265,14 @@ class ACFSimulator:
 
             # 延迟 = 流水线填充 + 数据传输
             lane_bandwidth_bytes_s = (
-                throughput * parallel_lanes * self.clock_freq_mhz * 1e6
+                throughput * parallel_lanes * server_clock_mhz * 1e6
             )
             effective_bandwidth_bytes_s = min(
                 memory_bandwidth_bytes_s,
                 lane_bandwidth_bytes_s,
             )
             transfer_seconds = input_bytes / effective_bandwidth_bytes_s
-            pipeline_seconds = pipeline_depth / (self.clock_freq_mhz * 1e6)
+            pipeline_seconds = pipeline_depth / (server_clock_mhz * 1e6)
             return (transfer_seconds + pipeline_seconds) * 1e3
 
         elif method == 'Software':

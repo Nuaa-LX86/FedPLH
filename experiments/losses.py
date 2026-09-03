@@ -4,7 +4,7 @@ import torch.nn as nn
 
 class DiceLoss(nn.Module):
     """
-    BraTS 3D segmentation loss used by the evaluated workload.
+    [TCAD Requirement] BraTS 3D Segmentation Standard Loss.
     """
 
     def __init__(self, n_classes):

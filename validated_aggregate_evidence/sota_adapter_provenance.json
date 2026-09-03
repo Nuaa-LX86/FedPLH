@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-09-02T08:41:45.155797+00:00",
+  "evidence_scope": "mechanism-preserving adapters in the common 3D U-Net harness; not reproduction of source-dataset headline values",
+  "common_protocol": {
+    "dataset": "BraTS processed patient volumes",
+    "clients": 20,
+    "client_fraction": 0.2,
+    "rounds": 80,
+    "local_epochs": 2,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "adapters": {
+    "FedEvi": {
+      "official_commit": "547ecb9a3cb9c02555b2704a0d7beda2ef4cd851",
+      "official_sources": [
+        {
+          "path": "external_baselines/FedEvi_official/utils/loss_func.py",
+          "sha256": "80eafd3b91adf1df3e1a1822b8a902b37eee8753271594fae095b1da6194a24b"
+        },
+        {
+          "path": "external_baselines/FedEvi_official/utils/utils.py",
+          "sha256": "e66fbfd64d7a05616c6a3871c67e00625f0c9fb620a00abca255e927e7121500"
+        },
+        {
+          "path": "external_baselines/FedEvi_official/main_seg_al.py",
+          "sha256": "87069719e5d7bda8998273bb5467f45ca81093954984c71d7ef7c8341e053553"
+        }
+      ],
+      "retained": [
+        "evidential Dice loss with KL annealing",
+        "distributional-to-data uncertainty score",
+        "two-pass evidence-adjusted aggregation weights"
+      ],
+      "declared_adaptations": [
+        "2D reductions generalized to 3D without changing the equations",
+        "aggregation weights normalized over the scheduled cohort",
+        "common 3D U-Net, BraTS split, optimizer, and training budget"
+      ]
+    },
+    "FedCLAM": {
+      "official_commit": "3389bcc26cbf3dda8ea00c50674fac7b3017eb87",
+      "official_sources": [
+        {
+          "path": "external_baselines/FedCLAM_official/pyfed/utils/clam_utils.py",
+          "sha256": "18abdf956ecfa614a408b055428ccb68640f7173a5cedb29c2e05cd5b9875e7e"
+        },
+        {
+          "path": "external_baselines/FedCLAM_official/pyfed/manager/comm.py",
+          "sha256": "1e87c5176c76e4aa90338b749d5406ea2ca09efca6ecb75f2e2ef6175abff373"
+        },
+        {
+          "path": "external_baselines/FedCLAM_official/pyfed/loss/loss.py",
+          "sha256": "304f2bbe4f99043e04c4d3d523b9f83eb9200aed66845052a5fd51f2bd2e0d14"
+        },
+        {
+          "path": "external_baselines/FedCLAM_official/pyfed/client/fedclam.py",
+          "sha256": "13529b56d0fff7e8b226f7bedbe408d4d499914a89879ff767b301539356f391"
+        }
+      ],
+      "retained": [
+        "validation-loss-ratio momentum coefficient",
+        "train-validation overfitting dampening",
+        "per-client momentum memory and equal-cohort pseudo-gradient",
+        "0.5 Dice plus 0.5 Wasserstein-style intensity matching",
+        "10-round foreground-intensity-matching warm-up"
+      ],
+      "declared_adaptations": [
+        "foreground probability is one minus the background probability",
+        "four MRI modalities are reduced to their normalized mean intensity",
+        "sorted intensity samples use a 16x16x16 adaptive-pooled volume",
+        "momentum is maintained by global client id under partial participation",
+        "the warm-up uses the common harness Dice loss"
+      ]
+    }
+  },
+  "local_sources": [
+    {
+      "path": "training/sota_adapters.py",
+      "sha256": "83a79b6fa324fa7b32230df6a07962c9471681bbfbe99060af1e6421c6931276"
+    },
+    {
+      "path": "training/federated_trainer.py",
+      "sha256": "27ec866ba83b8b781cb4c5a5af576421254d8db226feaf69b7b2c41edca0cb94"
+    },
+    {
+      "path": "main_experiment.py",
+      "sha256": "6552deb8f9b747d2c5afc67eeef67d30ed47fe1ae866851efeb266c869585bd1"
+    },
+    {
+      "path": "tests/test_sota_adapters.py",
+      "sha256": "f7ad98ddfe2d76e5efa636851a73102fc197f40527e82c61a48ed3181df0896a"
+    }
+  ],
+  "release_gate": "two-round smoke test, one-seed 80-round pilot, then five-seed run"
+}

@@ -4,7 +4,7 @@ from typing import Dict, List, Optional
 
 class ACFScheduler:
     """
-    Adaptive compute-flow scheduler used by FedPLH.
+    [TCAD Core Component]
     自适应计算流调度器 (Adaptive Compute Flow Scheduler)
 
     - 支持论文 Eq.(11) 的时空协同概率模型（λ：空间/时间权衡系数）

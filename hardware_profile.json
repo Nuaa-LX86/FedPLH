@@ -1,49 +1,105 @@
 {
   "metadata": {
-    "source": "TSMC 28nm RTL Synthesis, 0.9V",
-    "process": "TSMC 28nm CMOS",
-    "voltage_V": 0.9,
-    "frequency_MHz": 1408,
-    "area_mm2": 0.035
+    "source": "Audited VCU128 OOC post-route and SAIF profiles",
+    "device_part": "xcvu37p-fsvh2892-2L-e",
+    "vivado_version": "2026.1",
+    "validation_level": "RTL tests + OOC post-route + SAIF; no board deployment",
+    "integrated_profile": "not_released/external_path/fpga_vcu128_integrated_profile.json",
+    "integrated_profile_sha256": "2e6553f795a8b6cc287801877b034dc015d4d69dab149b20b071631e10e92239",
+    "operation_convention": "not_released/external_path/operation_convention.json",
+    "operation_convention_sha256": "b87d9d92612fb37fa3037116e8351e5fc989be266f9f99ff32adda06e819f82f"
   },
   "design_parameters": {
-    "clock_frequency_MHz": 1408,
+    "clock_frequency_MHz": 190.0,
+    "server_clock_frequency_MHz": 250.0,
     "memory_bandwidth_GBps": 32.0,
+    "memory_bandwidth_scope": "modeled phase-1 assumption; not board measured",
+    "hmpe_array_count": 4,
     "ops_per_cycle": {
-      "FP32":     1024,
-      "BF16":     9216,
-      "FP16":     4096,
-      "FP8_E5M2": 36864,
-      "FP8_E4M3": 36864,
-      "INT8":     9216,
-      "INT4":     36864
-    }
+      "FP32": 4,
+      "TF32": 16,
+      "BF16": 36,
+      "FP16": 16,
+      "FP8_E5M2": 144,
+      "FP8_E4M3": 144,
+      "INT8": 36,
+      "INT4": 144
+    },
+    "operation_unit": "packed products per accepted HMPE-array input"
   },
   "compute_costs_per_op": {
-    "FP32":     {"energy_pJ": 13.26},
-    "BF16":     {"energy_pJ": 1.474},
-    "FP16":     {"energy_pJ": 2.948},
-    "FP8_E5M2": {"energy_pJ": 0.210},
-    "FP8_E4M3": {"energy_pJ": 0.210},
-    "INT8":     {"energy_pJ": 0.980},
-    "INT4":     {"energy_pJ": 0.245}
+    "FP32": {
+      "energy_pJ": 1506.578947368421,
+      "unit": "pJ per packed product",
+      "scope": "SAIF-annotated HMPE-array dynamic power only"
+    },
+    "TF32": {
+      "energy_pJ": 468.092105263158,
+      "unit": "pJ per packed product",
+      "scope": "SAIF-annotated HMPE-array dynamic power only"
+    },
+    "BF16": {
+      "energy_pJ": 209.5029239766082,
+      "unit": "pJ per packed product",
+      "scope": "SAIF-annotated HMPE-array dynamic power only"
+    },
+    "FP16": {
+      "energy_pJ": 430.92105263157896,
+      "unit": "pJ per packed product",
+      "scope": "SAIF-annotated HMPE-array dynamic power only"
+    },
+    "FP8_E5M2": {
+      "energy_pJ": 53.21637426900585,
+      "unit": "pJ per packed product",
+      "scope": "SAIF-annotated HMPE-array dynamic power only"
+    },
+    "FP8_E4M3": {
+      "energy_pJ": 49.63450292397661,
+      "unit": "pJ per packed product",
+      "scope": "SAIF-annotated HMPE-array dynamic power only"
+    },
+    "INT8": {
+      "energy_pJ": 87.86549707602339,
+      "unit": "pJ per packed product",
+      "scope": "SAIF-annotated HMPE-array dynamic power only"
+    },
+    "INT4": {
+      "energy_pJ": 20.97953216374269,
+      "unit": "pJ per packed product",
+      "scope": "SAIF-annotated HMPE-array dynamic power only"
+    }
   },
   "memory_costs": {
     "DRAM_access_per_byte_pJ": 80.0,
-    "SRAM_access_per_byte_pJ": 5.0
+    "SRAM_access_per_byte_pJ": 5.0,
+    "scope": "modeled local-training memory energy assumptions"
   },
   "security_costs": {
-    "per_example_clipping": {"cycles_per_param": 0.5},
-    "noise_generation":     {"cycles_per_param": 0.05}
+    "per_example_clipping": {
+      "cycles_per_param": 0.5
+    },
+    "noise_generation": {
+      "cycles_per_param": 0.05
+    },
+    "scope": "modeled SoftDP operator cost; operand datapath is not implemented"
   },
   "federation_costs": {
     "PEC_hardware": {
-      "pipeline_depth": 14,
-      "throughput_bytes_per_cycle": 32,
-      "parallel_lanes": 1
+      "name": "SAC",
+      "clock_frequency_MHz": 250.0,
+      "pipeline_depth": 12,
+      "arithmetic_pipeline_cycles": 10,
+      "throughput_bytes_per_cycle": 32.0,
+      "completion_amortized_bytes_per_cycle": 26.94736842105263,
+      "parallel_lanes": 1,
+      "parallel_elements": 32,
+      "packet_pipeline_initiation_interval": 1,
+      "address_hazard_policy": "overlapping in-flight accumulator row/mask pairs are stalled until commit",
+      "throughput_scope": "back-to-back non-overlapping accepted input rate from RTL cycle characterization; completion-amortized rate retained"
     },
     "software_baseline": {
-      "software_conversion_factor": 12.0
+      "software_conversion_factor": 12.0,
+      "scope": "modeled software reference factor; not FPGA measured"
     }
   }
 }

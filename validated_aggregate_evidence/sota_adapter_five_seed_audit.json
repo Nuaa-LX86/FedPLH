@@ -1,0 +1,133 @@
+{
+  "generated_at_utc": "2026-09-02T14:07:49.410885+00:00",
+  "status": "passed",
+  "failures": [],
+  "run_root": "not_released/external_path/tpds_sota_adapters_five_seed_20260902",
+  "parent_manifest_sha256": "c5cb48012d7465b0a9deb828110e921bbdf436299e73dd8e9438672882622d1b",
+  "records": {
+    "FedEvi": {
+      "seeds": {
+        "0": {
+          "status": "passed",
+          "path": "not_released/external_path/training_history.json",
+          "sha256": "80492f65d5e1414cbb690e98a88c0383dc18ac4f114cb9dccbcf898fe4ffbba5",
+          "failures": [],
+          "rounds": 80,
+          "best_val_dice": 85.9331040377469,
+          "test_dice": 89.10417850194524,
+          "aggregation_method": "adapted_fedevi_uncertainty_weighted"
+        },
+        "1": {
+          "status": "passed",
+          "path": "not_released/external_path/training_history.json",
+          "sha256": "20bf2697a1e15b04e82906469b32324676e6abb787c3c80928afe50e01cb2afa",
+          "failures": [],
+          "rounds": 80,
+          "best_val_dice": 85.7184443594972,
+          "test_dice": 88.149451159713,
+          "aggregation_method": "adapted_fedevi_uncertainty_weighted"
+        },
+        "2": {
+          "status": "passed",
+          "path": "not_released/external_path/training_history.json",
+          "sha256": "581fa9947abe3b2785ca5a74f47f847ae1701541db35416b0406a7bfbb9db9ee",
+          "failures": [],
+          "rounds": 80,
+          "best_val_dice": 85.77175459605367,
+          "test_dice": 87.8086375035413,
+          "aggregation_method": "adapted_fedevi_uncertainty_weighted"
+        },
+        "3": {
+          "status": "passed",
+          "path": "not_released/external_path/training_history.json",
+          "sha256": "f6290c4f359b3747f5024d9b01fe3dc2eaa967a0665850970339c457aecfeeac",
+          "failures": [],
+          "rounds": 80,
+          "best_val_dice": 86.34111008627526,
+          "test_dice": 88.65685397190373,
+          "aggregation_method": "adapted_fedevi_uncertainty_weighted"
+        },
+        "4": {
+          "status": "passed",
+          "path": "not_released/external_path/training_history.json",
+          "sha256": "e22e9da1fc5078fd4b642b8a3f163b44b7adc74f57cf8ca5d4c528d1b0e6fcd6",
+          "failures": [],
+          "rounds": 80,
+          "best_val_dice": 86.13999945852504,
+          "test_dice": 88.49156766920036,
+          "aggregation_method": "adapted_fedevi_uncertainty_weighted"
+        }
+      },
+      "test_dice": {
+        "count": 5,
+        "mean": 88.44213776126072,
+        "std": 0.4934147171736079,
+        "ci95_half_width": 0.4324970686900159,
+        "minimum": 87.8086375035413,
+        "maximum": 89.10417850194524
+      }
+    },
+    "FedCLAM": {
+      "seeds": {
+        "0": {
+          "status": "passed",
+          "path": "not_released/external_path/training_history.json",
+          "sha256": "0ae6f9c9ea08baa8596801a538d24f731b2f6d3dcbd3b524bb0d5a27c8a2f3a2",
+          "failures": [],
+          "rounds": 80,
+          "best_val_dice": 86.31810526660297,
+          "test_dice": 87.9606463082453,
+          "aggregation_method": "adapted_fedclam_client_momentum"
+        },
+        "1": {
+          "status": "passed",
+          "path": "not_released/external_path/training_history.json",
+          "sha256": "9fac452caf26a3fe7f96f339c74968357bf8a62a169c18bbf570c09c5374cc24",
+          "failures": [],
+          "rounds": 80,
+          "best_val_dice": 86.47416999497894,
+          "test_dice": 88.95655926869249,
+          "aggregation_method": "adapted_fedclam_client_momentum"
+        },
+        "2": {
+          "status": "passed",
+          "path": "not_released/external_path/training_history.json",
+          "sha256": "58cf0c7a859befb095ea8ff725f6a99cf15a49313a878548ad86f671491ae077",
+          "failures": [],
+          "rounds": 80,
+          "best_val_dice": 86.24206978371852,
+          "test_dice": 88.82538135687844,
+          "aggregation_method": "adapted_fedclam_client_momentum"
+        },
+        "3": {
+          "status": "passed",
+          "path": "not_released/external_path/training_history.json",
+          "sha256": "40033322895d3bc72e28ee9436f5cf751e9a546373be974282ea3c45d876fc34",
+          "failures": [],
+          "rounds": 80,
+          "best_val_dice": 86.98558612866888,
+          "test_dice": 88.95512408720968,
+          "aggregation_method": "adapted_fedclam_client_momentum"
+        },
+        "4": {
+          "status": "passed",
+          "path": "not_released/external_path/training_history.json",
+          "sha256": "2a88ed872e5475a0bf9b9d6f09cdc1dffd59fe56ff2c2a8ed768ec06169fa453",
+          "failures": [],
+          "rounds": 80,
+          "best_val_dice": 86.44165864588258,
+          "test_dice": 88.16061371080735,
+          "aggregation_method": "adapted_fedclam_client_momentum"
+        }
+      },
+      "test_dice": {
+        "count": 5,
+        "mean": 88.57166494636665,
+        "std": 0.47483246082281994,
+        "ci95_half_width": 0.4162090028467457,
+        "minimum": 87.9606463082453,
+        "maximum": 88.95655926869249
+      }
+    }
+  }
+}

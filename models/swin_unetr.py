@@ -17,7 +17,7 @@ class SwinUNETR(nn.Module):
         if not HAS_MONAI:
             raise ImportError("❌ MONAI 未安装。请运行: pip install monai")
 
-        # Detect the constructor signature exposed by the installed MONAI version.
+        # [TCAD Critical Fix] 动态检测当前 MONAI 版本的参数签名
         sig = inspect.signature(MonaiSwinUNETR.__init__)
 
         # 构造全量参数字典

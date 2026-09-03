@@ -4,6 +4,19 @@ import torch
 import torch.nn as nn
 from typing import Dict, Union
 
+try:
+    from torch.func import functional_call as _functional_call
+
+    def functional_call(module, replacements, args, kwargs):
+        return _functional_call(
+            module, replacements, args=args, kwargs=kwargs, strict=False
+        )
+except ImportError:
+    from torch.nn.utils.stateless import functional_call as _functional_call
+
+    def functional_call(module, replacements, args, kwargs):
+        return _functional_call(module, replacements, args, kwargs, strict=False)
+
 PrecisionMode = Union[str, Dict[str, str]]
 
 
@@ -15,10 +28,16 @@ class HMPEPrecisionEmulator(nn.Module):
     - 默认不量化最后一层 logits (例如 UNet 的 outc)，避免 Dice 彻底崩盘
     """
 
-    def __init__(self, model: nn.Module, default_precision: str = 'FP32'):
+    def __init__(
+        self,
+        model: nn.Module,
+        default_precision: str = 'FP32',
+        quantize_weights: bool = False,
+    ):
         super().__init__()
         self.model = model
         self.default_precision = default_precision
+        self.quantize_weights = bool(quantize_weights)
         self.layer_policies: Dict[str, str] = {}
         self.quantization_generator = None
 
@@ -54,7 +73,17 @@ class HMPEPrecisionEmulator(nn.Module):
         if any(name.endswith(suf) for suf in self.blacklist_suffix):
             return False
         # 2) 只量化 Conv / Linear / MHA
-        return isinstance(module, (nn.Conv2d, nn.Conv3d, nn.Linear, nn.MultiheadAttention))
+        return isinstance(
+            module,
+            (
+                nn.Conv2d,
+                nn.Conv3d,
+                nn.ConvTranspose2d,
+                nn.ConvTranspose3d,
+                nn.Linear,
+                nn.MultiheadAttention,
+            ),
+        )
 
     def _get_mode_for_layer(self, name: str) -> str:
         # per-layer 策略 > default
@@ -89,13 +118,41 @@ class HMPEPrecisionEmulator(nn.Module):
             if self._should_quantize(name, module):
                 hooks.append(module.register_forward_pre_hook(make_pre_hook(name)))
 
+        replacements = {}
+        if self.quantize_weights:
+            for name, module in self.model.named_modules():
+                if not self._should_quantize(name, module):
+                    continue
+                mode = self._get_mode_for_layer(name)
+                if mode == 'FP32':
+                    continue
+                for parameter_name, parameter in module.named_parameters(recurse=False):
+                    if "weight" not in parameter_name or not parameter.is_floating_point():
+                        continue
+                    qualified_name = (
+                        f"{name}.{parameter_name}" if name else parameter_name
+                    )
+                    replacements[qualified_name] = self._fake_quantize(parameter, mode)
+
         try:
-            out = self.model(x, *args, **kwargs)
+            call_args = (x, *args)
+            if replacements:
+                out = functional_call(self.model, replacements, call_args, kwargs)
+            else:
+                out = self.model(*call_args, **kwargs)
         finally:
             for h in hooks:
                 h.remove()
 
         return out
+
+    @property
+    def operand_model(self) -> str:
+        return (
+            "quantized_activations_and_weights_fp32_accumulation"
+            if self.quantize_weights
+            else "legacy_activation_only_fake_quantization"
+        )
 
     # --------- 伪量化实现 ---------
 

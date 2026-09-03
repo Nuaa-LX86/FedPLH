@@ -1,148 +1,87 @@
 # FedPLH
 
-This repository accompanies the manuscript:
+FedPLH is the code and evidence package for the TPDS manuscript:
 
-> **FedPLH: A Cross-Layer Framework for Budget-Covered Privacy-Operator Execution in Edge Federated Medical Learning**
+**FedPLH: Cross-Layer Privacy-Operator Scheduling for Cross-Silo Federated Medical Learning**
 
-It contains the implementation and paper-facing evidence used for the FedPLH
-study. The evaluated workload is federated 3D medical image segmentation on
-BraTS 2021 with a 3D U-Net backbone.
+The repository exposes source code, frozen experiment protocols, validated aggregate evidence, sanitized profile values, and postprocessed summaries used by the manuscript. It does not include raw BraTS data, private medical images, complete original synthesis reports, foundry-library-bound artifacts, or model checkpoints.
 
-## Contents
+## Artifact Map
 
-The main code is organized as follows:
+| Manuscript wording | Repository entry point | What it contains |
+| --- | --- | --- |
+| Source code | `main_experiment.py`, `training/`, `models/`, `simulator/`, `scripts/`, `visualization/`, `tests/` | Training, SoftDP processing, ACF scheduling, aggregation simulation, postprocessing, plotting, and integrity checks. |
+| Frozen experiment protocols | `frozen_experiment_protocols/` | Human-readable protocol entry points for the frozen BraTS partition, client schedules, seeds, and baseline adaptation scope. |
+| Validated aggregate evidence | `validated_aggregate_evidence/` | Aggregate-only evidence summaries, hash manifests, integrity reports, and the frozen-trace BEU credit-factor sensitivity result. |
+| Sanitized profile values | `sanitized_profile_values/` | Released hardware profile values and the source/derivation record for the manuscript hardware-comparison table. |
+| Postprocessed summaries | `postprocessed_summaries/` | Paper-facing JSON/CSV/TEX summaries reconstructed from the frozen runs and hardware profile. |
 
-```text
-main_experiment.py         experiment entry point
-training/                  federated training, SoftDP processing, ACF, aggregation
-models/                    3D U-Net and precision wrappers
-simulator/                 hardware-profile-based system model
-scripts/                   preprocessing, postprocessing, plots, run scripts
-tests/                     integrity and semantics checks
-experiment_protocols/      frozen partitions, seeds, schedules, protocol notes
-artifacts/                 released aggregate evidence and paper summaries
-hardware_profile.json      released hardware-profile values used by the model
-```
+## Setup
 
-The manuscript-facing artifacts are:
+The validated software environment uses Python 3.10.
 
 ```text
-artifacts/validated_aggregate_evidence.json
-artifacts/sanitized_profile_values.json
-artifacts/postprocessed_summaries/
-artifacts/beu_credit_factor_sensitivity.json
-artifacts/beu_credit_factor_inputs/
-artifacts/hardware_comparison_provenance.csv
-experiment_protocols/tetc_semantic_20260615/
-```
-
-`artifacts/semantic_evidence_summary.json` is kept as an older alias for the
-validated aggregate evidence.
-
-## Scope
-
-This is not a raw-data or full-hardware release. We do not redistribute BraTS
-scans, private medical images, model checkpoints, complete per-run output
-directories, complete original synthesis reports, standard-cell libraries, or
-foundry-bound artifacts.
-
-The released hardware values are sanitized profile values used by the
-trace-based model. The SoftDP accountant output reported in the paper is
-nominal and is not a formal patient-level differential-privacy guarantee.
-
-## Environment
-
-The validated environment used Python 3.10.
-
-```bash
 python -m venv .venv
-source .venv/bin/activate        # Linux/macOS
-# .\.venv\Scripts\Activate.ps1   # Windows PowerShell
-
-python -m pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-If pip selects the wrong PyTorch build, install the CPU or CUDA wheel matching
-your machine first.
-
-## Quick Checks
-
-Run the tests from the repository root:
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-For a small smoke test that does not require BraTS:
-
-```bash
-python main_experiment.py \
-  --step train \
-  --allow_synthetic \
-  --rounds 1 \
-  --clients 10 \
-  --client_fraction 0.1 \
-  --local_epochs 1 \
-  --img_size 16 \
-  --batch_size 2 \
-  --suite sota \
-  --scenarios FP32_noDP \
-  --deterministic \
-  --output_root outputs/smoke
-```
-
-Synthetic runs are only software checks and should not be cited as paper
-evidence.
-
-Reproduce the BEU credit-factor sensitivity result with the released aggregate
-inputs:
-
-```bash
-python plot_beu_boundary.py \
-  --profile hardware_profile.json \
-  --paper_results artifacts/postprocessed_summaries/paper_results.json \
-  --method HMPE-ACF \
-  --history_glob "artifacts/beu_credit_factor_inputs/seed*/training_history.json" \
-  --credit_output artifacts/beu_credit_factor_sensitivity.reproduced.json \
-  --output artifacts/Fig6_BEU_Boundary.reproduced.pdf
-```
-
-The command checks for five seeds and 80 rounds per seed. These inputs contain
-participant-mean cycle counts only; they are not per-client or straggler traces.
-
-## BraTS Data
-
-BraTS 2021 must be obtained through the official access process. After
-downloading it, preprocess with:
-
-```bash
-python scripts/preprocess_brats_3d.py \
-  --dataset_root /path/to/BraTS2021 \
-  --output_root dataset/processed
-```
-
-## Frozen Protocol
-
-The frozen TETC protocol is described in:
+BraTS data must be obtained through its official access process. After download:
 
 ```text
-experiment_protocols/tetc_semantic_20260615/EXPERIMENT_PROTOCOL.md
+python scripts/preprocess_brats_3d.py --dataset_root <BraTS2021> --output_root dataset/processed
 ```
 
-The full run is computationally expensive. The released aggregate evidence used
-for the manuscript is available under `artifacts/`.
+The five-seed training runs are computationally expensive. The released aggregate evidence can be checked without the BraTS data.
 
-## Citation
+## License and Citation
 
-If you use this repository, cite the manuscript using `CITATION.cff`. The
-citation metadata is marked as a preprint artifact until a stable bibliographic
-record is available.
+Original FedPLH code, scripts, documentation, and released aggregate evidence are provided under the MIT License. Third-party datasets, BraTS medical images, external baseline code, model checkpoints, proprietary synthesis reports, standard-cell libraries, and foundry-library-bound artifacts remain governed by their own terms.
 
-## License
+If you use this repository, cite the manuscript using the metadata in `CITATION.cff`.
 
-Original FedPLH code, scripts, documentation, and released aggregate evidence
-are provided under the MIT License. Third-party datasets, BraTS medical images,
-external baseline code, model checkpoints, proprietary synthesis reports,
-standard-cell libraries, and foundry-bound artifacts remain governed by their
-own terms.
+## Verify the Release
+
+Run the release checks from the repository root:
+
+```powershell
+python -m pytest -q
+python scripts/verify_public_release.py
+```
+
+The final paper-facing result summary is:
+
+```text
+postprocessed_summaries/paper_results.json
+```
+
+To reproduce the participant-mean BEU credit-factor sensitivity artifact:
+
+```powershell
+python plot_beu_boundary.py `
+  --profile hardware_profile.json `
+  --paper_results postprocessed_summaries/paper_results.json `
+  --method HMPE-ACF `
+  --history_glob "validated_aggregate_evidence/beu_credit_factor_inputs/seed*/training_history.json" `
+  --credit_output validated_aggregate_evidence/beu_credit_factor_sensitivity.reproduced.json `
+  --output Fig6_BEU_Boundary_reproduced.pdf
+```
+
+The command must find five seeds and 400 round records. The released inputs contain only the three aggregate arrays used by this analysis. The output is an aggregate round-level sensitivity check, not a per-client or straggler bound.
+
+Figures 4 and 5 can be regenerated from the released aggregate summary and
+minimal five-seed learning trajectories:
+
+```powershell
+python scripts/generate_tpds_figures.py `
+  --paper-results postprocessed_summaries/paper_results.json `
+  --trajectory-dir postprocessed_summaries/convergence_inputs `
+  --output-dir reproduced_figures `
+  --manifest reproduced_figures/manifest.json
+```
+
+## Evidence Boundaries
+
+- The SoftDP accountant output is nominal and is not a formal differential-privacy guarantee.
+- Reported energy metrics are modeled local-training compute/memory energy; they exclude SoftDP auxiliary energy, BEU auxiliary logic, communication, and server aggregation.
+- Hardware evidence combines RTL functional verification, separate client/server VCU128-targeted OOC post-route profiles, SAIF power analysis, and trace-based evaluation; it is not a board deployment or complete edge-system measurement.
+- The repository provides aggregate evidence and protocol manifests, not raw medical data or private patient-level artifacts.

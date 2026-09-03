@@ -25,9 +25,11 @@ from experiments.losses import DiceLoss
 from experiments.microarchitecture_benchmark import benchmark_microarchitecture
 from experiments.roofline_generator import generate_roofline_data
 from experiments.scalability_test import test_pec_scalability
+from models.fedmpq_proxy import FedMPQProxy
 from models.precision_wrapper import HMPEPrecisionEmulator
 from models.unet3d import UNet3D
 from training.federated_trainer import FederatedTrainer
+from training.sota_adapters import EvidentialDiceLoss3D, FedCLAMDiceFIMLoss3D
 from utils.reproducibility import (
     build_client_schedule,
     collect_environment,
@@ -48,12 +50,14 @@ except ImportError:
     HAS_UNETR = False
 
 
-def ensure_hardware_profile():
-    if not os.path.exists("hardware_profile.json"):
+def ensure_hardware_profile(profile_path: str) -> Path:
+    resolved = Path(profile_path).expanduser().resolve()
+    if not resolved.is_file():
         raise FileNotFoundError(
-            "hardware_profile.json is required; automatic profile generation "
-            "is disabled to prevent configuration drift."
+            f"Hardware profile is required: {resolved}. Automatic profile "
+            "generation is disabled to prevent configuration drift."
         )
+    return resolved
 
 
 def set_seed(seed: int, deterministic: bool = False):
@@ -104,7 +108,11 @@ def summarize_seed_metrics(seed_to_metrics: Dict[int, Dict[str, Any]]):
 
     return mean, std, ci95
 
-def build_model(model_name: str, compute_precision: str):
+def build_model(
+    model_name: str,
+    compute_precision: str,
+    hmpe_operand_model: str = "legacy_activation_only",
+):
     if model_name == "unet":
         base_model = UNet3D(n_channels=4, n_classes=4)
     else:
@@ -112,8 +120,32 @@ def build_model(model_name: str, compute_precision: str):
             raise ImportError("MONAI is required for SwinUNETR. Please install monai.")
         base_model = SwinUNETR(img_size=64, in_channels=4, out_channels=4)
 
+    if compute_precision == "FedMPQ_PROXY":
+        return FedMPQProxy(base_model, default_bits=8)
+
     # Wrap with precision emulator
-    return HMPEPrecisionEmulator(base_model, default_precision=compute_precision)
+    return HMPEPrecisionEmulator(
+        base_model,
+        default_precision=compute_precision,
+        quantize_weights=(hmpe_operand_model == "quantized_operands"),
+    )
+
+
+def build_criterion(strategy: str, policy: Dict[str, Any]) -> torch.nn.Module:
+    if strategy == "FedEvi":
+        return EvidentialDiceLoss3D(
+            kl_weight=float(policy.get("kl_weight", 0.01)),
+            annealing_step=int(policy.get("annealing_step", 10)),
+        )
+    if strategy == "FedCLAM":
+        return FedCLAMDiceFIMLoss3D(
+            classes=4,
+            lambda_dice=float(policy.get("lambda_dice", 0.5)),
+            lambda_fim=float(policy.get("lambda_fim", 0.5)),
+            fim_warmup_rounds=int(policy.get("fim_warmup_rounds", 10)),
+            pooled_size=int(policy.get("fim_pooled_size", 16)),
+        )
+    return DiceLoss(n_classes=4)
 
 
 def print_sensitivity_summary(suite_metrics: dict):
@@ -127,10 +159,9 @@ def print_sensitivity_summary(suite_metrics: dict):
     print(f"{'=' * 80}")
     print(f"[GPU] {device_name} | CUDA: {cuda_ok} | AMP: {cuda_ok}")
     if not cuda_ok:
-        print("WARNING: CUDA is unavailable; training will run slowly on CPU.")
+        print("WARNING: CUDA不可用，将使用CPU训练，速度极慢！")
         print(
-            "Install a CUDA-compatible PyTorch build to enable GPU training."
-        )
+            "请检查: conda activate hmpe_acf_env && pip install torch --index-url https://download.pytorch.org/whl/cu118")
     print("=" * 80)
 
     # λ扫描汇总
@@ -178,7 +209,7 @@ def run_full_pipeline(args):
     seeds = parse_seeds(getattr(args, "seeds", ""), args.seed)
     # 注意：split_seed 控制数据划分；这里 seeds 控制训练初始化/客户端采样随机性
     set_seed(seeds[0] if seeds else args.seed, deterministic=args.deterministic)
-    ensure_hardware_profile()
+    hardware_profile_path = ensure_hardware_profile(args.hardware_profile)
 
     print("=" * 80)
     print(f" HMPE-ACF Full SOTA Matrix | Model: {args.model.upper()} | Rounds: {args.rounds}")
@@ -243,6 +274,41 @@ def run_full_pipeline(args):
                 "comm_interval": 1,
             },
 
+            "FedEvi": {
+                "dp": {**common_dp, "simulate_hardware_beu": False},
+                "acf": {
+                    "compute": "FP32",
+                    "strategy": "FedEvi",
+                    "gamma": 1.0,
+                    "kl_weight": 0.01,
+                    "annealing_step": 10,
+                    "adaptation_scope": (
+                        "mechanism-preserving adapter in common 3D harness"
+                    ),
+                },
+                "comm_interval": 1,
+            },
+
+            "FedCLAM": {
+                "dp": {**common_dp, "simulate_hardware_beu": False},
+                "acf": {
+                    "compute": "FP32",
+                    "strategy": "FedCLAM",
+                    "alpha": 1.0,
+                    "beta": 1.0,
+                    "agg_lr": 1.0,
+                    "zero_init": False,
+                    "lambda_dice": 0.5,
+                    "lambda_fim": 0.5,
+                    "fim_warmup_rounds": 10,
+                    "fim_pooled_size": 16,
+                    "adaptation_scope": (
+                        "mechanism-preserving adapter with pooled 3D foreground matching"
+                    ),
+                },
+                "comm_interval": 1,
+            },
+
             # 3) FedPAQ baseline (系统侧对比：周期聚合)
             "FedPAQ": {
                 "dp": {**common_dp, "simulate_hardware_beu": False},
@@ -256,6 +322,22 @@ def run_full_pipeline(args):
             },
 
             # 4) Mao et al. (硬件侧：BF16 + software DP)
+            # Feasibility gate only; not a reportable FedMPQ result.
+            "FedMPQ_proxy": {
+                "dp": {**common_dp, "simulate_hardware_beu": False},
+                "acf": {
+                    "compute": "FedMPQ_PROXY",
+                    "strategy": "FedMPQProxy",
+                    "group_lasso_lambda": 0.001,
+                    "pruning_threshold": 0.02,
+                    "client_budgets": [
+                        2, 2, 4, 4, 4, 6, 6, 6, 8, 8,
+                        2, 2, 4, 4, 4, 6, 6, 6, 8, 8,
+                    ],
+                },
+                "comm_interval": 1,
+            },
+
             "Mao_etal": {
                 "dp": {**common_dp, "simulate_hardware_beu": False},
                 "acf": {"compute": "BF16", "strategy": "FedAvg"},
@@ -308,6 +390,10 @@ def run_full_pipeline(args):
 
         # === 消融实验 (Ablation) ===
         # 目标：分离 HMPE / BEU / PEC / ACF 各自带来的收益
+        fedmpq_screen_scenarios = {
+            "FedMPQ_proxy": sota_scenarios.pop("FedMPQ_proxy")
+        }
+
         ablation_scenarios = {
             # A0: 纯软件基线 (FP32 + SoftDP + Software Aggregation)
             "A0_FP32_softDP_SW": {
@@ -491,6 +577,7 @@ def run_full_pipeline(args):
         # -----------------------------
         scenario_groups = {
             "sota": sota_scenarios,
+            "fedmpq_screen": fedmpq_screen_scenarios,
             "ablation": ablation_scenarios,
             "sensitivity": sensitivity_scenarios,
             "acf_evidence": acf_evidence_scenarios,
@@ -532,13 +619,11 @@ def run_full_pipeline(args):
             "experiments/scalability_test.py",
             "plot_beu_boundary.py",
             "scripts/build_paper_results.py",
-            "scripts/run_tetc_core.ps1",
-            "scripts/run_tetc_acf_round2.ps1",
-            "scripts/run_tetc_semantic_pilot.ps1",
-            "scripts/run_tetc_semantic_stress_pilot.ps1",
-            "scripts/run_tetc_semantic_final.ps1",
-            "scripts/analyze_semantic_pilot.py",
-            "scripts/build_tetc_semantic_evidence.py",
+            "scripts/generate_tpds_figures.py",
+            "scripts/run_tpds_final_profile_smoke.ps1",
+            "scripts/run_tpds_matched_five_seed.ps1",
+            "scripts/run_tpds_sota_five_seed.ps1",
+            "scripts/build_simulator_profile_from_fpga.py",
             "scripts/export_partition_evidence.py",
             "scripts/plot_non_iid_characterization.py",
             "scripts/build_acf_evidence.py",
@@ -554,8 +639,8 @@ def run_full_pipeline(args):
             "environment": collect_environment(),
             "dataset": dataset_inventory(Path(args.data_root)),
             "hardware_profile": {
-                "path": str(Path("hardware_profile.json").resolve()),
-                "sha256": sha256_file(Path("hardware_profile.json")),
+                "path": str(hardware_profile_path),
+                "sha256": sha256_file(hardware_profile_path),
             },
             "source_sha256": fingerprint_files(Path.cwd(), source_files),
             "methodology": {
@@ -633,6 +718,7 @@ def run_full_pipeline(args):
                 "suite",
                 "scenarios",
                 "seeds",
+                "hardware_profile",
             ]
             old_args = existing_manifest.get("arguments", {})
             changed = [
@@ -647,7 +733,7 @@ def run_full_pipeline(args):
             if existing_manifest.get("hardware_profile", {}).get("sha256") != (
                 run_manifest["hardware_profile"]["sha256"]
             ):
-                raise ValueError("Cannot resume because hardware_profile.json changed")
+                raise ValueError("Cannot resume because the hardware profile changed")
             if existing_manifest.get("source_sha256") != run_manifest["source_sha256"]:
                 raise ValueError("Cannot resume because experiment source files changed")
             if existing_manifest.get("dataset") != run_manifest["dataset"]:
@@ -762,7 +848,11 @@ def run_full_pipeline(args):
                     run_manifest["partition_evidence"] = evidence_record
                     write_json_atomic(run_manifest_path, run_manifest)
 
-                model = build_model(args.model, cfg["acf"]["compute"])
+                model = build_model(
+                    args.model,
+                    cfg["acf"]["compute"],
+                    hmpe_operand_model=args.hmpe_operand_model,
+                )
                 resolved_acf = {
                     "compute": cfg["acf"].get("compute"),
                     "strategy": cfg["acf"].get("strategy"),
@@ -830,10 +920,13 @@ def run_full_pipeline(args):
                 trainer = FederatedTrainer(
                     model=model,
                     optimizer_fn=lambda p: torch.optim.AdamW(p, lr=float(args.lr)),
-                    criterion=DiceLoss(n_classes=4),
+                    criterion=build_criterion(
+                        str(cfg["acf"].get("strategy", "FedAvg")),
+                        cfg["acf"],
+                    ),
                     dp_config=cfg["dp"],
                     acf_policy=cfg["acf"],
-                    hw_profile_path="hardware_profile.json",
+                    hw_profile_path=str(hardware_profile_path),
                     output_dir=str(out_dir),
                     comm_interval=cfg["comm_interval"],
                     run_seed=seed,
@@ -934,6 +1027,12 @@ if __name__ == "__main__":
     parser.add_argument("--data_root", type=str, default="./dataset/processed")
     parser.add_argument("--allow_synthetic", action="store_true")
     parser.add_argument("--output_root", type=str, default="./results")
+    parser.add_argument(
+        "--hardware_profile",
+        type=str,
+        default="./hardware_profile.json",
+        help="Audited hardware profile used by the trace-based simulator.",
+    )
     parser.add_argument("--figures_root", type=str, default="")
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--resume", action="store_true")
@@ -1011,6 +1110,16 @@ if __name__ == "__main__":
     parser.add_argument("--img_size", type=int, default=64)
     parser.add_argument("--batch_size", type=int, default=None)
     parser.add_argument("--lr", type=float, default=1e-4)
+    parser.add_argument(
+        "--hmpe_operand_model",
+        choices=["legacy_activation_only", "quantized_operands"],
+        default="legacy_activation_only",
+        help=(
+            "Use legacy activation-only fake quantization for exact reproduction of "
+            "frozen runs, or quantize both HMPE operands with FP32 accumulation for "
+            "new hardware-aligned training runs."
+        ),
+    )
 
     # dp params (Soft-DP)
     parser.add_argument("--noise_multiplier", type=float, default=0.1)
@@ -1030,7 +1139,14 @@ if __name__ == "__main__":
         "--suite",
         type=str,
         default="sota",
-        choices=["sota", "ablation", "sensitivity", "acf_evidence", "all"],
+        choices=[
+            "sota",
+            "fedmpq_screen",
+            "ablation",
+            "sensitivity",
+            "acf_evidence",
+            "all",
+        ],
         help="Which scenario suite to run.",
     )
     parser.add_argument(
