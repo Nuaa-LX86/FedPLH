@@ -19,14 +19,14 @@ authors:
     given-names: Yijun
 repository-code: "https://github.com/Nuaa-LX86/FedPLH"
 url: "https://github.com/Nuaa-LX86/FedPLH"
-version: "preprint-artifact-2026-09-04"
-date-released: "2026-09-04"
-abstract: "FedMPE is a code and evidence package for coordinated mixed precision execution in federated 3D medical image segmentation. It includes frozen protocols, aggregate experimental evidence, and VCU128-targeted implementation profiles, but not raw BraTS data, medical images, model checkpoints, or proprietary implementation reports."
+version: "preprint-artifact-2026-09"
+date-released: "2026-09-05"
+abstract: "FedMPE coordinates mixed precision execution for federated 3D medical image segmentation. Its HMPE accelerates local training, a Budget Enabling Unit evaluates auxiliary operator deadlines, and a streaming aggregator handles precision tagged updates. This package contains code, frozen protocols, aggregate evidence, hardware profile values, and postprocessed results."
 keywords:
   - federated learning
   - medical image segmentation
-  - edge computing
-  - mixed-precision computing
-  - hardware-software co-design
+  - mixed precision training
+  - FPGA acceleration
+  - reconfigurable computing
   - execution scheduling
 license: MIT

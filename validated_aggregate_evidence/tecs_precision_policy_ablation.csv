@@ -1,4 +1,4 @@
-scenario,label,seed,test_dice,WT,TC,ET,full_credit_bound_latency_ms,covered_operator_cost_ms,actual_latency_ms,local_training_energy_mJ,bf16_assignment_rate,actual_latency_norm_to_static_bf16,energy_norm_to_static_bf16
+scenario,label,seed,test_dice,WT,TC,ET,admission_bound_latency_ms,admitted_operator_cost_ms,actual_latency_ms,local_training_energy_mJ,bf16_assignment_rate,actual_latency_norm_to_static_bf16,energy_norm_to_static_bf16
 ACF_static_BF16,Static BF16,0,87.30728695211661,90.55671229081995,88.68130184127611,82.68384672425378,164835.269537731,267.806614894737,165103.07615262573,928206.5723005161,1.0,1.0,1.0
 ACF_static_BF16,Static BF16,1,87.37189530967412,90.42583048343658,88.48235152561746,83.20750391996829,164717.7713463859,267.70511007894754,164985.47645646485,928544.9633221349,1.0,1.0,1.0
 ACF_static_BF16,Static BF16,2,87.07146166389849,89.45430513690499,88.24434282644147,83.51573702834901,165892.75325983626,268.7201582368422,166161.4734180731,931252.0914950857,1.0,1.0,1.0

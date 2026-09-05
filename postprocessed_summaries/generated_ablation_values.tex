@@ -2,13 +2,14 @@
 \renewcommand{\PrecisionPolicyAblationRows}{%
   Static BF16 & 87.19\(\pm\)0.39 & 1.000\(\pm\)0.000 & 1.000\(\pm\)0.000 & 100.0\% \\
   Static FP8 & 86.95\(\pm\)0.63 & 0.252\(\pm\)0.000 & 0.255\(\pm\)0.000 & 0.0\% \\
-  Progress only & 87.17\(\pm\)0.25 & 0.854\(\pm\)0.023 & 0.635\(\pm\)0.011 & 50.9\% \\
+  {\bfseries Progress only} & {\bfseries 87.17\(\pm\)0.25} & {\bfseries 0.854\(\pm\)0.023} & {\bfseries 0.635\(\pm\)0.011} & {\bfseries 50.9\%} \\
   Entropy only & 87.17\(\pm\)0.40 & 0.997\(\pm\)0.004 & 0.926\(\pm\)0.013 & 90.1\% \\
   Entropy + progress & 87.11\(\pm\)0.33 & 0.978\(\pm\)0.015 & 0.775\(\pm\)0.017 & 69.8\% \\
 }
-\renewcommand{\FullVsFPClassDiffs}{+0.07, +0.19, and +0.21}
-\renewcommand{\FullVsBFClassDiffs}{-0.26, +0.20, and -0.18}
+\renewcommand{\ProgressVsFPClassDiffs}{+0.22, +0.15, and +0.28}
+\renewcommand{\ProgressVsBFClassDiffs}{-0.11, +0.16, and -0.11}
+\renewcommand{\ProgressVsCombinedClassDiffs}{+0.15, -0.04, and +0.07}
 \renewcommand{\PrecisionPolicyAdaptiveGate}{passed}
-\renewcommand{\PrecisionPolicySynergyGate}{not passed}
-\renewcommand{\PrecisionPolicyMainFinding}{The combined policy lies between the static endpoints: its mean Dice exceeded Static FP8, while its serial latency and scoped energy remained below Static BF16. These directions held in 4/5, 5/5, and 5/5 paired seeds, respectively.}
-\renewcommand{\PrecisionPolicyJointFinding}{Progress only provided a stronger three-metric operating point than the combined setting. Entropy and progress are therefore treated as alternative controller inputs rather than a verified joint gain.}
+\renewcommand{\ProgressDominatesCombinedGate}{passed}
+\renewcommand{\PrecisionPolicyMainFinding}{The progress policy lies between the static endpoints: its mean Dice exceeded Static FP8, while its serial latency and scoped energy remained below Static BF16. These directions held in 4/5, 5/5, and 5/5 paired seeds, respectively.}
+\renewcommand{\PrecisionPolicyCombinedFinding}{Progress only has higher observed mean Dice and lower mean serial latency and scoped energy than the combined policy. It is used as the representative configuration because it also requires one controller input; this observation is not a claim of global optimality.}

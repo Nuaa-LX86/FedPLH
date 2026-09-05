@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
-  "analysis": "BEU schedulable-credit-factor sensitivity",
-  "scope": "Participant-mean round-level records from frozen HMPE-ACF traces; not a per-client, per-update, or critical-path-straggler analysis.",
-  "definition": "required_credit_factor = c_priv_cycles / delta_c_cycles",
-  "input_hash_basis": "Canonical JSON projection of round, delta_c_cycles, and c_priv_cycles; unrelated history fields are excluded.",
+  "analysis": "BEU timing-credit sensitivity",
+  "scope": "Round records averaged over participants from the frozen Progress only histories; not a per-client, per-update, or straggler analysis.",
+  "definition": "required_credit_factor = operator_cost_cycles / profiled_timing_slack_cycles",
+  "input_hash_basis": "Canonical JSON projection of round, profiled timing slack cycles, and operator cost cycles; unrelated history fields are excluded.",
   "expected_seed_count": 5,
   "expected_round_count_per_seed": 80,
   "seed_count": 5,
   "record_count": 400,
-  "mean_required_credit_factor": 0.00019969855052855444,
-  "median_required_credit_factor": 0.00020011080216895244,
+  "mean_required_credit_factor": 0.00019640562108792398,
+  "median_required_credit_factor": 0.00019569414881651708,
   "p95_required_credit_factor": 0.0002061541531345767,
   "p99_required_credit_factor": 0.0002061541531345767,
-  "minimum_required_credit_factor": 0.00018718824482192076,
+  "minimum_required_credit_factor": 0.00018469652998710968,
   "maximum_required_credit_factor": 0.0002061541531345767,
   "full_coverage_credit_factor": 0.0002061541531345767,
   "quantile_method": "linear",
@@ -47,31 +47,31 @@
     {
       "seed_id": "seed0",
       "file": "seed0/training_history.json",
-      "sha256": "8c343dba17e17b9aa4955094e6a6911175b90e3d010063c788c1bff36897d9db",
+      "sha256": "3c09534f4c60ad0059ddcf5542aa954e27e695e67439f8995fdde0fdac9a1028",
       "round_count": 80
     },
     {
       "seed_id": "seed1",
       "file": "seed1/training_history.json",
-      "sha256": "49c7335937fe80fe8c9bcf4a89c0facd98c751591b4e0dd8b6ec026a8757f63b",
+      "sha256": "5d50c2648f647673ba8f831dd4f0a402f2199d94672edc9ec60cb6d802901920",
       "round_count": 80
     },
     {
       "seed_id": "seed2",
       "file": "seed2/training_history.json",
-      "sha256": "cc1b2f559f6278ff97efca10396bc56dc7959349ac93a61aea23f21e81953c60",
+      "sha256": "e685553ffc3c9d72a4cd891ec2d86ed3120883144017204731b54b726644e47e",
       "round_count": 80
     },
     {
       "seed_id": "seed3",
       "file": "seed3/training_history.json",
-      "sha256": "3686d01a6d0e4d0888c65bd20409f4097831c3a6a6303385227df3f6024e5850",
+      "sha256": "63a00d6ff34a6e8bc428df1661c8bbec852e44d279faf02d08471550f9fd27e3",
       "round_count": 80
     },
     {
       "seed_id": "seed4",
       "file": "seed4/training_history.json",
-      "sha256": "18485c802920a500b0283595f643cfade68f1abf9980a1c5b86aa0dabb5fb8f5",
+      "sha256": "d8ede959396ffcf020dbf6f77a99eacdc4463472cc04a76aca92c84daab5e3cc",
       "round_count": 80
     }
   ]

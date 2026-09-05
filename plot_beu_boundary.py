@@ -48,14 +48,29 @@ def load_cycles_from_paper_results(
         payload = json.load(handle)
     results = payload.get("results", payload)
     metrics = results[method]["metrics"]
-    return (
-        float(metrics["avg_delta_c_cycles"]),
-        float(metrics["avg_c_priv_cycles"]),
+    slack_key = (
+        "avg_profiled_timing_slack_cycles"
+        if "avg_profiled_timing_slack_cycles" in metrics
+        else "avg_delta_c_cycles"
     )
+    operator_key = (
+        "avg_operator_cost_cycles"
+        if "avg_operator_cost_cycles" in metrics
+        else "avg_c_priv_cycles"
+    )
+    return float(metrics[slack_key]), float(metrics[operator_key])
 
 
-def _analysis_input_sha256(payload: dict, required_fields: Sequence[str]) -> str:
-    projected = {key: payload[key] for key in required_fields}
+def _analysis_input_sha256(
+    rounds: Sequence[object],
+    slack_cycles: Sequence[object],
+    operator_cycles: Sequence[object],
+) -> str:
+    projected = {
+        "round": rounds,
+        "profiled_timing_slack_cycles": slack_cycles,
+        "operator_cost_cycles": operator_cycles,
+    }
     canonical = json.dumps(
         projected,
         sort_keys=True,
@@ -100,7 +115,6 @@ def compute_credit_factor_sensitivity(
     if len(set(seed_ids)) != len(seed_ids):
         raise ValueError("Training-history paths contain duplicate seed identifiers")
 
-    required = ("round", "delta_c_cycles", "c_priv_cycles")
     ratios = []
     inputs = []
     per_seed = []
@@ -109,6 +123,17 @@ def compute_credit_factor_sensitivity(
         with path.open("r", encoding="utf-8") as handle:
             payload = json.load(handle)
 
+        slack_key = (
+            "profiled_timing_slack_cycles"
+            if "profiled_timing_slack_cycles" in payload
+            else "delta_c_cycles"
+        )
+        operator_key = (
+            "operator_cost_cycles"
+            if "operator_cost_cycles" in payload
+            else "c_priv_cycles"
+        )
+        required = ("round", slack_key, operator_key)
         missing = [key for key in required if key not in payload]
         if missing:
             raise ValueError(
@@ -134,8 +159,8 @@ def compute_credit_factor_sensitivity(
         seed_ratios = []
         for round_id, delta_c, c_priv in zip(
             payload["round"],
-            payload["delta_c_cycles"],
-            payload["c_priv_cycles"],
+            payload[slack_key],
+            payload[operator_key],
         ):
             delta_c = float(delta_c)
             c_priv = float(c_priv)
@@ -158,7 +183,11 @@ def compute_credit_factor_sensitivity(
             {
                 "seed_id": seed_id,
                 "file": f"{seed_id}/training_history.json",
-                "sha256": _analysis_input_sha256(payload, required),
+                "sha256": _analysis_input_sha256(
+                    payload["round"],
+                    payload[slack_key],
+                    payload[operator_key],
+                ),
                 "round_count": len(seed_ratios),
             }
         )
@@ -168,15 +197,18 @@ def compute_credit_factor_sensitivity(
     maximum = float(np.max(values))
     return {
         "schema_version": 1,
-        "analysis": "BEU schedulable-credit-factor sensitivity",
+        "analysis": "BEU timing-credit sensitivity",
         "scope": (
-            "Participant-mean round-level records from frozen HMPE-ACF traces; "
-            "not a per-client, per-update, or critical-path-straggler analysis."
+            "Round records averaged over participants from the frozen Progress only "
+            "histories; not a per-client, per-update, or straggler analysis."
         ),
-        "definition": "required_credit_factor = c_priv_cycles / delta_c_cycles",
+        "definition": (
+            "required_credit_factor = operator_cost_cycles / "
+            "profiled_timing_slack_cycles"
+        ),
         "input_hash_basis": (
-            "Canonical JSON projection of round, delta_c_cycles, and "
-            "c_priv_cycles; unrelated history fields are excluded."
+            "Canonical JSON projection of round, profiled timing slack cycles, "
+            "and operator cost cycles; unrelated history fields are excluded."
         ),
         "expected_seed_count": expected_seed_count,
         "expected_round_count_per_seed": expected_round_count,
@@ -243,8 +275,8 @@ def compute_boundary(
         return cycles / (frequency_mhz * 1e6) * 1e3
 
     return {
-        "delta_c_cycles": delta_c_cycles,
-        "c_priv_cycles": c_priv_cycles,
+        "profiled_timing_slack_cycles": delta_c_cycles,
+        "operator_cost_cycles": c_priv_cycles,
         "frequency_mhz": frequency_mhz,
         "coverage_threshold_multiplier": threshold,
         "required_credit_factor": required_credit_factor,
@@ -252,10 +284,11 @@ def compute_boundary(
         "visible_cost_ms_at_30x": visible_at(30.0),
         "profile_basis": (
             "Five-seed, per-round mean over participating clients; "
-            "Delta C and C_priv are client-round aggregate cycle counts."
+            "The timing difference and operator cost are aggregate cycle counts "
+            "for each client round."
         ),
         "critical_path_excluded": (
-            "This participant-mean boundary is not derived from the "
+            "This boundary based on participant means is not derived from the "
             "critical-path straggler operator latency."
         ),
         "multipliers": multipliers.tolist(),
@@ -287,7 +320,7 @@ def plot_boundary(data: dict, output_path: Path) -> None:
         where=multipliers <= threshold,
         color="#59A14F",
         alpha=0.15,
-        label="Full-credit bound",
+        label="Fully admitted region",
     )
     axes[0].fill_between(
         multipliers,
@@ -296,12 +329,12 @@ def plot_boundary(data: dict, output_path: Path) -> None:
         where=multipliers > threshold,
         color="#F28E2B",
         alpha=0.15,
-        label="Partial credit admission",
+        label="Partial admission",
     )
     axes[0].set_xlabel(r"Operator cost multiplier $m$")
     axes[0].set_ylabel("Admitted cost ratio")
     axes[0].set_ylim(0, 1.05)
-    axes[0].set_title("(a) Participant-mean budget boundary", pad=7)
+    axes[0].set_title("(a) Timing boundary from participant means", pad=7)
     axes[0].legend(frameon=False, loc="lower left")
     axes[0].scatter([1.0], [1.0], color="#222222", s=20, zorder=4)
     axes[0].annotate(
@@ -313,7 +346,7 @@ def plot_boundary(data: dict, output_path: Path) -> None:
     )
     boundary_text_x = max(2.0, threshold / 10.0) if use_log_x else max(2.0, 0.60 * threshold)
     axes[0].annotate(
-        f"Full-credit boundary\n$m={threshold:.3f}$",
+        f"Full admission boundary\n$m={threshold:.3f}$",
         xy=(threshold, 1.0),
         xytext=(boundary_text_x, 0.73),
         fontsize=7,
@@ -343,12 +376,12 @@ def plot_boundary(data: dict, output_path: Path) -> None:
         where=admission_ratio >= 1.0,
         color="#59A14F",
         alpha=0.15,
-        label="Full-credit bound",
+        label="No visible residual",
     )
     axes[1].scatter([1.0], [0.0], color="#222222", s=20, zorder=4)
     visible_max = max(float(np.max(admission_visible_ms)), 1.0)
     axes[1].annotate(
-        "Credit threshold\n"
+        "Admission threshold\n"
         + rf"$\lambda_{{\rm req}}={100.0 * required_credit_factor:.3f}\%$",
         xy=(1.0, 0.0),
         xytext=(0.62, 0.48 * visible_max),
@@ -388,14 +421,14 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--profile", default="hardware_profile.json")
     parser.add_argument("--paper_results", default="")
-    parser.add_argument("--method", default="HMPE-ACF")
+    parser.add_argument("--method", default="FedMPE")
     parser.add_argument("--delta_c_cycles", type=float)
     parser.add_argument("--c_priv_cycles", type=float)
     parser.add_argument(
         "--history_glob",
         default="",
         help=(
-            "Optional recursive glob for frozen HMPE-ACF training histories. "
+            "Optional recursive glob for frozen Progress-only training histories. "
             "When provided, credit-factor sensitivity is embedded in the "
             "figure JSON."
         ),

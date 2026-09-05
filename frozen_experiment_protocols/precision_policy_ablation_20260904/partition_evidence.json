@@ -83,7 +83,9 @@
     "rebalance_moves": 119,
     "split_seed": 0,
     "entropy_scope": "full_volume_foreground",
-    "allocation_unit": "complete patient/volume"
+    "allocation_unit": "complete patient/volume",
+    "partition_source": "frozen_partition_evidence",
+    "frozen_partition_file": "not_released/external_path/partition_evidence.json"
   },
   "num_clients": 20,
   "num_train_samples": 683,

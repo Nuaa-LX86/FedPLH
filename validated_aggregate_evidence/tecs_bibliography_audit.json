@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "entry_count": 54,
-  "verified_count": 54,
+  "entry_count": 40,
+  "verified_count": 40,
   "review_count": 0,
   "results": [
     {
@@ -15,75 +15,57 @@
     {
       "key": "pati2022federated",
       "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
+      "verification_route": "DOI registry metadata",
       "source": "https://doi.org/10.1088/1361-6560/ac9449",
-      "title_similarity": 1.03,
+      "title_similarity": 1.0,
       "bib_title": "The federated tumor segmentation (FeTS) tool: an open-source solution to further solid tumor research",
       "source_title": "The federated tumor segmentation (FeTS) tool: an open-source solution to further solid tumor research",
       "bib_year": 2022,
-      "source_year": 2022,
-      "source_page": "204002",
-      "source_container": "Physics in Medicine &amp; Biology"
+      "source_year": 2022
     },
     {
       "key": "darzidehkalani2022federated",
       "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
+      "verification_route": "DOI registry metadata",
       "source": "https://doi.org/10.1016/j.jacr.2022.03.015",
-      "title_similarity": 1.03,
+      "title_similarity": 1.0,
       "bib_title": "Federated learning in medical imaging: part I: toward multicentral health care ecosystems",
       "source_title": "Federated Learning in Medical Imaging: Part I: Toward Multicentral Health Care Ecosystems",
       "bib_year": 2022,
-      "source_year": 2022,
-      "source_page": "969-974",
-      "source_container": "Journal of the American College of Radiology"
+      "source_year": 2022
     },
     {
       "key": "cciccek20163d",
       "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
+      "verification_route": "DOI registry metadata",
       "source": "https://doi.org/10.1007/978-3-319-46723-8_49",
-      "title_similarity": 1.03,
+      "title_similarity": 1.0,
       "bib_title": "{3D U-Net}: Learning Dense Volumetric Segmentation from Sparse Annotation",
       "source_title": "3D U-Net: Learning Dense Volumetric Segmentation from Sparse Annotation",
       "bib_year": 2016,
-      "source_year": 2016,
-      "source_page": "424-432",
-      "source_container": "Lecture Notes in Computer Science"
+      "source_year": 2016
     },
     {
       "key": "rieke2020future",
       "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
+      "verification_route": "DOI registry metadata",
       "source": "https://doi.org/10.1038/s41746-020-00323-1",
-      "title_similarity": 1.03,
+      "title_similarity": 1.0,
       "bib_title": "The future of digital health with federated learning",
       "source_title": "The future of digital health with federated learning",
       "bib_year": 2020,
-      "source_year": 2020,
-      "source_page": null,
-      "source_container": "npj Digital Medicine"
+      "source_year": 2020
     },
     {
       "key": "abadi2016deep",
       "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
+      "verification_route": "DOI registry metadata",
       "source": "https://doi.org/10.1145/2976749.2978318",
-      "title_similarity": 1.03,
+      "title_similarity": 1.0,
       "bib_title": "Deep learning with differential privacy",
       "source_title": "Deep Learning with Differential Privacy",
       "bib_year": 2016,
-      "source_year": 2016,
-      "source_page": "308-318",
-      "source_container": "Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security"
-    },
-    {
-      "key": "tramer2020differentially",
-      "status": "verified",
-      "verification_route": "official venue or repository page",
-      "source": "https://openreview.net/forum?id=YTWGvpFOQD-",
-      "bib_title": "Differentially Private Learning Needs Better Features (or Much More Data)",
-      "bib_year": 2021
+      "source_year": 2016
     },
     {
       "key": "li2020federated",
@@ -126,37 +108,13 @@
     {
       "key": "li2022niidbench",
       "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
-      "source": "https://doi.org/10.1109/icde53745.2022.00077",
-      "title_similarity": 1.03,
+      "verification_route": "DOI registry metadata",
+      "source": "https://doi.org/10.1109/ICDE53745.2022.00077",
+      "title_similarity": 1.0,
       "bib_title": "Federated Learning on Non-IID Data Silos: An Experimental Study",
       "source_title": "Federated Learning on Non-IID Data Silos: An Experimental Study",
       "bib_year": 2022,
-      "source_year": 2022,
-      "source_page": "965-978",
-      "source_container": "2022 IEEE 38th International Conference on Data Engineering (ICDE)"
-    },
-    {
-      "key": "jiang2022model",
-      "status": "verified",
-      "verification_route": "DOI registry metadata",
-      "source": "https://doi.org/10.1109/TNNLS.2022.3166101",
-      "title_similarity": 1.0,
-      "bib_title": "Model pruning enables efficient federated learning on edge devices",
-      "source_title": "Model Pruning Enables Efficient Federated Learning on Edge Devices",
-      "bib_year": 2023,
-      "source_year": 2023
-    },
-    {
-      "key": "chen2023resource",
-      "status": "verified",
-      "verification_route": "DOI registry metadata",
-      "source": "https://doi.org/10.1109/TETC.2023.3252600",
-      "title_similarity": 1.0,
-      "bib_title": "Resource-Aware Knowledge Distillation for Federated Learning",
-      "source_title": "Resource-Aware Knowledge Distillation for Federated Learning",
-      "bib_year": 2023,
-      "source_year": 2023
+      "source_year": 2022
     },
     {
       "key": "reisizadeh2020fedpaq",
@@ -169,15 +127,13 @@
     {
       "key": "sharma2018bit",
       "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
-      "source": "https://doi.org/10.1109/isca.2018.00069",
-      "title_similarity": 1.03,
+      "verification_route": "DOI registry metadata",
+      "source": "https://doi.org/10.1109/ISCA.2018.00069",
+      "title_similarity": 1.0,
       "bib_title": "{Bit Fusion}: Bit-Level Dynamically Composable Architecture for Accelerating Deep Neural Network",
       "source_title": "Bit Fusion: Bit-Level Dynamically Composable Architecture for Accelerating Deep Neural Network",
       "bib_year": 2018,
-      "source_year": 2018,
-      "source_page": "764-775",
-      "source_container": "2018 ACM/IEEE 45th Annual International Symposium on Computer Architecture (ISCA)"
+      "source_year": 2018
     },
     {
       "key": "wang2018training",
@@ -188,59 +144,26 @@
       "bib_year": 2018
     },
     {
-      "key": "lin2017deep",
-      "status": "verified",
-      "verification_route": "official venue or repository page",
-      "source": "https://openreview.net/forum?id=SkhQHMW0W",
-      "bib_title": "Deep Gradient Compression: Reducing the Communication Bandwidth for Distributed Training",
-      "bib_year": 2018
-    },
-    {
       "key": "hatamizadeh2022unetr",
       "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
-      "source": "https://doi.org/10.1109/wacv51458.2022.00181",
-      "title_similarity": 1.03,
+      "verification_route": "DOI registry metadata",
+      "source": "https://doi.org/10.1109/WACV51458.2022.00181",
+      "title_similarity": 1.0,
       "bib_title": "{UNETR}: Transformers for {3D} Medical Image Segmentation",
       "source_title": "UNETR: Transformers for 3D Medical Image Segmentation",
       "bib_year": 2022,
-      "source_year": 2022,
-      "source_page": "1748-1758",
-      "source_container": "2022 IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)"
-    },
-    {
-      "key": "chen2014diannao",
-      "status": "verified",
-      "verification_route": "official venue or repository page",
-      "source": "https://doi.org/10.1145/2541940.2541967",
-      "bib_title": "{DianNao}: A Small-Footprint High-Throughput Accelerator for Ubiquitous Machine-Learning",
-      "bib_year": 2014
-    },
-    {
-      "key": "chen2016eyeriss",
-      "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
-      "source": "https://doi.org/10.1109/isca.2016.40",
-      "title_similarity": 1.03,
-      "bib_title": "{Eyeriss}: A Spatial Architecture for Energy-Efficient Dataflow for Convolutional Neural Networks",
-      "source_title": "Eyeriss: A Spatial Architecture for Energy-Efficient Dataflow for Convolutional Neural Networks",
-      "bib_year": 2016,
-      "source_year": 2016,
-      "source_page": "367-379",
-      "source_container": "2016 ACM/IEEE 43rd Annual International Symposium on Computer Architecture (ISCA)"
+      "source_year": 2022
     },
     {
       "key": "judd2016stripes",
       "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
-      "source": "https://doi.org/10.1109/micro.2016.7783722",
-      "title_similarity": 1.03,
+      "verification_route": "DOI registry metadata",
+      "source": "https://doi.org/10.1109/MICRO.2016.7783722",
+      "title_similarity": 1.0,
       "bib_title": "Stripes: Bit-serial deep neural network computing",
       "source_title": "Stripes: Bit-serial deep neural network computing",
       "bib_year": 2016,
-      "source_year": 2016,
-      "source_page": "1-12",
-      "source_container": "2016 49th Annual IEEE/ACM International Symposium on Microarchitecture (MICRO)"
+      "source_year": 2016
     },
     {
       "key": "micikevicius2017mixed",
@@ -262,43 +185,15 @@
       "source_year": 2022
     },
     {
-      "key": "dwork2006calibrating",
-      "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
-      "source": "https://doi.org/10.1007/11681878_14",
-      "title_similarity": 1.03,
-      "bib_title": "Calibrating noise to sensitivity in private data analysis",
-      "source_title": "Calibrating Noise to Sensitivity in Private Data Analysis",
-      "bib_year": 2006,
-      "source_year": 2006,
-      "source_page": "265-284",
-      "source_container": "Lecture Notes in Computer Science"
-    },
-    {
       "key": "bonawitz2017practical",
       "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
+      "verification_route": "DOI registry metadata",
       "source": "https://doi.org/10.1145/3133956.3133982",
-      "title_similarity": 1.03,
+      "title_similarity": 1.0,
       "bib_title": "Practical secure aggregation for privacy-preserving machine learning",
       "source_title": "Practical Secure Aggregation for Privacy-Preserving Machine Learning",
       "bib_year": 2017,
-      "source_year": 2017,
-      "source_page": "1175-1191",
-      "source_container": "Proceedings of the 2017 ACM SIGSAC Conference on Computer and Communications Security"
-    },
-    {
-      "key": "kaissis2021end",
-      "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
-      "source": "https://doi.org/10.1038/s42256-021-00337-8",
-      "title_similarity": 1.03,
-      "bib_title": "End-to-end privacy preserving deep learning on multi-institutional medical imaging",
-      "source_title": "End-to-end privacy preserving deep learning on multi-institutional medical imaging",
-      "bib_year": 2021,
-      "source_year": 2021,
-      "source_page": "473-484",
-      "source_container": "Nature Machine Intelligence"
+      "source_year": 2017
     },
     {
       "key": "tran2024personalized",
@@ -310,27 +205,6 @@
       "source_title": "Personalized Privacy-Preserving Framework for Cross-Silo Federated Learning",
       "bib_year": 2024,
       "source_year": 2024
-    },
-    {
-      "key": "riazi2018chameleon",
-      "status": "verified",
-      "verification_route": "official venue or repository page",
-      "source": "https://doi.org/10.1145/3196494.3196522",
-      "bib_title": "Chameleon: A hybrid secure computation framework for machine learning applications",
-      "bib_year": 2018
-    },
-    {
-      "key": "tan2021cryptgpu",
-      "status": "verified",
-      "verification_route": "Crossref DOI-registry title search",
-      "source": "https://doi.org/10.1109/sp40001.2021.00098",
-      "title_similarity": 1.03,
-      "bib_title": "{CryptGPU}: Fast Privacy-Preserving Machine Learning on the {GPU}",
-      "source_title": "CryptGPU: Fast Privacy-Preserving Machine Learning on the GPU",
-      "bib_year": 2021,
-      "source_year": 2021,
-      "source_page": "1021-1038",
-      "source_container": "2021 IEEE Symposium on Security and Privacy (SP)"
     },
     {
       "key": "menze2015multimodal",
@@ -369,17 +243,6 @@
       "source": "https://openaccess.thecvf.com/content/CVPR2024/html/Chen_Mixed-Precision_Quantization_for_Federated_Learning_on_Resource-Constrained_Heterogeneous_Devices_CVPR_2024_paper.html",
       "bib_title": "Mixed-Precision Quantization for Federated Learning on Resource-Constrained Heterogeneous Devices",
       "bib_year": 2024
-    },
-    {
-      "key": "niu2022asymml",
-      "status": "verified",
-      "verification_route": "DOI registry metadata",
-      "source": "https://doi.org/10.56553/popets-2022-0105",
-      "title_similarity": 1.0,
-      "bib_title": "{3LegRace}: Privacy-Preserving DNN Training over TEEs and GPUs",
-      "source_title": "3LegRace: Privacy-Preserving DNN Training over TEEs and GPUs",
-      "bib_year": 2022,
-      "source_year": 2022
     },
     {
       "key": "mao2022configurable",
@@ -424,39 +287,6 @@
       "source_title": "Loom",
       "bib_year": 2018,
       "source_year": 2018
-    },
-    {
-      "key": "lee2019unpu",
-      "status": "verified",
-      "verification_route": "DOI registry metadata",
-      "source": "https://doi.org/10.1109/JSSC.2018.2865489",
-      "title_similarity": 1.0,
-      "bib_title": "{UNPU}: An Energy-Efficient Deep Neural Network Accelerator With Fully Variable Weight Bit Precision",
-      "source_title": "UNPU: An Energy-Efficient Deep Neural Network Accelerator With Fully Variable Weight Bit Precision",
-      "bib_year": 2019,
-      "source_year": 2019
-    },
-    {
-      "key": "ryu2019bitblade",
-      "status": "verified",
-      "verification_route": "DOI registry metadata",
-      "source": "https://doi.org/10.1145/3316781.3317784",
-      "title_similarity": 0.14414414414414414,
-      "bib_title": "BitBlade: Area and Energy-Efficient Precision-Scalable Neural Network Accelerator With Bitwise Summation",
-      "source_title": "BitBlade",
-      "bib_year": 2019,
-      "source_year": 2019
-    },
-    {
-      "key": "li2024precision",
-      "status": "verified",
-      "verification_route": "DOI registry metadata",
-      "source": "https://doi.org/10.1109/TCAD.2023.3310916",
-      "title_similarity": 1.0,
-      "bib_title": "A Precision-Scalable Deep Neural Network Accelerator With Activation Sparsity Exploitation",
-      "source_title": "A Precision-Scalable Deep Neural Network Accelerator With Activation Sparsity Exploitation",
-      "bib_year": 2024,
-      "source_year": 2024
     },
     {
       "key": "tejas2024hispe",
@@ -519,39 +349,6 @@
       "source_year": 2022
     },
     {
-      "key": "wang2024drlis",
-      "status": "verified",
-      "verification_route": "DOI registry metadata",
-      "source": "https://doi.org/10.1016/j.future.2023.10.012",
-      "title_similarity": 1.0,
-      "bib_title": "Deep reinforcement learning-based scheduling for optimizing system load and response time in edge and fog computing environments",
-      "source_title": "Deep Reinforcement Learning-based scheduling for optimizing system load and response time in edge and fog computing environments",
-      "bib_year": 2024,
-      "source_year": 2024
-    },
-    {
-      "key": "qi2025lightweight",
-      "status": "verified",
-      "verification_route": "DOI registry metadata",
-      "source": "https://doi.org/10.1016/j.future.2024.107484",
-      "title_similarity": 1.0,
-      "bib_title": "Small models, big impact: A review on the power of lightweight federated learning",
-      "source_title": "Small models, big impact: A review on the power of lightweight Federated Learning",
-      "bib_year": 2025,
-      "source_year": 2025
-    },
-    {
-      "key": "fan2026fedcer",
-      "status": "verified",
-      "verification_route": "DOI registry metadata",
-      "source": "https://doi.org/10.1016/j.future.2025.108249",
-      "title_similarity": 1.0,
-      "bib_title": "Joint client selection and epoch configuration for heterogeneity-aware federated learning in resource-constrained systems",
-      "source_title": "Joint client selection and epoch configuration for heterogeneity-aware federated learning in resource-constrained systems",
-      "bib_year": 2026,
-      "source_year": 2026
-    },
-    {
       "key": "uddin2021mutual",
       "status": "verified",
       "verification_route": "DOI registry metadata",
@@ -574,15 +371,48 @@
       "source_year": 2025
     },
     {
-      "key": "zhang2021parallel",
+      "key": "ren2024ondevice",
       "status": "verified",
       "verification_route": "DOI registry metadata",
-      "source": "https://doi.org/10.1109/TPDS.2021.3059108",
+      "source": "https://doi.org/10.1145/3665278",
       "title_similarity": 1.0,
-      "bib_title": "An Efficient Parallel Secure Machine Learning Framework on {GPU}s",
-      "source_title": "An Efficient Parallel Secure Machine Learning Framework on GPUs",
-      "bib_year": 2021,
-      "source_year": 2021
+      "bib_title": "On-device Online Learning and Semantic Management of {TinyML} Systems",
+      "source_title": "On-device Online Learning and Semantic Management of TinyML Systems",
+      "bib_year": 2024,
+      "source_year": 2024
+    },
+    {
+      "key": "hong2022efficientgrad",
+      "status": "verified",
+      "verification_route": "DOI registry metadata",
+      "source": "https://doi.org/10.1145/3504034",
+      "title_similarity": 0.9613733905579399,
+      "bib_title": "Efficient-Grad: Efficient Training Deep Convolutional Neural Networks on Edge Devices with Gradient Optimizations",
+      "source_title": "Efficient-Grad:\n            <u>Efficient</u>\n            Training Deep Convolutional Neural Networks on Edge Devices with\n            <u>Grad</u>\n            ient Optimizations",
+      "bib_year": 2022,
+      "source_year": 2022
+    },
+    {
+      "key": "chen2023chanas",
+      "status": "verified",
+      "verification_route": "DOI registry metadata",
+      "source": "https://doi.org/10.1145/3533251",
+      "title_similarity": 1.0,
+      "bib_title": "A Framework for Neural Network Architecture and Compile Co-optimization",
+      "source_title": "A Framework for Neural Network Architecture and Compile Co-optimization",
+      "bib_year": 2023,
+      "source_year": 2022
+    },
+    {
+      "key": "lee2024pedbrain",
+      "status": "verified",
+      "verification_route": "DOI registry metadata",
+      "source": "https://doi.org/10.1038/s41467-024-51172-5",
+      "title_similarity": 1.0,
+      "bib_title": "An International Study Presenting a Federated Learning {AI} Platform for Pediatric Brain Tumors",
+      "source_title": "An international study presenting a federated learning AI platform for pediatric brain tumors",
+      "bib_year": 2024,
+      "source_year": 2024
     }
   ]
 }

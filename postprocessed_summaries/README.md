@@ -6,16 +6,17 @@ Primary paper-facing summaries:
 
 | File | Role |
 | --- | --- |
-| `postprocessed_summaries/paper_results.json` | Main five-seed JSON summary used for manuscript tables and result narration. |
-| `postprocessed_summaries/paper_results.csv` | Compact CSV view of the paper-facing summary. |
-| `postprocessed_summaries/convergence_inputs/` | Minimal `round`, `val_dice`, and `train_loss` arrays for all five seeds. |
-| `postprocessed_summaries/generated_result_values.tex` | Generated utility and system-result macros. |
-| `postprocessed_summaries/generated_fpga_values.tex` | Generated client/server FPGA profile macros. |
+| `tecs_submission_results.json` | Canonical result assembled from matched baselines and the frozen Progress only runs. |
+| `convergence_inputs/` | Minimal `round`, `val_dice`, and `train_loss` arrays for the five representative runs. |
+| `generated_result_values.tex` | Generated utility and system result macros. |
+| `generated_ablation_values.tex` | Generated five-policy ablation macros. |
+| `generated_fpga_values.tex` | Generated client and server FPGA profile macros. |
 
-The result and figure exporters are:
+The public package is assembled and checked with:
 
 ```text
-scripts/build_paper_results.py
-scripts/generate_tpds_figures.py
-scripts/export_tpds_result_values.py
+scripts/assemble_tecs_submission_results.py
+scripts/analyze_tecs_precision_policy_ablation.py
+scripts/export_tecs_public_artifacts.py
+scripts/verify_public_release.py
 ```

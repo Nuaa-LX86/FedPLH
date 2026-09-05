@@ -204,8 +204,8 @@ def metric_record(history: dict[str, Any], scenario: str, seed: int) -> dict[str
         "WT": class_values["WT"],
         "TC": class_values["TC"],
         "ET": class_values["ET"],
-        "full_credit_bound_latency_ms": visible_latency,
-        "covered_operator_cost_ms": covered_operator,
+        "admission_bound_latency_ms": visible_latency,
+        "admitted_operator_cost_ms": covered_operator,
         "actual_latency_ms": visible_latency + covered_operator,
         "local_training_energy_mJ": finite(
             metrics.get("avg_local_training_energy_mJ"),
@@ -353,7 +353,7 @@ def main() -> int:
 
     metrics = (
         "test_dice", "WT", "TC", "ET", "actual_latency_ms",
-        "full_credit_bound_latency_ms", "covered_operator_cost_ms",
+        "admission_bound_latency_ms", "admitted_operator_cost_ms",
         "local_training_energy_mJ", "bf16_assignment_rate",
     )
     by_scenario: dict[str, Any] = {}
@@ -390,21 +390,22 @@ def main() -> int:
         )
 
     comparisons: dict[str, Any] = {}
-    full_rows = [row for row in records if row["scenario"] == "ACF_full"]
-    for control in SCENARIOS:
-        if control == "ACF_full":
-            continue
-        control_rows = [row for row in records if row["scenario"] == control]
-        comparisons[f"ACF_full_minus_{control}"] = {
-            metric: paired_summary(
-                [row[metric] for row in full_rows],
-                [row[metric] for row in control_rows],
-            )
-            for metric in (
-                "test_dice", "WT", "TC", "ET", "actual_latency_ms",
-                "local_training_energy_mJ", "bf16_assignment_rate",
-            )
-        }
+    for target in ("ACF_progress_only", "ACF_full"):
+        target_rows = [row for row in records if row["scenario"] == target]
+        for control in SCENARIOS:
+            if control == target:
+                continue
+            control_rows = [row for row in records if row["scenario"] == control]
+            comparisons[f"{target}_minus_{control}"] = {
+                metric: paired_summary(
+                    [row[metric] for row in target_rows],
+                    [row[metric] for row in control_rows],
+                )
+                for metric in (
+                    "test_dice", "WT", "TC", "ET", "actual_latency_ms",
+                    "local_training_energy_mJ", "bf16_assignment_rate",
+                )
+            }
 
     means = {
         scenario: {
@@ -414,21 +415,21 @@ def main() -> int:
         for scenario in SCENARIOS
     }
     adaptive_gate = None
-    synergy_gate = None
+    progress_dominates_combined = None
     if args.phase == "full":
-        dice_cmp = comparisons["ACF_full_minus_ACF_static_FP8"]["test_dice"]
-        latency_cmp = comparisons["ACF_full_minus_ACF_static_BF16"]["actual_latency_ms"]
-        energy_cmp = comparisons["ACF_full_minus_ACF_static_BF16"]["local_training_energy_mJ"]
+        dice_cmp = comparisons["ACF_progress_only_minus_ACF_static_FP8"]["test_dice"]
+        latency_cmp = comparisons["ACF_progress_only_minus_ACF_static_BF16"]["actual_latency_ms"]
+        energy_cmp = comparisons["ACF_progress_only_minus_ACF_static_BF16"]["local_training_energy_mJ"]
         adaptive_gate = bool(
-            means["ACF_full"]["test_dice"] > means["ACF_static_FP8"]["test_dice"]
-            and means["ACF_full"]["actual_latency_ms"] < means["ACF_static_BF16"]["actual_latency_ms"]
-            and means["ACF_full"]["local_training_energy_mJ"] < means["ACF_static_BF16"]["local_training_energy_mJ"]
+            means["ACF_progress_only"]["test_dice"] > means["ACF_static_FP8"]["test_dice"]
+            and means["ACF_progress_only"]["actual_latency_ms"] < means["ACF_static_BF16"]["actual_latency_ms"]
+            and means["ACF_progress_only"]["local_training_energy_mJ"] < means["ACF_static_BF16"]["local_training_energy_mJ"]
             and int(dice_cmp["positive_count"]) >= 3
             and int(latency_cmp["negative_count"]) >= 3
             and int(energy_cmp["negative_count"]) >= 3
         )
-        synergy_gate = not dominates(means["ACF_progress_only"], means["ACF_full"]) and not dominates(
-            means["ACF_entropy_only"], means["ACF_full"]
+        progress_dominates_combined = dominates(
+            means["ACF_progress_only"], means["ACF_full"]
         )
 
     reference_comparison = None
@@ -454,7 +455,7 @@ def main() -> int:
             reference_comparison["seeds"][str(seed)] = {
                 "precision_trace_match": precision_match,
                 "test_dice_delta": dice_delta,
-                "full_credit_latency_delta_ms": latency_delta,
+                "admission_bound_latency_delta_ms": latency_delta,
             }
 
     output = {
@@ -470,14 +471,15 @@ def main() -> int:
         "paired_comparisons": comparisons,
         "claim_gates": {
             "adaptive_operating_point": adaptive_gate,
-            "entropy_progress_non_dominated": synergy_gate,
+            "progress_only_dominates_combined": progress_dominates_combined,
+            "selected_policy": "ACF_progress_only",
         },
         "reference_full_comparison": reference_comparison,
         "evidence_boundary": {
             "second_dataset": False,
             "second_model": False,
             "formal_dp": False,
-            "actual_latency_definition": "full-credit bound latency plus covered operator cost",
+            "actual_latency_definition": "admission-bound latency plus admitted operator cost",
         },
         "partition_evidence": {
             "input_sha256": args.expected_partition_input_sha256.upper(),
@@ -506,61 +508,62 @@ def main() -> int:
             summary = by_scenario[scenario]
             values = summary["metrics"]
             label = summary["label"]
-            rows.append(
-                f"{label} & "
-                f"{latex_pm(values['test_dice']['mean'], values['test_dice']['sample_sd'], 2)} & "
-                f"{latex_pm(values['actual_latency_norm_to_static_bf16']['mean'], values['actual_latency_norm_to_static_bf16']['sample_sd'], 3)} & "
-                f"{latex_pm(values['energy_norm_to_static_bf16']['mean'], values['energy_norm_to_static_bf16']['sample_sd'], 3)} & "
-                f"{100.0 * values['bf16_assignment_rate']['mean']:.1f}\\% \\\\"
-            )
-        full_vs_fp8 = comparisons["ACF_full_minus_ACF_static_FP8"]
-        full_vs_bf16 = comparisons["ACF_full_minus_ACF_static_BF16"]
+            cells = [
+                label,
+                latex_pm(values['test_dice']['mean'], values['test_dice']['sample_sd'], 2),
+                latex_pm(values['actual_latency_norm_to_static_bf16']['mean'], values['actual_latency_norm_to_static_bf16']['sample_sd'], 3),
+                latex_pm(values['energy_norm_to_static_bf16']['mean'], values['energy_norm_to_static_bf16']['sample_sd'], 3),
+                f"{100.0 * values['bf16_assignment_rate']['mean']:.1f}\\%",
+            ]
+            if scenario == "ACF_progress_only":
+                cells = [f"{{\\bfseries {cell}}}" for cell in cells]
+            rows.append(" & ".join(cells) + " \\\\")
+        progress_vs_fp8 = comparisons["ACF_progress_only_minus_ACF_static_FP8"]
+        progress_vs_bf16 = comparisons["ACF_progress_only_minus_ACF_static_BF16"]
+        progress_vs_full = comparisons["ACF_progress_only_minus_ACF_full"]
         if adaptive_gate:
             main_finding = (
-                "The combined policy lies between the static endpoints: its mean "
+                "The progress policy lies between the static endpoints: its mean "
                 "Dice exceeded Static FP8, while its serial latency and scoped "
                 "energy remained below Static BF16. These directions held in "
-                f"{full_vs_fp8['test_dice']['positive_count']}/5, "
-                f"{full_vs_bf16['actual_latency_ms']['negative_count']}/5, and "
-                f"{full_vs_bf16['local_training_energy_mJ']['negative_count']}/5 "
+                f"{progress_vs_fp8['test_dice']['positive_count']}/5, "
+                f"{progress_vs_bf16['actual_latency_ms']['negative_count']}/5, and "
+                f"{progress_vs_bf16['local_training_energy_mJ']['negative_count']}/5 "
                 "paired seeds, respectively."
             )
         else:
             main_finding = (
-                "The combined policy did not improve the static trade-off in all "
+                "The progress policy did not improve the static trade-off in all "
                 "three directions and is therefore treated as a precision "
                 "configuration rather than a separate source of performance."
             )
-        if synergy_gate:
-            joint_finding = (
-                "Neither single-input policy dominated the combined policy across "
-                "Dice, serial latency, and scoped energy."
+        if progress_dominates_combined:
+            combined_finding = (
+                "Progress only has higher observed mean Dice and lower mean serial "
+                "latency and scoped energy than the combined policy. It is used as "
+                "the representative configuration because it also requires one "
+                "controller input; this observation is not a claim of global optimality."
             )
         else:
-            dominating_policies = [
-                SCENARIOS[scenario]["label"]
-                for scenario in ("ACF_progress_only", "ACF_entropy_only")
-                if dominates(means[scenario], means["ACF_full"])
-            ]
-            subject = " and ".join(dominating_policies)
-            joint_finding = (
-                f"{subject} provided a stronger three-metric operating point than "
-                "the combined setting. Entropy and progress are therefore treated "
-                "as alternative controller inputs rather than a verified joint gain."
+            combined_finding = (
+                "The combined policy is retained as a separate ablation point. The "
+                "results do not establish a general advantage from combining entropy "
+                "and training progress."
             )
         latex_lines = [
             "% Generated from the matched five-policy, five-seed ablation. Do not edit.",
             "\\renewcommand{\\PrecisionPolicyAblationRows}{%",
             *[f"  {row}" for row in rows],
             "}",
-            f"\\renewcommand{{\\FullVsFPClassDiffs}}{{{full_vs_fp8['WT']['mean']:+.2f}, {full_vs_fp8['TC']['mean']:+.2f}, and {full_vs_fp8['ET']['mean']:+.2f}}}",
-            f"\\renewcommand{{\\FullVsBFClassDiffs}}{{{full_vs_bf16['WT']['mean']:+.2f}, {full_vs_bf16['TC']['mean']:+.2f}, and {full_vs_bf16['ET']['mean']:+.2f}}}",
+            f"\\renewcommand{{\\ProgressVsFPClassDiffs}}{{{progress_vs_fp8['WT']['mean']:+.2f}, {progress_vs_fp8['TC']['mean']:+.2f}, and {progress_vs_fp8['ET']['mean']:+.2f}}}",
+            f"\\renewcommand{{\\ProgressVsBFClassDiffs}}{{{progress_vs_bf16['WT']['mean']:+.2f}, {progress_vs_bf16['TC']['mean']:+.2f}, and {progress_vs_bf16['ET']['mean']:+.2f}}}",
+            f"\\renewcommand{{\\ProgressVsCombinedClassDiffs}}{{{progress_vs_full['WT']['mean']:+.2f}, {progress_vs_full['TC']['mean']:+.2f}, and {progress_vs_full['ET']['mean']:+.2f}}}",
             "\\renewcommand{\\PrecisionPolicyAdaptiveGate}{"
             + ("passed" if adaptive_gate else "not passed") + "}",
-            "\\renewcommand{\\PrecisionPolicySynergyGate}{"
-            + ("passed" if synergy_gate else "not passed") + "}",
+            "\\renewcommand{\\ProgressDominatesCombinedGate}{"
+            + ("passed" if progress_dominates_combined else "not passed") + "}",
             f"\\renewcommand{{\\PrecisionPolicyMainFinding}}{{{main_finding}}}",
-            f"\\renewcommand{{\\PrecisionPolicyJointFinding}}{{{joint_finding}}}",
+            f"\\renewcommand{{\\PrecisionPolicyCombinedFinding}}{{{combined_finding}}}",
         ]
         args.latex_output.parent.mkdir(parents=True, exist_ok=True)
         args.latex_output.write_text("\n".join(latex_lines) + "\n", encoding="ascii")

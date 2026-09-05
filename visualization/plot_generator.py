@@ -43,23 +43,26 @@ PALETTE = {
     'BitFusion':      '#FF9DA7',
     'HMPE-ACF_noDP':  '#9C755F',
     'HMPE-ACF':       '#E15759',  # highlight
-    'FedPLH':    '#E15759',
+    'FedPLH':          '#E15759',  # legacy result key
+    'FedMPE':          '#E15759',
 }
 
 # Display labels
 LABELS = {
-    'FP32_noDP':       'FP32 (NoDP)',
-    'FP32_softDP':     'FP32 (SoftDP)',
+    'FP32_noDP':       'FP32\nwithout operator',
+    'FP32_softDP':     'FP32\nwith operator',
     'FedBN':           'FedBN',
     'FedPAQ':          'FedPAQ',
     'Mao_etal':        'Mao et al.',
     'BitFusion':       'BitFusion',
-    'HMPE-ACF_noDP':   'FedPLH-noDP',
-    'HMPE-ACF':        'FedPLH',
+    'HMPE-ACF_noDP':   'FedMPE\nwithout operator',
+    'HMPE-ACF':        'FedMPE\nserial execution',
+    'FedPLH':           'FedMPE\nserial execution',  # legacy result key
+    'FedMPE':           'FedMPE\nserial execution',
 }
 
 # Highlight methods (bold frame)
-HIGHLIGHT = {'HMPE-ACF', 'FedPLH'}
+HIGHLIGHT = {'HMPE-ACF', 'FedPLH', 'FedMPE'}
 
 # Latency decomposition colors
 LAT_COLORS = {
@@ -281,10 +284,9 @@ class PlotGenerator:
         save_name: str = 'Fig4_BEU_Breakdown',
     ):
         """
-        单轮时延分解：Compute / DP_visible / DP_bg / Comm / Agg
-        对比 FP32_noDP, FP32_softDP, HMPE-ACF
+        Per-round decomposition for compute, operator, communication, and aggregation.
         """
-        target_keys = ['FP32_noDP', 'FP32_softDP', 'HMPE-ACF']
+        target_keys = ['FP32_noDP', 'FP32_softDP', 'FedMPE']
         present = [k for k in target_keys if k in results]
         if not present:
             print(f"  Skip BEU breakdown: none of {target_keys} in results")
@@ -297,12 +299,36 @@ class PlotGenerator:
         comm_vals, agg_vals, misc_vals, total_vals, total_sds = [], [], [], [], []
         for k in present:
             m = results[k]['metrics']
-            total_lat    = _get_metric(m, 'avg_latency_ms')
-            dp_overhead  = _get_metric(m, 'avg_dp_overhead_ms')
-            dp_bg        = _get_metric(
+            full_credit_bound = _get_metric(m, 'avg_latency_ms')
+            operator_visible_bound = _get_metric(
                 m,
-                'avg_dp_background_ms',
-                default=max(0.0, _get_metric(m, 'avg_dp_total_ms') - dp_overhead),
+                'avg_operator_visible_bound_ms',
+                default=_get_metric(m, 'avg_dp_overhead_ms'),
+            )
+            operator_total = _get_metric(
+                m,
+                'avg_operator_total_ms',
+                default=_get_metric(m, 'avg_dp_total_ms'),
+            )
+            operator_admitted = _get_metric(
+                m,
+                'avg_operator_admitted_ms',
+                default=_get_metric(
+                    m,
+                    'avg_dp_background_ms',
+                    default=max(0.0, operator_total - operator_visible_bound),
+                ),
+            )
+            is_fedmpe = k in ('HMPE-ACF', 'FedPLH', 'FedMPE')
+            total_lat = (
+                full_credit_bound + operator_admitted
+                if is_fedmpe
+                else full_credit_bound
+            )
+            visible_operator = (
+                operator_visible_bound + operator_admitted
+                if is_fedmpe
+                else operator_visible_bound
             )
             comm         = _get_metric(m, 'avg_comm_latency_ms')
             agg          = _get_metric(m, 'avg_agg_latency_ms')
@@ -310,9 +336,16 @@ class PlotGenerator:
             compute      = _get_metric(
                 m,
                 'avg_compute_latency_ms',
-                default=max(0.0, total_lat - dp_overhead - comm - agg - misc),
+                default=max(
+                    0.0,
+                    full_credit_bound
+                    - operator_visible_bound
+                    - comm
+                    - agg
+                    - misc,
+                ),
             )
-            reconstructed = compute + dp_overhead + comm + agg + misc
+            reconstructed = compute + visible_operator + comm + agg + misc
             if abs(reconstructed - total_lat) > 1e-6:
                 raise ValueError(
                     f"Latency breakdown for {k} does not close: "
@@ -320,18 +353,34 @@ class PlotGenerator:
                 )
 
             compute_vals.append(compute)
-            dp_vis_vals.append(dp_overhead)
-            dp_bg_vals.append(dp_bg)
+            dp_vis_vals.append(visible_operator)
+            dp_bg_vals.append(operator_admitted)
             comm_vals.append(comm)
             agg_vals.append(agg)
             misc_vals.append(misc)
             total_vals.append(total_lat)
-            total_sds.append(
-                _get_metric(
-                    results[k].get('metrics_std', {}),
-                    'avg_latency_ms',
+            seed_records = results[k].get('seeds', {})
+            if is_fedmpe and len(seed_records) == 5:
+                serial_seed_totals = [
+                    _get_metric(seed_records[str(seed)], 'avg_latency_ms')
+                    + _get_metric(
+                        seed_records[str(seed)],
+                        'avg_operator_admitted_ms',
+                        default=_get_metric(
+                            seed_records[str(seed)],
+                            'avg_dp_background_ms',
+                        ),
+                    )
+                    for seed in range(5)
+                ]
+                total_sds.append(float(np.std(serial_seed_totals, ddof=1)))
+            else:
+                total_sds.append(
+                    _get_metric(
+                        results[k].get('metrics_std', {}),
+                        'avg_latency_ms',
+                    )
                 )
-            )
 
         fig, ax = plt.subplots(figsize=(3.5, 3.25))
         x = np.arange(n)
@@ -352,7 +401,7 @@ class PlotGenerator:
             dp_vis_vals,
             width,
             bottom=compute_vals,
-            label='Visible SoftDP',
+            label='Visible operator cost',
             color=LAT_COLORS['DP_vis'],
             edgecolor='#333333',
             lw=0.45,
@@ -426,11 +475,11 @@ class PlotGenerator:
                 fontweight='bold',
             )
 
-        fedplh_index = present.index('HMPE-ACF')
-        covered = dp_bg_vals[fedplh_index]
-        bracket_x = fedplh_index + width * 0.62
-        bracket_bottom = total_vals[fedplh_index]
-        bracket_top = bracket_bottom + covered
+        fedmpe_index = present.index('FedMPE')
+        covered = dp_bg_vals[fedmpe_index]
+        bracket_x = fedmpe_index + width * 0.62
+        bracket_bottom = total_vals[fedmpe_index] - covered
+        bracket_top = total_vals[fedmpe_index]
         ax.plot(
             [bracket_x, bracket_x],
             [bracket_bottom, bracket_top],
@@ -458,7 +507,7 @@ class PlotGenerator:
         ax.text(
             bracket_x + 0.06,
             bracket_top + 5,
-            f'Budget-covered SoftDP:\n{covered:.2f} ms\n(outside critical path)',
+            f'Deadline bound under full admission:\n{bracket_bottom:.0f} ms\n(gap {covered:.2f} ms)',
             ha='left',
             va='bottom',
             fontsize=7.0,

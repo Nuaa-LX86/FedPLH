@@ -398,6 +398,26 @@ class IntegrityTests(unittest.TestCase):
         self.assertTrue(all(len(item["sha256"]) == 64 for item in result["inputs"]))
         self.assertEqual(projected_result["inputs"][0]["sha256"], original_hash)
 
+    def test_credit_factor_sensitivity_accepts_public_neutral_fields(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            path = Path(temporary_directory) / "seed0" / "training_history.json"
+            path.parent.mkdir(parents=True)
+            path.write_text(
+                json.dumps(
+                    {
+                        "round": [0, 1],
+                        "profiled_timing_slack_cycles": [100.0, 200.0],
+                        "operator_cost_cycles": [5.0, 20.0],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            result = compute_credit_factor_sensitivity([path])
+
+        self.assertEqual(result["record_count"], 2)
+        self.assertAlmostEqual(result["minimum_required_credit_factor"], 0.05)
+        self.assertAlmostEqual(result["maximum_required_credit_factor"], 0.10)
+
     def test_credit_factor_sensitivity_rejects_invalid_cycles(self):
         with tempfile.TemporaryDirectory() as temporary_directory:
             path = Path(temporary_directory) / "seed0" / "training_history.json"

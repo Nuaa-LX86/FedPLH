@@ -1,0 +1,117 @@
+{
+  "generated_at_utc": "2026-09-05T09:05:32.216897+00:00",
+  "status": "passed",
+  "tool": {
+    "path": "not_released/external_path/assemble_tecs_submission_results.py",
+    "sha256": "4b8b1dcf2a0633194746d76c6aed1d3954bca0686ea9ee778e624fa1fa614b74"
+  },
+  "primary_policy": "Progress only",
+  "source_scenario": "ACF_progress_only",
+  "no_retraining": true,
+  "frozen_histories_unchanged": true,
+  "protocol": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "rounds": 80,
+    "partition_input_sha256": "a193f2783c84d38233bd85bf08b442fb75c85d5c2515e2fd4fbc67786c39902f",
+    "partition_reference_sha256": "fe064da7da3259b7bf2e3d83acea2ed7e75c58a70e8ba2bb2bf40fa381e5f945",
+    "hardware_profile_sha256": "bd1a3bc2f3eb512af8718fec8dc4897963c27dd5ab14727aa309abd2e51d76ce",
+    "operator_configuration": {
+      "enable": true,
+      "simulate_hardware_beu": true,
+      "simulate_hardware_pec": true,
+      "dp_cost_model": "paper",
+      "clip_norm": 1.0,
+      "noise_multiplier": 0.1,
+      "batch_size": 2
+    }
+  },
+  "inputs": [
+    {
+      "path": "not_released/external_path/paper_results.json",
+      "sha256": "3a324246a99a9adb2dc983c99c1530f0257b80367abd33b4234613354939f513"
+    },
+    {
+      "path": "not_released/external_path/run_manifest.json",
+      "sha256": "e436b5e0aaf0795e1374fc800316dd66f3c746d026734e439fea0b2760342757"
+    },
+    {
+      "path": "not_released/external_path/partition_evidence.json",
+      "sha256": "c39c89b9395f9ad4b05a4623d28568f090b4f222edcd81984008dd39a98efdaa"
+    },
+    {
+      "path": "not_released/external_path/partition_evidence.json",
+      "sha256": "fe064da7da3259b7bf2e3d83acea2ed7e75c58a70e8ba2bb2bf40fa381e5f945"
+    },
+    {
+      "path": "not_released/external_path/run_manifest.json",
+      "sha256": "f53c24763103903e49cda1cea96ab011530936596bb9c19a2342aafcf164be3b"
+    },
+    {
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "a5b8a7cc64154e8279fab33a14d14d35069136903c1f27207dc48bbc51d83766"
+    },
+    {
+      "path": "not_released/external_path/run_manifest.json",
+      "sha256": "cf31bc7efbee9a2da2c9499471b98672e777b343d86c3fcd136858f832e0bb33"
+    },
+    {
+      "path": "not_released/external_path/run_manifest.json",
+      "sha256": "d528d7abed7f296b647d4ebda272cc00cdcd0223b9300b90c4c79c1d98cbba3d"
+    },
+    {
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "5c95fb07bfa4fc33987d3ec81b44913d71b485c4ddf4f557ab68bd76821e00a4"
+    },
+    {
+      "path": "not_released/external_path/run_manifest.json",
+      "sha256": "8f2c6f8b6cf2e2e82c9a2d4a58f41bc1ed128151877a6ff2546b4310a2a6b12a"
+    },
+    {
+      "path": "not_released/external_path/run_manifest.json",
+      "sha256": "2dbf68254a0b9a7ee3f4f91156608c1004dd61d9bb8f8c40ecf328713c84b033"
+    },
+    {
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "0b972baa2627b1f393ffdf1bb06dfd3b7068a5b906f0788e6f3d9897b0f29f83"
+    },
+    {
+      "path": "not_released/external_path/run_manifest.json",
+      "sha256": "7ba6821faaa4cd3461b0225773188a952e5dc21b5696b07a870c0ccddc400f71"
+    },
+    {
+      "path": "not_released/external_path/run_manifest.json",
+      "sha256": "5a7fe2309f173f8d3e67944e20e00b2d8cdbe90a16f160795e70136b769e5680"
+    },
+    {
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "7e260a7c265d7f48f057c7dde168f82825b473a4da2201f6cbfc75bfc36be232"
+    },
+    {
+      "path": "not_released/external_path/run_manifest.json",
+      "sha256": "66ca043343ca13bf7b69a4aaf455c1f3697b3e22a74362e8cae6aab7cae02d0c"
+    },
+    {
+      "path": "not_released/external_path/run_manifest.json",
+      "sha256": "6fbdb16336884dc47348dd960f2bbcfd8cb4dfba56491f1fe4c4026715732f8c"
+    },
+    {
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "f2f21a9be5ad2b8ba8132f3630cf2ad7bbe43d5369b76bea82725ab7bb818b6a"
+    },
+    {
+      "path": "not_released/external_path/run_manifest.json",
+      "sha256": "749aa3f3edb793ed463383a33c18366cf2da57d06479e75e9910be5aad340913"
+    }
+  ],
+  "output": {
+    "path": "not_released/external_path/tecs_submission_results.json",
+    "sha256": "79f315ae034ec0e84c6c9b29c14c8b9e610b02fc77c3e7a5bf8ac0c879789f1c",
+    "canonical_json_sha256": "0ee095b6f487f70e4fe36544947aa761270494acb8b49859c7cf40d150d5f741"
+  }
+}

@@ -1,56 +1,57 @@
 {
-  "generated_at_utc": "2026-09-05T03:43:25.515037+00:00",
+  "generated_at_utc": "2026-09-05T09:05:35.265273+00:00",
   "status": "passed",
   "tool": {
-    "path": "scripts/export_tpds_result_values.py",
-    "sha256": "17b5ca401d5695751d2044704afb7e59c42ea50e2dd018d84eac903e7a20cbb0"
+    "path": "not_released/external_path/export_tpds_result_values.py",
+    "sha256": "c245e7b7ad65be64ab0a909c1240b399c91524739680807b121e98232652a83a"
   },
-  "output": "postprocessed_summaries/generated_result_values.tex",
-  "output_sha256": "823ab5a4b22a12961c5a3d98ad815d9e52aefa612a98a0bab44bdfa45c78cd18",
+  "primary_policy": "Progress only",
+  "output": "not_released/external_path/generated_result_values.tex",
+  "output_sha256": "bed2ccc9985e417db45b3aef08b6e51254748cf1f1e248117883b0e1916a4539",
   "inputs": [
     {
-      "path": "D:\\code\\HMPE_ACF\\audited_runs\\tpds_operand_complete_five_seed_20260902\\unet\\summaries\\paper_results.json",
-      "sha256": "3a324246a99a9adb2dc983c99c1530f0257b80367abd33b4234613354939f513"
+      "path": "not_released/external_path/tecs_submission_results.json",
+      "sha256": "79f315ae034ec0e84c6c9b29c14c8b9e610b02fc77c3e7a5bf8ac0c879789f1c"
     },
     {
-      "path": "D:\\code\\HMPE_ACF\\validated_aggregate_evidence\\sota_adapter_five_seed_audit.json",
+      "path": "not_released/external_path/sota_adapter_five_seed_audit.json",
       "sha256": "3aeb4c0b677af0c90b2f19e323e57f842f5c2fc2964f4671661c2d6098fbc238"
     },
     {
-      "path": "D:\\code\\HMPE_ACF\\TECS_submission\\source\\figures\\Fig6_BEU_Boundary.json",
-      "sha256": "aae9edea58e3a8e1689c052d5b9d33571c8608268fd029b03517d882ded39e55"
+      "path": "not_released/external_path/Fig6_BEU_Boundary.json",
+      "sha256": "c50b265dfec13ded08285cca557970aa4163b36a7c4ebd768317a14f8f4cbd8d"
     },
     {
-      "path": "D:\\code\\HMPE_ACF\\validated_aggregate_evidence\\beu_credit_factor_sensitivity.json",
-      "sha256": "66d1b4f8ff83f0a975875fb83bf9fa2b186cb76eb74c45acbb467f5d801869f7"
+      "path": "not_released/external_path/beu_credit_factor_sensitivity.json",
+      "sha256": "f0ace3fc230dcc3f5aae36e31a0597e35882c615b9f4f2f3bc524baf6103d23d"
     },
     {
-      "path": "D:\\code\\HMPE_ACF\\audited_runs\\tpds_operand_complete_five_seed_20260902\\unet\\HMPE-ACF\\seed0\\training_history.json",
-      "sha256": "0b6991b6cb1fdd8904fd5dd71149e45e06dce5a14ac7e48cb533b91bef046573"
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "a5b8a7cc64154e8279fab33a14d14d35069136903c1f27207dc48bbc51d83766"
     },
     {
-      "path": "D:\\code\\HMPE_ACF\\audited_runs\\tpds_operand_complete_five_seed_20260902\\unet\\HMPE-ACF\\seed1\\training_history.json",
-      "sha256": "b5a106e4353b122db5172d13aef1ee5c69b1ff1a5fca75e882ca81b54e4e6772"
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "5c95fb07bfa4fc33987d3ec81b44913d71b485c4ddf4f557ab68bd76821e00a4"
     },
     {
-      "path": "D:\\code\\HMPE_ACF\\audited_runs\\tpds_operand_complete_five_seed_20260902\\unet\\HMPE-ACF\\seed2\\training_history.json",
-      "sha256": "e0c7eae342363e6c549dbea6cdcd80b5d198b9919dc246ade2d263737e031601"
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "0b972baa2627b1f393ffdf1bb06dfd3b7068a5b906f0788e6f3d9897b0f29f83"
     },
     {
-      "path": "D:\\code\\HMPE_ACF\\audited_runs\\tpds_operand_complete_five_seed_20260902\\unet\\HMPE-ACF\\seed3\\training_history.json",
-      "sha256": "34a6e594d46f950427dc068efa0bf88e21c6d2899aef5b63043a0beadc25681a"
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "7e260a7c265d7f48f057c7dde168f82825b473a4da2201f6cbfc75bfc36be232"
     },
     {
-      "path": "D:\\code\\HMPE_ACF\\audited_runs\\tpds_operand_complete_five_seed_20260902\\unet\\HMPE-ACF\\seed4\\training_history.json",
-      "sha256": "c6254acaa646c08472b8bd54f6a9cf9c8f07c75a075d3a94e192185a32ff8986"
+      "path": "not_released/external_path/training_history.json",
+      "sha256": "f2f21a9be5ad2b8ba8132f3630cf2ad7bbe43d5369b76bea82725ab7bb818b6a"
     }
   ],
   "closure": {
-    "fedmpe_operator_total_ms": 266.99457636842124,
-    "full_credit_bound_visible_ms": 0.0,
-    "full_credit_bound_credited_ms": 266.99457636842124,
-    "actual_serial_latency_mean_ms": 161713.2403141486,
-    "full_credit_deadline_bound_mean_ms": 161446.24573778018,
-    "serial_to_bound_gap_percent": 0.1651070150681206
+    "operator_total_ms": 266.64945999473696,
+    "admitted_operator_cost_ms": 266.64945999473696,
+    "deadline_bound_visible_residual_ms": 0.0,
+    "actual_serial_latency_mean_ms": 141280.62068483015,
+    "deadline_bound_latency_mean_ms": 141013.9712248354,
+    "serial_to_bound_gap_percent": 0.1887420579662574
   }
 }

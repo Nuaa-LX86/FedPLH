@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the TPDS data figures from audited matched-run artifacts."""
+"""Generate the TECS data figures from audited matched-run artifacts."""
 
 from __future__ import annotations
 
@@ -36,7 +36,7 @@ def load_histories(
     for seed in range(5):
         path = results_dir / final_scenario / f"seed{seed}" / "training_history.json"
         if not path.is_file():
-            raise FileNotFoundError(f"missing final FedPLH history: {path}")
+            raise FileNotFoundError(f"missing final FedMPE history: {path}")
         history = json.loads(path.read_text(encoding="utf-8"))
         if history.get("round") != list(range(80)):
             raise ValueError(f"history is not a complete 80-round run: {path}")
@@ -73,32 +73,37 @@ def main() -> int:
     parser.add_argument(
         "--results-dir",
         type=Path,
-        default=ROOT / "audited_runs" / "tpds_operand_complete_five_seed_20260902" / "unet",
+        default=(
+            ROOT
+            / "audited_runs"
+            / "tecs_precision_policy_ablation_operand_complete_20260904"
+            / "unet"
+        ),
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=ROOT / "TPDS_final_submission" / "source" / "figures",
+        default=ROOT / "TECS_submission" / "source" / "figures",
     )
     parser.add_argument(
         "--manifest",
         type=Path,
-        default=ROOT / "validated_aggregate_evidence" / "tpds_figure_manifest.json",
+        default=ROOT / "validated_aggregate_evidence" / "tecs_figure_manifest.json",
     )
     parser.add_argument("--paper-results", type=Path)
     parser.add_argument("--trajectory-dir", type=Path)
-    parser.add_argument("--final-scenario", default="HMPE-ACF")
+    parser.add_argument("--final-scenario", default="ACF_progress_only")
     args = parser.parse_args()
 
     paper_results_path = args.paper_results or (
-        args.results_dir / "summaries" / "paper_results.json"
+        ROOT / "postprocessed_summaries" / "tecs_submission_results.json"
     )
     if not paper_results_path.is_file():
         raise FileNotFoundError(f"missing audited paper results: {paper_results_path}")
     paper_payload = json.loads(paper_results_path.read_text(encoding="utf-8"))
     results = paper_payload.get("results")
-    if not isinstance(results, dict) or "HMPE-ACF" not in results:
-        raise ValueError("paper_results.json lacks the final HMPE-ACF entry")
+    if not isinstance(results, dict) or "FedMPE" not in results:
+        raise ValueError("submission results lack the final FedMPE entry")
 
     if args.trajectory_dir is None:
         histories, history_paths = load_histories(args.results_dir, args.final_scenario)
@@ -120,7 +125,11 @@ def main() -> int:
     manifest = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "status": "passed",
-        "scope": "Figs. 4 and 5 from final operand-complete five-seed runs",
+        "scope": (
+            "Figs. 4 and 5 from the operand-complete Progress-only results "
+            "across five seeds"
+        ),
+        "primary_policy": "Progress only",
         "inputs": {
             str(paper_results_path.resolve()): sha256(paper_results_path),
             **{str(path.resolve()): sha256(path) for path in history_paths},
@@ -135,7 +144,7 @@ def main() -> int:
     }
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
     args.manifest.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-    print(f"Generated TPDS Figs. 4--5 and manifest: {args.manifest}")
+    print(f"Generated TECS Figs. 4--5 and manifest: {args.manifest}")
     return 0
 
 

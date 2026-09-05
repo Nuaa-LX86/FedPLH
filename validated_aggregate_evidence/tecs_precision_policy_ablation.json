@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-09-05T03:48:53.683884+00:00",
+  "generated_at_utc": "2026-09-05T09:05:31.936834+00:00",
   "status": "passed",
   "phase": "full",
   "scope": "matched operand-complete precision-policy ablation on BraTS 2021 3D U-Net",
@@ -21,8 +21,8 @@
       "WT": 90.55671229081995,
       "TC": 88.68130184127611,
       "ET": 82.68384672425378,
-      "full_credit_bound_latency_ms": 164835.269537731,
-      "covered_operator_cost_ms": 267.806614894737,
+      "admission_bound_latency_ms": 164835.269537731,
+      "admitted_operator_cost_ms": 267.806614894737,
       "actual_latency_ms": 165103.07615262573,
       "local_training_energy_mJ": 928206.5723005161,
       "bf16_assignment_rate": 1.0,
@@ -37,8 +37,8 @@
       "WT": 90.42583048343658,
       "TC": 88.48235152561746,
       "ET": 83.20750391996829,
-      "full_credit_bound_latency_ms": 164717.7713463859,
-      "covered_operator_cost_ms": 267.70511007894754,
+      "admission_bound_latency_ms": 164717.7713463859,
+      "admitted_operator_cost_ms": 267.70511007894754,
       "actual_latency_ms": 164985.47645646485,
       "local_training_energy_mJ": 928544.9633221349,
       "bf16_assignment_rate": 1.0,
@@ -53,8 +53,8 @@
       "WT": 89.45430513690499,
       "TC": 88.24434282644147,
       "ET": 83.51573702834901,
-      "full_credit_bound_latency_ms": 165892.75325983626,
-      "covered_operator_cost_ms": 268.7201582368422,
+      "admission_bound_latency_ms": 165892.75325983626,
+      "admitted_operator_cost_ms": 268.7201582368422,
       "actual_latency_ms": 166161.4734180731,
       "local_training_energy_mJ": 931252.0914950857,
       "bf16_assignment_rate": 1.0,
@@ -69,8 +69,8 @@
       "WT": 87.81509220600128,
       "TC": 88.58400589042623,
       "ET": 83.3428269444408,
-      "full_credit_bound_latency_ms": 164717.77134638594,
-      "covered_operator_cost_ms": 267.7051100789475,
+      "admission_bound_latency_ms": 164717.77134638594,
+      "admitted_operator_cost_ms": 267.7051100789475,
       "actual_latency_ms": 164985.47645646488,
       "local_training_energy_mJ": 928883.3543437537,
       "bf16_assignment_rate": 1.0,
@@ -85,8 +85,8 @@
       "WT": 90.78131945694194,
       "TC": 88.7426584278329,
       "ET": 83.27298318888373,
-      "full_credit_bound_latency_ms": 165187.76411176604,
-      "covered_operator_cost_ms": 268.1111293421054,
+      "admission_bound_latency_ms": 165187.76411176604,
+      "admitted_operator_cost_ms": 268.1111293421054,
       "actual_latency_ms": 165455.87524110815,
       "local_training_energy_mJ": 928883.3543437537,
       "bf16_assignment_rate": 1.0,
@@ -101,8 +101,8 @@
       "WT": 90.05777877919815,
       "TC": 87.27554252406952,
       "ET": 81.32055967619458,
-      "full_credit_bound_latency_ms": 41326.217256969896,
-      "covered_operator_cost_ms": 267.806614894737,
+      "admission_bound_latency_ms": 41326.217256969896,
+      "admitted_operator_cost_ms": 267.806614894737,
       "actual_latency_ms": 41594.023871864636,
       "local_training_energy_mJ": 236883.5212543703,
       "bf16_assignment_rate": 0.0,
@@ -117,8 +117,8 @@
       "WT": 90.16338821719675,
       "TC": 88.51595869581709,
       "ET": 83.31607644794839,
-      "full_credit_bound_latency_ms": 41296.81396739431,
-      "covered_operator_cost_ms": 267.70511007894754,
+      "admission_bound_latency_ms": 41296.81396739431,
+      "admitted_operator_cost_ms": 267.70511007894754,
       "actual_latency_ms": 41564.519077473255,
       "local_training_energy_mJ": 236969.88054028148,
       "bf16_assignment_rate": 0.0,
@@ -133,8 +133,8 @@
       "WT": 89.04306737815632,
       "TC": 89.8421524536042,
       "ET": 83.67224413724172,
-      "full_credit_bound_latency_ms": 41590.84686315015,
-      "covered_operator_cost_ms": 268.7201582368422,
+      "admission_bound_latency_ms": 41590.84686315015,
+      "admitted_operator_cost_ms": 268.7201582368422,
       "actual_latency_ms": 41859.567021386996,
       "local_training_energy_mJ": 237660.75482757093,
       "bf16_assignment_rate": 0.0,
@@ -149,8 +149,8 @@
       "WT": 87.71819875520819,
       "TC": 88.4947750525751,
       "ET": 82.72943823051412,
-      "full_credit_bound_latency_ms": 41296.81396739431,
-      "covered_operator_cost_ms": 267.7051100789475,
+      "admission_bound_latency_ms": 41296.81396739431,
+      "admitted_operator_cost_ms": 267.7051100789475,
       "actual_latency_ms": 41564.519077473255,
       "local_training_energy_mJ": 237056.2398261926,
       "bf16_assignment_rate": 0.0,
@@ -165,8 +165,8 @@
       "WT": 90.39379691376406,
       "TC": 88.67423982914609,
       "ET": 83.02784498733486,
-      "full_credit_bound_latency_ms": 41414.42712569665,
-      "covered_operator_cost_ms": 268.1111293421054,
+      "admission_bound_latency_ms": 41414.42712569665,
+      "admitted_operator_cost_ms": 268.1111293421054,
       "actual_latency_ms": 41682.53825503876,
       "local_training_energy_mJ": 237056.23982619267,
       "bf16_assignment_rate": 0.0,
@@ -181,8 +181,8 @@
       "WT": 90.15287862104529,
       "TC": 88.34266661844693,
       "ET": 82.57549341958625,
-      "full_credit_bound_latency_ms": 146246.67042959164,
-      "covered_operator_cost_ms": 266.2840426578949,
+      "admission_bound_latency_ms": 146246.67042959164,
+      "admitted_operator_cost_ms": 266.2840426578949,
       "actual_latency_ms": 146512.95447224955,
       "local_training_energy_mJ": 584939.348266666,
       "bf16_assignment_rate": 0.503125,
@@ -197,8 +197,8 @@
       "WT": 90.26911710991578,
       "TC": 88.56906229867387,
       "ET": 83.38631719259388,
-      "full_credit_bound_latency_ms": 136497.42465580156,
-      "covered_operator_cost_ms": 266.0810330263159,
+      "admission_bound_latency_ms": 136497.42465580156,
+      "admitted_operator_cost_ms": 266.0810330263159,
       "actual_latency_ms": 136763.50568882786,
       "local_training_energy_mJ": 581875.3108562314,
       "bf16_assignment_rate": 0.5,
@@ -213,8 +213,8 @@
       "WT": 89.18629120377933,
       "TC": 88.73822842408245,
       "ET": 82.6125849603867,
-      "full_credit_bound_latency_ms": 143897.74130530684,
-      "covered_operator_cost_ms": 266.9945763684212,
+      "admission_bound_latency_ms": 143897.74130530684,
+      "admitted_operator_cost_ms": 266.9945763684212,
       "actual_latency_ms": 144164.73588167527,
       "local_training_energy_mJ": 580171.883654298,
       "bf16_assignment_rate": 0.49375,
@@ -229,8 +229,8 @@
       "WT": 88.37022111696355,
       "TC": 89.27333141722423,
       "ET": 83.79427500278834,
-      "full_credit_bound_latency_ms": 139287.40312372017,
-      "covered_operator_cost_ms": 266.89307155263174,
+      "admission_bound_latency_ms": 139287.40312372017,
+      "admitted_operator_cost_ms": 266.89307155263174,
       "actual_latency_ms": 139554.2961952728,
       "local_training_energy_mJ": 600864.0503202181,
       "bf16_assignment_rate": 0.525,
@@ -245,8 +245,8 @@
       "WT": 90.51950324984158,
       "TC": 88.61319448116525,
       "ET": 83.11252811347251,
-      "full_credit_bound_latency_ms": 139140.61660975683,
-      "covered_operator_cost_ms": 266.99457636842124,
+      "admission_bound_latency_ms": 139140.61660975683,
+      "admitted_operator_cost_ms": 266.99457636842124,
       "actual_latency_ms": 139407.61118612526,
       "local_training_energy_mJ": 600359.9868488027,
       "bf16_assignment_rate": 0.525,
@@ -261,8 +261,8 @@
       "WT": 90.59022650999181,
       "TC": 88.75529784702975,
       "ET": 82.68148910815462,
-      "full_credit_bound_latency_ms": 163220.15801630536,
-      "covered_operator_cost_ms": 267.7051100789475,
+      "admission_bound_latency_ms": 163220.15801630536,
+      "admitted_operator_cost_ms": 267.7051100789475,
       "actual_latency_ms": 163487.8631263843,
       "local_training_energy_mJ": 855117.3689452913,
       "bf16_assignment_rate": 0.89375,
@@ -277,8 +277,8 @@
       "WT": 90.41409054223229,
       "TC": 88.41996226189815,
       "ET": 83.13769268588155,
-      "full_credit_bound_latency_ms": 164482.77496369588,
-      "covered_operator_cost_ms": 267.5021004473686,
+      "admission_bound_latency_ms": 164482.77496369588,
+      "admitted_operator_cost_ms": 267.5021004473686,
       "actual_latency_ms": 164750.27706414324,
       "local_training_energy_mJ": 874610.171880693,
       "bf16_assignment_rate": 0.921875,
@@ -293,8 +293,8 @@
       "WT": 89.58883019054637,
       "TC": 88.53146307060472,
       "ET": 82.6441790973932,
-      "full_credit_bound_latency_ms": 165540.25868580115,
-      "covered_operator_cost_ms": 268.41564378947385,
+      "admission_bound_latency_ms": 165540.25868580115,
+      "admitted_operator_cost_ms": 268.41564378947385,
       "actual_latency_ms": 165808.67432959063,
       "local_training_energy_mJ": 844805.2061473543,
       "bf16_assignment_rate": 0.875,
@@ -309,8 +309,8 @@
       "WT": 87.78783391503727,
       "TC": 88.69106347260747,
       "ET": 83.40120419174075,
-      "full_credit_bound_latency_ms": 164600.2731550409,
-      "covered_operator_cost_ms": 267.60360526315804,
+      "admission_bound_latency_ms": 164600.2731550409,
+      "admitted_operator_cost_ms": 267.60360526315804,
       "actual_latency_ms": 164867.87676030406,
       "local_training_energy_mJ": 864237.214134736,
       "bf16_assignment_rate": 0.90625,
@@ -325,8 +325,8 @@
       "WT": 90.68646213587593,
       "TC": 88.90217838326002,
       "ET": 83.36085279032672,
-      "full_credit_bound_latency_ms": 165187.76411176604,
-      "covered_operator_cost_ms": 268.1111293421054,
+      "admission_bound_latency_ms": 165187.76411176604,
+      "admitted_operator_cost_ms": 268.1111293421054,
       "actual_latency_ms": 165455.87524110815,
       "local_training_energy_mJ": 864615.2617382973,
       "bf16_assignment_rate": 0.90625,
@@ -341,8 +341,8 @@
       "WT": 90.44140268774593,
       "TC": 88.67047625547303,
       "ET": 82.37507048892981,
-      "full_credit_bound_latency_ms": 157464.24121084396,
-      "covered_operator_cost_ms": 266.69006192105275,
+      "admission_bound_latency_ms": 157464.24121084396,
+      "admitted_operator_cost_ms": 266.69006192105275,
       "actual_latency_ms": 157730.931272765,
       "local_training_energy_mJ": 708056.8511598642,
       "bf16_assignment_rate": 0.68125,
@@ -357,8 +357,8 @@
       "WT": 90.18511491663315,
       "TC": 88.60866448811939,
       "ET": 83.48803678333073,
-      "full_credit_bound_latency_ms": 162074.57939243066,
-      "covered_operator_cost_ms": 266.79156673684224,
+      "admission_bound_latency_ms": 162074.57939243066,
+      "admitted_operator_cost_ms": 266.79156673684224,
       "actual_latency_ms": 162341.3709591675,
       "local_training_energy_mJ": 725533.4002096049,
       "bf16_assignment_rate": 0.70625,
@@ -373,8 +373,8 @@
       "WT": 89.1845586720635,
       "TC": 88.5436682589847,
       "ET": 82.4210212491186,
-      "full_credit_bound_latency_ms": 164952.767729076,
-      "covered_operator_cost_ms": 267.9081197105264,
+      "admission_bound_latency_ms": 164952.767729076,
+      "admitted_operator_cost_ms": 267.9081197105264,
       "actual_latency_ms": 165220.67584878654,
       "local_training_energy_mJ": 743488.4483928697,
       "bf16_assignment_rate": 0.728125,
@@ -389,8 +389,8 @@
       "WT": 87.39820420742035,
       "TC": 89.2827343088911,
       "ET": 83.77217424513627,
-      "full_credit_bound_latency_ms": 162162.67429420011,
-      "covered_operator_cost_ms": 266.79156673684224,
+      "admission_bound_latency_ms": 162162.67429420011,
+      "admitted_operator_cost_ms": 266.79156673684224,
       "actual_latency_ms": 162429.46586093697,
       "local_training_energy_mJ": 721587.2517241932,
       "bf16_assignment_rate": 0.7,
@@ -405,8 +405,8 @@
       "WT": 90.51403571577633,
       "TC": 88.64986378192923,
       "ET": 83.07459132071371,
-      "full_credit_bound_latency_ms": 160576.96606235014,
-      "covered_operator_cost_ms": 266.79156673684224,
+      "admission_bound_latency_ms": 160576.96606235014,
+      "admitted_operator_cost_ms": 266.79156673684224,
       "actual_latency_ms": 160843.757629087,
       "local_training_energy_mJ": 702054.7922068486,
       "bf16_assignment_rate": 0.671875,
@@ -498,7 +498,7 @@
           "ci95_high": 165957.78300608738,
           "ci_method": "two-sided Student-t"
         },
-        "full_credit_bound_latency_ms": {
+        "admission_bound_latency_ms": {
           "n": 5,
           "values": [
             164835.269537731,
@@ -514,7 +514,7 @@
           "ci95_high": 165689.23866087064,
           "ci_method": "two-sided Student-t"
         },
-        "covered_operator_cost_ms": {
+        "admitted_operator_cost_ms": {
           "n": 5,
           "values": [
             267.806614894737,
@@ -679,7 +679,7 @@
           "ci95_high": 41808.46277604172,
           "ci_method": "two-sided Student-t"
         },
-        "full_credit_bound_latency_ms": {
+        "admission_bound_latency_ms": {
           "n": 5,
           "values": [
             41326.217256969896,
@@ -695,7 +695,7 @@
           "ci95_high": 41539.918430825,
           "ci_method": "two-sided Student-t"
         },
-        "covered_operator_cost_ms": {
+        "admitted_operator_cost_ms": {
           "n": 5,
           "values": [
             267.806614894737,
@@ -860,7 +860,7 @@
           "ci95_high": 146192.18762670207,
           "ci_method": "two-sided Student-t"
         },
-        "full_credit_bound_latency_ms": {
+        "admission_bound_latency_ms": {
           "n": 5,
           "values": [
             146246.67042959164,
@@ -876,7 +876,7 @@
           "ci95_high": 145925.49236223454,
           "ci_method": "two-sided Student-t"
         },
-        "covered_operator_cost_ms": {
+        "admitted_operator_cost_ms": {
           "n": 5,
           "values": [
             266.2840426578949,
@@ -1041,7 +1041,7 @@
           "ci95_high": 165975.79103546627,
           "ci_method": "two-sided Student-t"
         },
-        "full_credit_bound_latency_ms": {
+        "admission_bound_latency_ms": {
           "n": 5,
           "values": [
             163220.15801630536,
@@ -1057,7 +1057,7 @@
           "ci95_high": 165707.5995974732,
           "ci_method": "two-sided Student-t"
         },
-        "covered_operator_cost_ms": {
+        "admitted_operator_cost_ms": {
           "n": 5,
           "values": [
             267.7051100789475,
@@ -1222,7 +1222,7 @@
           "ci95_high": 165103.7116105147,
           "ci_method": "two-sided Student-t"
         },
-        "full_credit_bound_latency_ms": {
+        "admission_bound_latency_ms": {
           "n": 5,
           "values": [
             157464.24121084396,
@@ -1238,7 +1238,7 @@
           "ci95_high": 164836.22590370968,
           "ci_method": "two-sided Student-t"
         },
-        "covered_operator_cost_ms": {
+        "admitted_operator_cost_ms": {
           "n": 5,
           "values": [
             266.69006192105275,
@@ -1322,6 +1322,546 @@
     }
   },
   "paired_comparisons": {
+    "ACF_progress_only_minus_ACF_static_BF16": {
+      "test_dice": {
+        "n": 5,
+        "values": [
+          -0.2836073990904566,
+          0.036270224053737365,
+          -0.22576013448232857,
+          0.5653008320359305,
+          -0.18391174305973834
+        ],
+        "mean": -0.018341644108571132,
+        "sample_sd": 0.3480024442033418,
+        "ci95_half_width": 0.43210210625420453,
+        "ci95_low": -0.4504437503627757,
+        "ci95_high": 0.4137604621456334,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 2,
+        "negative_count": 3,
+        "zero_count": 0
+      },
+      "WT": {
+        "n": 5,
+        "values": [
+          -0.40383366977465585,
+          -0.15671337352080172,
+          -0.26801393312565835,
+          0.5551289109622672,
+          -0.2618162071003667
+        ],
+        "mean": -0.10704965451184308,
+        "sample_sd": 0.38042406406025076,
+        "ci95_half_width": 0.47235886439397673,
+        "ci95_low": -0.5794085189058198,
+        "ci95_high": 0.36530920988213367,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 1,
+        "negative_count": 4,
+        "zero_count": 0
+      },
+      "TC": {
+        "n": 5,
+        "values": [
+          -0.3386352228291827,
+          0.08671077305641006,
+          0.4938855976409826,
+          0.689325526798001,
+          -0.1294639466676415
+        ],
+        "mean": 0.1603645455997139,
+        "sample_sd": 0.4270428004945438,
+        "ci95_half_width": 0.5302436710661886,
+        "ci95_low": -0.3698791254664747,
+        "ci95_high": 0.6906082166659026,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 3,
+        "negative_count": 2,
+        "zero_count": 0
+      },
+      "ET": {
+        "n": 5,
+        "values": [
+          -0.10835330466753135,
+          0.17881327262558955,
+          -0.90315206796231,
+          0.45144805834753754,
+          -0.16045507541122106
+        ],
+        "mean": -0.10833982341358706,
+        "sample_sd": 0.5075090828962058,
+        "ci95_half_width": 0.6301557569936297,
+        "ci95_low": -0.7384955804072167,
+        "ci95_high": 0.5218159335800426,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 2,
+        "negative_count": 3,
+        "zero_count": 0
+      },
+      "actual_latency_ms": {
+        "n": 5,
+        "values": [
+          -18590.121680376178,
+          -28221.970767636987,
+          -21996.73753639782,
+          -25431.180261192087,
+          -26048.264054982894
+        ],
+        "mean": -24057.654860117193,
+        "sample_sd": 3785.892340600817,
+        "ci95_half_width": 4700.806220399426,
+        "ci95_low": -28758.46108051662,
+        "ci95_high": -19356.848639717766,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 0,
+        "negative_count": 5,
+        "zero_count": 0
+      },
+      "local_training_energy_mJ": {
+        "n": 5,
+        "values": [
+          -343267.22403385,
+          -346669.65246590355,
+          -351080.2078407877,
+          -328019.3040235356,
+          -328523.367494951
+        ],
+        "mean": -339511.95117180556,
+        "sample_sd": 10630.019216131059,
+        "ci95_half_width": 13198.912160884158,
+        "ci95_low": -352710.86333268974,
+        "ci95_high": -326313.0390109214,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 0,
+        "negative_count": 5,
+        "zero_count": 0
+      },
+      "bf16_assignment_rate": {
+        "n": 5,
+        "values": [
+          -0.49687499999999996,
+          -0.5,
+          -0.50625,
+          -0.475,
+          -0.475
+        ],
+        "mean": -0.490625,
+        "sample_sd": 0.014657549249448218,
+        "ci95_half_width": 0.018199751204938493,
+        "ci95_low": -0.5088247512049384,
+        "ci95_high": -0.4724252487950615,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 0,
+        "negative_count": 5,
+        "zero_count": 0
+      }
+    },
+    "ACF_progress_only_minus_ACF_static_FP8": {
+      "test_dice": {
+        "n": 5,
+        "values": [
+          0.8057192265387414,
+          0.07635774674045592,
+          -0.67345312691792,
+          0.831805166226232,
+          0.049781371411441455
+        ],
+        "mean": 0.21804207679979015,
+        "sample_sd": 0.6255436385419919,
+        "ci95_half_width": 0.7767150152829814,
+        "ci95_low": -0.5586729384831912,
+        "ci95_high": 0.9947570920827715,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 4,
+        "negative_count": 1,
+        "zero_count": 0
+      },
+      "WT": {
+        "n": 5,
+        "values": [
+          0.09509984184714426,
+          0.10572889271902852,
+          0.14322382562301073,
+          0.6520223617553569,
+          0.12570633607751347
+        ],
+        "mean": 0.22435625160441078,
+        "sample_sd": 0.2397875350649988,
+        "ci95_half_width": 0.2977355495082323,
+        "ci95_low": -0.0733792979038215,
+        "ci95_high": 0.5220918011126431,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 5,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "TC": {
+        "n": 5,
+        "values": [
+          1.0671240943774052,
+          0.05310360285677973,
+          -1.1039240295217496,
+          0.778556364649134,
+          -0.06104534798083705
+        ],
+        "mean": 0.14676293687614644,
+        "sample_sd": 0.8459317108425364,
+        "ci95_half_width": 1.0503629502920961,
+        "ci95_low": -0.9036000134159496,
+        "ci95_high": 1.1971258871682426,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 3,
+        "negative_count": 2,
+        "zero_count": 0
+      },
+      "ET": {
+        "n": 5,
+        "values": [
+          1.2549337433916747,
+          0.07024074464548846,
+          -1.0596591768550212,
+          1.0648367722742194,
+          0.08468312613764795
+        ],
+        "mean": 0.2830070419188019,
+        "sample_sd": 0.9278003136675108,
+        "ci95_half_width": 1.1520162470031101,
+        "ci95_low": -0.8690092050843082,
+        "ci95_high": 1.4350232889219119,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 4,
+        "negative_count": 1,
+        "zero_count": 0
+      },
+      "actual_latency_ms": {
+        "n": 5,
+        "values": [
+          104918.93060038492,
+          95198.9866113546,
+          102305.16886028828,
+          97989.77711779953,
+          97725.0729310865
+        ],
+        "mean": 99627.58722418276,
+        "sample_sd": 3907.7565210372477,
+        "ci95_half_width": 4852.12058591795,
+        "ci95_low": 94775.46663826481,
+        "ci95_high": 104479.7078101007,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 5,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "local_training_energy_mJ": {
+        "n": 5,
+        "values": [
+          348055.8270122957,
+          344905.4303159499,
+          342511.1288267271,
+          363807.81049402547,
+          363303.74702261
+        ],
+        "mean": 352516.78873432166,
+        "sample_sd": 10268.785567633127,
+        "ci95_half_width": 12750.381344604482,
+        "ci95_low": 339766.4073897172,
+        "ci95_high": 365267.17007892614,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 5,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bf16_assignment_rate": {
+        "n": 5,
+        "values": [
+          0.503125,
+          0.5,
+          0.49375,
+          0.525,
+          0.525
+        ],
+        "mean": 0.509375,
+        "sample_sd": 0.014657549249448218,
+        "ci95_half_width": 0.018199751204938493,
+        "ci95_low": 0.4911752487950615,
+        "ci95_high": 0.5275747512049385,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 5,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "ACF_progress_only_minus_ACF_entropy_only": {
+      "test_dice": {
+        "n": 5,
+        "values": [
+          -0.3186582686992381,
+          0.08425037039052086,
+          -0.07578925676527604,
+          0.5192419858635304,
+          -0.23475582166109632
+        ],
+        "mean": -0.0051421981743118295,
+        "sample_sd": 0.3312761511335099,
+        "ci95_half_width": 0.41133367032598905,
+        "ci95_low": -0.4164758685003009,
+        "ci95_high": 0.4061914721516772,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 2,
+        "negative_count": 3,
+        "zero_count": 0
+      },
+      "WT": {
+        "n": 5,
+        "values": [
+          -0.437347888946519,
+          -0.1449734323165046,
+          -0.40253898676704125,
+          0.5823872019262808,
+          -0.16695888603435094
+        ],
+        "mean": -0.113886398427627,
+        "sample_sd": 0.41125651112484346,
+        "ci95_half_width": 0.5106424038906049,
+        "ci95_low": -0.6245288023182319,
+        "ci95_high": 0.3967560054629779,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 1,
+        "negative_count": 4,
+        "zero_count": 0
+      },
+      "TC": {
+        "n": 5,
+        "values": [
+          -0.41263122858282486,
+          0.14910003677572092,
+          0.20676535347773495,
+          0.5822679446167598,
+          -0.28898390209477043
+        ],
+        "mean": 0.04730364083852408,
+        "sample_sd": 0.40205930718685984,
+        "ci95_half_width": 0.49922256687667277,
+        "ci95_low": -0.4519189260381487,
+        "ci95_high": 0.5465262077151969,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 3,
+        "negative_count": 2,
+        "zero_count": 0
+      },
+      "ET": {
+        "n": 5,
+        "values": [
+          -0.10599568856837038,
+          0.24862450671233205,
+          -0.031594137006507594,
+          0.39307081104759334,
+          -0.24832467685421022
+        ],
+        "mean": 0.05115616306616744,
+        "sample_sd": 0.26321686085826573,
+        "ci95_half_width": 0.3268268998479187,
+        "ci95_low": -0.27567073678175125,
+        "ci95_high": 0.3779830629140861,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 2,
+        "negative_count": 3,
+        "zero_count": 0
+      },
+      "actual_latency_ms": {
+        "n": 5,
+        "values": [
+          -16974.90865413475,
+          -27986.77137531538,
+          -21643.938447915367,
+          -25313.58056503127,
+          -26048.264054982894
+        ],
+        "mean": -23593.492619475932,
+        "sample_sd": 4355.798398160104,
+        "ci95_half_width": 5408.438054429036,
+        "ci95_low": -29001.930673904968,
+        "ci95_high": -18185.054565046896,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 0,
+        "negative_count": 5,
+        "zero_count": 0
+      },
+      "local_training_energy_mJ": {
+        "n": 5,
+        "values": [
+          -270178.0206786252,
+          -292734.86102446157,
+          -264633.3224930563,
+          -263373.1638145179,
+          -264255.27488949464
+        ],
+        "mean": -271034.92858003115,
+        "sample_sd": 12422.442022633824,
+        "ci95_half_width": 15424.499029277998,
+        "ci95_low": -286459.42760930915,
+        "ci95_high": -255610.42955075315,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 0,
+        "negative_count": 5,
+        "zero_count": 0
+      },
+      "bf16_assignment_rate": {
+        "n": 5,
+        "values": [
+          -0.390625,
+          -0.421875,
+          -0.38125,
+          -0.38125,
+          -0.38125
+        ],
+        "mean": -0.39125,
+        "sample_sd": 0.01759461032532407,
+        "ci95_half_width": 0.021846594203379158,
+        "ci95_low": -0.41309659420337913,
+        "ci95_high": -0.36940340579662084,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 0,
+        "negative_count": 5,
+        "zero_count": 0
+      }
+    },
+    "ACF_progress_only_minus_ACF_full": {
+      "test_dice": {
+        "n": 5,
+        "values": [
+          -0.13863692435677422,
+          -0.019106528966574388,
+          0.1292854693605534,
+          0.3282382585094581,
+          0.0022450086866854235
+        ],
+        "mean": 0.06040505664666966,
+        "sample_sd": 0.17734255616103778,
+        "ci95_half_width": 0.22019986733459015,
+        "ci95_low": -0.1597948106879205,
+        "ci95_high": 0.2806049239812598,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 3,
+        "negative_count": 2,
+        "zero_count": 0
+      },
+      "WT": {
+        "n": 5,
+        "values": [
+          -0.2885240667006457,
+          0.08400219328262892,
+          0.0017325317158309872,
+          0.9720169095431999,
+          0.005467534065246582
+        ],
+        "mean": 0.15493902038125212,
+        "sample_sd": 0.478309986669491,
+        "ci95_half_width": 0.5939002904288304,
+        "ci95_low": -0.4389612700475783,
+        "ci95_high": 0.7488393108100826,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 4,
+        "negative_count": 1,
+        "zero_count": 0
+      },
+      "TC": {
+        "n": 5,
+        "values": [
+          -0.32780963702610677,
+          -0.03960218944551741,
+          0.1945601650977551,
+          -0.009402891666866253,
+          -0.03666930076397534
+        ],
+        "mean": -0.043784770760942136,
+        "sample_sd": 0.18623148942660628,
+        "ci95_half_width": 0.2312369357528824,
+        "ci95_low": -0.2750217065138245,
+        "ci95_high": 0.18745216499194026,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 1,
+        "negative_count": 4,
+        "zero_count": 0
+      },
+      "ET": {
+        "n": 5,
+        "values": [
+          0.200422930656444,
+          -0.10171959073684889,
+          0.19156371126810257,
+          0.022100757652069092,
+          0.03793679275879924
+        ],
+        "mean": 0.0700609203197132,
+        "sample_sd": 0.1270805479811843,
+        "ci95_half_width": 0.15779134130024286,
+        "ci95_low": -0.08773042098052966,
+        "ci95_high": 0.22785226161995606,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 4,
+        "negative_count": 1,
+        "zero_count": 0
+      },
+      "actual_latency_ms": {
+        "n": 5,
+        "values": [
+          -11217.976800515462,
+          -25577.86527033965,
+          -21055.939967111277,
+          -22875.169665664172,
+          -21436.146442961734
+        ],
+        "mean": -20432.61962931846,
+        "sample_sd": 5448.505303248719,
+        "ci95_half_width": 6765.21287906623,
+        "ci95_low": -27197.832508384687,
+        "ci95_high": -13667.406750252228,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 0,
+        "negative_count": 5,
+        "zero_count": 0
+      },
+      "local_training_energy_mJ": {
+        "n": 5,
+        "values": [
+          -123117.50289319817,
+          -143658.0893533735,
+          -163316.56473857164,
+          -120723.20140397514,
+          -101694.80535804597
+        ],
+        "mean": -130502.03274943288,
+        "sample_sd": 23610.847658925242,
+        "ci95_half_width": 29316.739505161157,
+        "ci95_low": -159818.77225459405,
+        "ci95_high": -101185.29324427173,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 0,
+        "negative_count": 5,
+        "zero_count": 0
+      },
+      "bf16_assignment_rate": {
+        "n": 5,
+        "values": [
+          -0.17812499999999998,
+          -0.20625000000000004,
+          -0.234375,
+          -0.17499999999999993,
+          -0.14687499999999998
+        ],
+        "mean": -0.188125,
+        "sample_sd": 0.033321938156415834,
+        "ci95_half_width": 0.04137465095919393,
+        "ci95_low": -0.22949965095919392,
+        "ci95_high": -0.14675034904080606,
+        "ci_method": "two-sided Student-t",
+        "positive_count": 0,
+        "negative_count": 5,
+        "zero_count": 0
+      }
+    },
     "ACF_full_minus_ACF_static_BF16": {
       "test_dice": {
         "n": 5,
@@ -1865,7 +2405,8 @@
   },
   "claim_gates": {
     "adaptive_operating_point": true,
-    "entropy_progress_non_dominated": false
+    "progress_only_dominates_combined": true,
+    "selected_policy": "ACF_progress_only"
   },
   "reference_full_comparison": {
     "status": "passed",
@@ -1873,27 +2414,27 @@
       "0": {
         "precision_trace_match": true,
         "test_dice_delta": 0.0,
-        "full_credit_latency_delta_ms": 0.0
+        "admission_bound_latency_delta_ms": 0.0
       },
       "1": {
         "precision_trace_match": true,
         "test_dice_delta": 0.0,
-        "full_credit_latency_delta_ms": 0.0
+        "admission_bound_latency_delta_ms": 0.0
       },
       "2": {
         "precision_trace_match": true,
         "test_dice_delta": 0.0,
-        "full_credit_latency_delta_ms": 0.0
+        "admission_bound_latency_delta_ms": 0.0
       },
       "3": {
         "precision_trace_match": true,
         "test_dice_delta": 0.0,
-        "full_credit_latency_delta_ms": 0.0
+        "admission_bound_latency_delta_ms": 0.0
       },
       "4": {
         "precision_trace_match": true,
         "test_dice_delta": 0.0,
-        "full_credit_latency_delta_ms": 0.0
+        "admission_bound_latency_delta_ms": 0.0
       }
     }
   },
@@ -1901,7 +2442,7 @@
     "second_dataset": false,
     "second_model": false,
     "formal_dp": false,
-    "actual_latency_definition": "full-credit bound latency plus covered operator cost"
+    "actual_latency_definition": "admission-bound latency plus admitted operator cost"
   },
   "partition_evidence": {
     "input_sha256": "A193F2783C84D38233BD85BF08B442FB75C85D5C2515E2FD4FBC67786C39902F",
