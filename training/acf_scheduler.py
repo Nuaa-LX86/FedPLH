@@ -88,8 +88,7 @@ class ACFScheduler:
         if self.mode in ["static_high", "static_bf16", "high"]:
             return 1.0
 
-        # unknown mode -> fallback to Eq.(11)
-        return float(self.lamda * spatial_term + (1.0 - self.lamda) * temporal_term)
+        raise ValueError(f"Unsupported precision scheduling mode: {self.mode}")
 
     def get_execution_plan(
         self,

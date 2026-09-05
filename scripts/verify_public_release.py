@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify hashes and evidence gates in a sanitized FedPLH release."""
+"""Verify hashes and evidence gates in the public FedMPE release."""
 
 from __future__ import annotations
 
@@ -70,10 +70,35 @@ def main() -> int:
         "hmpe_training_contract_audit.json",
         "sota_adapter_five_seed_audit.json",
         "tpds_submission_qa.json",
+        "tecs_submission_qa.json",
     ):
         audit = load_json(root / "validated_aggregate_evidence" / audit_name)
         if audit.get("status") != "passed":
             failures.append(f"audit is not passing: {audit_name}")
+
+    ablation = load_json(
+        root / "validated_aggregate_evidence" / "precision_policy_ablation.json"
+    )
+    records = ablation.get("records", [])
+    expected_policies = {
+        "ACF_static_BF16",
+        "ACF_static_FP8",
+        "ACF_progress_only",
+        "ACF_entropy_only",
+        "ACF_full",
+    }
+    if ablation.get("status") != "passed" or ablation.get("rounds") != 80:
+        failures.append("precision-policy ablation audit is not passing")
+    if ablation.get("seeds") != list(range(5)) or len(records) != 25:
+        failures.append("precision-policy ablation is not 5 policies x 5 seeds")
+    if {row.get("scenario") for row in records} != expected_policies:
+        failures.append("precision-policy set does not match the frozen protocol")
+    for row in records:
+        class_mean = (float(row["WT"]) + float(row["TC"]) + float(row["ET"])) / 3.0
+        if not math.isclose(class_mean, float(row["test_dice"]), abs_tol=1e-9):
+            failures.append(
+                f"classwise Dice does not reproduce Mean for {row['scenario']} seed{row['seed']}"
+            )
 
     credit = load_json(
         root / "validated_aggregate_evidence" / "beu_credit_factor_sensitivity.json"

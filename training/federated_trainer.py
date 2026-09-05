@@ -856,6 +856,10 @@ class FederatedTrainer:
             budget_th = float(self.acf_policy.get("budget_threshold", 0.0))
             mode = str(self.acf_policy.get("mode", "entropy_time"))
             deterministic = bool(self.acf_policy.get("deterministic", False))
+            scheduler_stream = str(
+                self.acf_policy.get("scheduler_stream", "acf_scheduler")
+            )
+            scheduler_seed = derive_seed(self.run_seed, scheduler_stream)
             # 若用户仍用旧字段 alpha，这里不做破坏式改动：lamda 会被 alpha 覆盖
             self.acf_scheduler = ACFScheduler(
                 total_rounds=rounds,
@@ -870,7 +874,7 @@ class FederatedTrainer:
                     self.acf_policy.get("high_precision", "BF16")
                 ),
                 deterministic=deterministic,
-                seed=derive_seed(self.run_seed, "acf_scheduler"),
+                seed=scheduler_seed,
                 alpha=self.acf_policy.get("alpha", None),
             )
 
@@ -894,9 +898,8 @@ class FederatedTrainer:
                 ),
                 "low_precision": self.acf_scheduler.low_precision,
                 "high_precision": self.acf_scheduler.high_precision,
-                "scheduler_seed": int(
-                    derive_seed(self.run_seed, "acf_scheduler")
-                ),
+                "scheduler_seed_namespace": scheduler_stream,
+                "scheduler_seed": int(scheduler_seed),
             },
             "round": [],
             "train_loss": [],
@@ -1401,6 +1404,11 @@ class FederatedTrainer:
         history["metrics"] = {
             "best_val_dice": float(self.best_val),
             "test_dice": float(test_mean),
+            "test_dice_detailed": {
+                key: float(test_stats[key])
+                for key in ("WT", "TC", "ET", "Mean")
+                if key in test_stats
+            },
             "accuracy": float(test_mean),  # backward-compatible alias
 
             # privacy

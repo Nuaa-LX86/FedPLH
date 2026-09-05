@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "If you use FedPLH or its released evidence package, please cite the associated manuscript."
-title: "FedPLH: Cross-Layer Privacy-Operator Scheduling for Cross-Silo Federated Medical Learning"
+message: "If you use FedMPE or its released evidence package, please cite the associated manuscript."
+title: "FedMPE: Coordinated Mixed Precision Execution for Federated 3D Medical Image Segmentation"
 type: software
 authors:
   - family-names: Li
@@ -19,14 +19,14 @@ authors:
     given-names: Yijun
 repository-code: "https://github.com/Nuaa-LX86/FedPLH"
 url: "https://github.com/Nuaa-LX86/FedPLH"
-version: "preprint-artifact-2026-09"
-date-released: "2026-09-03"
-abstract: "FedPLH is a code and evidence package for trace-based evaluation of budget-covered privacy-operator execution in cross-silo federated medical learning. The repository provides source code, frozen experiment protocols, validated aggregate evidence, sanitized profile values, and postprocessed summaries, but not raw BraTS data, private medical images, complete original synthesis reports, foundry-library-bound artifacts, or model checkpoints."
+version: "preprint-artifact-2026-09-04"
+date-released: "2026-09-04"
+abstract: "FedMPE is a code and evidence package for coordinated mixed precision execution in federated 3D medical image segmentation. It includes frozen protocols, aggregate experimental evidence, and VCU128-targeted implementation profiles, but not raw BraTS data, medical images, model checkpoints, or proprietary implementation reports."
 keywords:
   - federated learning
   - medical image segmentation
   - edge computing
   - mixed-precision computing
   - hardware-software co-design
-  - privacy-operator scheduling
+  - execution scheduling
 license: MIT

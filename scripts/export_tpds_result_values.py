@@ -103,7 +103,10 @@ def paired_stats(left: list[float], right: list[float]) -> tuple[float, float, f
     differences = [a - b for a, b in zip(left, right)]
     mean = statistics.mean(differences)
     sd = statistics.stdev(differences)
-    return mean, sd, 1.96 * sd / math.sqrt(len(differences))
+    # Two-sided 95% Student-t critical value for the fixed five-seed protocol
+    # (df = 4). Keeping it explicit avoids silently reverting to a normal CI.
+    t_critical_df4 = 2.7764451051977987
+    return mean, sd, t_critical_df4 * sd / math.sqrt(len(differences))
 
 
 def sota_summary(audit: dict[str, Any]) -> dict[str, tuple[float, float]]:
@@ -124,13 +127,13 @@ def sota_summary(audit: dict[str, Any]) -> dict[str, tuple[float, float]]:
 def acf_allocation_summary(run_root: Path) -> tuple[str, list[Path]]:
     paths = sorted((run_root / "unet" / "HMPE-ACF").glob("seed*/training_history.json"))
     if len(paths) != 5:
-        raise SystemExit(f"expected five FedPLH histories for ACF allocation, found {len(paths)}")
+        raise SystemExit(f"expected five FedMPE histories for precision allocation, found {len(paths)}")
     counts: dict[str, int] = {}
     total = 0
     for path in paths:
         history = load_json(path)
         if history.get("round") != list(range(80)):
-            raise SystemExit(f"ACF allocation history is not an 80-round run: {path}")
+            raise SystemExit(f"precision allocation history is not an 80-round run: {path}")
         precision_rounds = history.get("client_precisions", [])
         if len(precision_rounds) != 80:
             raise SystemExit(f"client precision trace is incomplete: {path}")
@@ -139,15 +142,15 @@ def acf_allocation_summary(run_root: Path) -> tuple[str, list[Path]]:
                 counts[str(precision)] = counts.get(str(precision), 0) + 1
                 total += 1
     if total == 0:
-        raise SystemExit("ACF precision traces contain no assignments")
+        raise SystemExit("precision allocation traces contain no assignments")
     parts = []
     for name, count in sorted(counts.items(), key=lambda item: (-item[1], item[0])):
         escaped_name = name.replace("_", "\\_")
         parts.append(f"{escaped_name} {100.0 * count / total:.1f}\\%")
     return (
-        "Across the five seeded schedules, ACF issued "
+        "Across the schedules for five seeds, the precision controller issued "
         + ", ".join(parts)
-        + f" over {total} selected-client assignments",
+        + f" over {total} assignments to selected clients",
         paths,
     )
 
@@ -228,7 +231,7 @@ def main() -> None:
     serial_latency_sd = statistics.stdev(serial_latency)
     serial_norm_mean = statistics.mean(serial_normalized)
     serial_norm_sd = statistics.stdev(serial_normalized)
-    beu_direct_latency_reduction = 100.0 * (
+    credit_bound_gap = 100.0 * (
         serial_norm_mean - latency_norm["FedPLH"][0]
     ) / serial_norm_mean
 
@@ -254,13 +257,13 @@ def main() -> None:
     best_method, best_dice = max(observed.items(), key=lambda item: item[1])
     if best_method == "FedPLH":
         matched_summary = (
-            f"FedPLH has the highest observed mean Dice at {best_dice:.2f}\\%"
+            f"FedMPE has the highest observed mean Dice at {best_dice:.2f}\\%"
         )
     else:
         gap = best_dice - observed["FedPLH"]
         matched_summary = (
             f"{best_method} has the highest observed mean Dice at {best_dice:.2f}\\%, "
-            f"with FedPLH lower by {gap:.2f} percentage points"
+            f"with FedMPE lower by {gap:.2f} percentage points"
         )
 
     def mean_sd(entry: dict[str, Any], name: str) -> tuple[float, float]:
@@ -272,12 +275,18 @@ def main() -> None:
     fedbn_energy = tuple(value / 1000.0 for value in mean_sd(fedbn, "avg_local_training_energy_mJ"))
     mao_energy = tuple(value / 1000.0 for value in mean_sd(mao, "avg_local_training_energy_mJ"))
     fedplh_energy = tuple(value / 1000.0 for value in mean_sd(fedplh, "avg_local_training_energy_mJ"))
+    fedplh_vs_mao_latency_reduction = 100.0 * (
+        mao_latency[0] - serial_latency_mean
+    ) / mao_latency[0]
+    fedplh_vs_mao_energy_reduction = 100.0 * (
+        mao_energy[0] - fedplh_energy[0]
+    ) / mao_energy[0]
 
     visible_mean, visible_sd = mean_sd(fedplh, "avg_dp_overhead_ms")
     total_mean, total_sd = mean_sd(fedplh, "avg_dp_total_ms")
     covered_mean, covered_sd = mean_sd(fedplh, "avg_dp_background_ms")
     if abs(total_mean - visible_mean - covered_mean) > 1e-6:
-        raise SystemExit("FedPLH visible and covered SoftDP costs do not close")
+        raise SystemExit("FedMPE visible and covered operator costs do not close")
 
     lines = ["% Generated from audited five-seed result artifacts. Do not edit by hand."]
     for name, macro in (
@@ -291,26 +300,33 @@ def main() -> None:
         command("FedPLHVsMaoDiceCI", f"{dice_diff_ci:.2f}"),
         command("MatchedSOTASummary", matched_summary),
         command("ACFAllocationSummary", acf_summary),
-        command("FedBNLatencyMs", text_pm(*fedbn_latency)),
-        command("MaoLatencyMs", text_pm(*mao_latency)),
-        command("FedPLHLatencyMs", text_pm(*fedplh_latency)),
-        command("FedBNEnergyJ", text_pm(*fedbn_energy, digits=3)),
-        command("MaoEnergyJ", text_pm(*mao_energy, digits=3)),
-        command("FedPLHEnergyJ", text_pm(*fedplh_energy, digits=3)),
+        command("FedBNLatencyMs", text_pm(*fedbn_latency, digits=0)),
+        command("MaoLatencyMs", text_pm(*mao_latency, digits=0)),
+        command("FedPLHLatencyMs", text_pm(*fedplh_latency, digits=0)),
+        command("FedMPEActualLatencyMs", text_pm(serial_latency_mean, serial_latency_sd, digits=0)),
+        command("FedMPEFullCreditBoundMs", text_pm(*fedplh_latency, digits=0)),
+        command("FedBNEnergyJ", text_pm(*fedbn_energy, digits=2)),
+        command("MaoEnergyJ", text_pm(*mao_energy, digits=2)),
+        command("FedPLHEnergyJ", text_pm(*fedplh_energy, digits=2)),
         command("FedBNVisibleCost", f"{metric(fedbn, 'avg_dp_overhead_ms'):.2f}"),
         command("MaoVisibleCost", f"{metric(mao, 'avg_dp_overhead_ms'):.2f}"),
         command("MaoLatency", math_pm(*latency_norm["Mao"], digits=4)),
         command("MaoEnergy", math_pm(*energy_norm["Mao"])),
         command("FedPLHLatency", math_pm(*latency_norm["FedPLH"], digits=4)),
+        command("FedMPEActualLatency", math_pm(serial_norm_mean, serial_norm_sd, digits=4)),
+        command("FedMPEFullCreditBound", math_pm(*latency_norm["FedPLH"], digits=4)),
         command("FedPLHEnergy", math_pm(*energy_norm["FedPLH"])),
-        command("FedPLHVsMaoLatencyDelta", f"{fedplh_latency[0] - mao_latency[0]:+.2f}"),
+        command("FedPLHVsMaoLatencyDelta", f"{serial_latency_mean - mao_latency[0]:+.2f}"),
         command("FedPLHVsMaoEnergyDelta", f"{fedplh_energy[0] - mao_energy[0]:+.3f}"),
+        command("FedPLHVsMaoLatencyReduction", f"{fedplh_vs_mao_latency_reduction:.2f}\\%"),
+        command("FedPLHVsMaoEnergyReduction", f"{fedplh_vs_mao_energy_reduction:.2f}\\%"),
         command("FPNoDPLatency", math_pm(*latency_norm["FPNoDP"], digits=4)),
         command("FPSoftDPLatency", math_pm(*latency_norm["FPSoftDP"], digits=4)),
         command("BitFusionLatency", math_pm(*latency_norm["BitFusion"], digits=4)),
         command("FedPLHNoDPLatency", math_pm(*latency_norm["FedPLHNoDP"], digits=4)),
         command("SerialLatency", math_pm(serial_norm_mean, serial_norm_sd, digits=4)),
-        command("BEUDirectLatencyReduction", f"{beu_direct_latency_reduction:.2f}\\%"),
+        command("BEUDirectLatencyReduction", f"{credit_bound_gap:.2f}\\%"),
+        command("BEUCreditBoundGap", f"{credit_bound_gap:.2f}\\%"),
         command("FPNoDPLatencyMs", text_pm(*mean_sd(fedavg, "avg_latency_ms"))),
         command("FPSoftDPLatencyMs", text_pm(*mean_sd(fp_softdp, "avg_latency_ms"))),
         command("FedPLHNoDPLatencyMs", text_pm(*mean_sd(fedplh_nodp, "avg_latency_ms"))),
@@ -324,9 +340,9 @@ def main() -> None:
         command(
             "FedPLHCoverageOutcome",
             (
-                "zero uncovered SoftDP increment"
+                "zero residual in the full-credit deadline bound"
                 if abs(visible_mean) < 0.005
-                else f"a {visible_mean:.2f}\\,ms uncovered SoftDP increment"
+                else f"a {visible_mean:.2f}\\,ms residual in the credit bound"
             ),
         ),
         command("BEUBoundaryMultiplier", f"{finite(boundary['coverage_threshold_multiplier'], 'BEU boundary'):.3f}"),
@@ -359,10 +375,12 @@ def main() -> None:
             {"path": str(path.resolve()), "sha256": sha256(path)} for path in inputs
         ],
         "closure": {
-            "fedplh_softdp_total_ms": total_mean,
-            "fedplh_visible_ms": visible_mean,
-            "fedplh_covered_ms": covered_mean,
-            "serial_latency_mean_ms": serial_latency_mean,
+            "fedmpe_operator_total_ms": total_mean,
+            "full_credit_bound_visible_ms": visible_mean,
+            "full_credit_bound_credited_ms": covered_mean,
+            "actual_serial_latency_mean_ms": serial_latency_mean,
+            "full_credit_deadline_bound_mean_ms": fedplh_latency[0],
+            "serial_to_bound_gap_percent": credit_bound_gap,
         },
     }
     args.manifest.parent.mkdir(parents=True, exist_ok=True)

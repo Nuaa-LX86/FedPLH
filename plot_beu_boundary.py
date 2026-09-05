@@ -227,6 +227,17 @@ def compute_boundary(
     uncovered_cycles = np.maximum(0.0, total_privacy_cycles - delta_c_cycles)
     visible_ms = uncovered_cycles / (frequency_mhz * 1e6) * 1e3
 
+    required_credit_factor = c_priv_cycles / delta_c_cycles
+    admission_ratio = np.linspace(0.0, 1.5, 400)
+    admitted_credit_factor = admission_ratio * required_credit_factor
+    admission_visible_cycles = np.maximum(
+        0.0,
+        c_priv_cycles - admitted_credit_factor * delta_c_cycles,
+    )
+    admission_visible_ms = (
+        admission_visible_cycles / (frequency_mhz * 1e6) * 1e3
+    )
+
     def visible_at(multiplier: float) -> float:
         cycles = max(0.0, multiplier * c_priv_cycles - delta_c_cycles)
         return cycles / (frequency_mhz * 1e6) * 1e3
@@ -236,6 +247,7 @@ def compute_boundary(
         "c_priv_cycles": c_priv_cycles,
         "frequency_mhz": frequency_mhz,
         "coverage_threshold_multiplier": threshold,
+        "required_credit_factor": required_credit_factor,
         "plot_max_multiplier": plot_max_multiplier,
         "visible_cost_ms_at_30x": visible_at(30.0),
         "profile_basis": (
@@ -244,19 +256,24 @@ def compute_boundary(
         ),
         "critical_path_excluded": (
             "This participant-mean boundary is not derived from the "
-            "critical-path straggler SoftDP latency."
+            "critical-path straggler operator latency."
         ),
         "multipliers": multipliers.tolist(),
         "coverage_ratio": coverage_ratio.tolist(),
         "uncovered_cost_ms": visible_ms.tolist(),
+        "credit_admission_ratio": admission_ratio.tolist(),
+        "admitted_credit_factor": admitted_credit_factor.tolist(),
+        "credit_visible_cost_ms": admission_visible_ms.tolist(),
     }
 
 
 def plot_boundary(data: dict, output_path: Path) -> None:
     multipliers = np.asarray(data["multipliers"])
     coverage_ratio = np.asarray(data["coverage_ratio"])
-    visible_ms = np.asarray(data["uncovered_cost_ms"])
+    admission_ratio = np.asarray(data["credit_admission_ratio"])
+    admission_visible_ms = np.asarray(data["credit_visible_cost_ms"])
     threshold = float(data["coverage_threshold_multiplier"])
+    required_credit_factor = float(data["required_credit_factor"])
     use_log_x = float(np.max(multipliers) / np.min(multipliers)) > 100.0
 
     fig, axes = plt.subplots(1, 2, figsize=(7.16, 2.75))
@@ -270,7 +287,7 @@ def plot_boundary(data: dict, output_path: Path) -> None:
         where=multipliers <= threshold,
         color="#59A14F",
         alpha=0.15,
-        label="Full budget coverage",
+        label="Full-credit bound",
     )
     axes[0].fill_between(
         multipliers,
@@ -279,10 +296,10 @@ def plot_boundary(data: dict, output_path: Path) -> None:
         where=multipliers > threshold,
         color="#F28E2B",
         alpha=0.15,
-        label="Partial budget coverage",
+        label="Partial credit admission",
     )
-    axes[0].set_xlabel(r"Privacy-cost multiplier $m$")
-    axes[0].set_ylabel("Budget coverage ratio")
+    axes[0].set_xlabel(r"Operator cost multiplier $m$")
+    axes[0].set_ylabel("Admitted cost ratio")
     axes[0].set_ylim(0, 1.05)
     axes[0].set_title("(a) Participant-mean budget boundary", pad=7)
     axes[0].legend(frameon=False, loc="lower left")
@@ -296,54 +313,60 @@ def plot_boundary(data: dict, output_path: Path) -> None:
     )
     boundary_text_x = max(2.0, threshold / 10.0) if use_log_x else max(2.0, 0.60 * threshold)
     axes[0].annotate(
-        f"Full-coverage boundary\n$m={threshold:.3f}$",
+        f"Full-credit boundary\n$m={threshold:.3f}$",
         xy=(threshold, 1.0),
         xytext=(boundary_text_x, 0.73),
         fontsize=7,
         arrowprops={"arrowstyle": "->", "lw": 0.75},
     )
 
-    axes[1].plot(multipliers, visible_ms, color="#E15759", lw=1.8)
-    axes[1].axvline(threshold, color="#E15759", ls="--", lw=1.2)
+    axes[1].plot(
+        admission_ratio,
+        admission_visible_ms,
+        color="#E15759",
+        lw=1.8,
+    )
+    axes[1].axvline(1.0, color="#E15759", ls="--", lw=1.2)
+    axes[1].fill_between(
+        admission_ratio,
+        0,
+        admission_visible_ms,
+        where=admission_ratio < 1.0,
+        color="#F28E2B",
+        alpha=0.15,
+        label="Visible residual",
+    )
+    axes[1].fill_between(
+        admission_ratio,
+        0,
+        admission_visible_ms,
+        where=admission_ratio >= 1.0,
+        color="#59A14F",
+        alpha=0.15,
+        label="Full-credit bound",
+    )
     axes[1].scatter([1.0], [0.0], color="#222222", s=20, zorder=4)
-    visible_max = max(float(np.max(visible_ms)), 1.0)
+    visible_max = max(float(np.max(admission_visible_ms)), 1.0)
     axes[1].annotate(
-        r"Evaluated point: $m=1$, 0 ms",
+        "Credit threshold\n"
+        + rf"$\lambda_{{\rm req}}={100.0 * required_credit_factor:.3f}\%$",
         xy=(1.0, 0.0),
-        xytext=((2.2 if use_log_x else 4.0), 0.30 * visible_max),
+        xytext=(0.62, 0.48 * visible_max),
         fontsize=7,
         arrowprops={"arrowstyle": "->", "lw": 0.75},
     )
-    axes[1].scatter(
-        [30.0],
-        [data["visible_cost_ms_at_30x"]],
-        color="#222222",
-        s=18,
-        zorder=3,
-    )
-    visible_at_30x = float(data["visible_cost_ms_at_30x"])
-    if visible_at_30x > 0.005:
-        label_30x = f"30x: {visible_at_30x:.1f} ms"
-        text_30x_y = 0.72 * visible_at_30x
-    else:
-        label_30x = "30x remains fully covered"
-        text_30x_y = 0.18 * visible_max
-    axes[1].annotate(
-        label_30x,
-        xy=(30.0, visible_at_30x),
-        xytext=((8.0 if use_log_x else 21.0), text_30x_y),
-        fontsize=7,
-        arrowprops={"arrowstyle": "->", "lw": 0.8},
-    )
-    axes[1].set_xlabel(r"Privacy-cost multiplier $m$")
-    axes[1].set_ylabel("Uncovered latency (ms)")
-    axes[1].set_title("(b) Uncovered modeled cost", pad=7)
+    axes[1].set_xlabel(r"Admitted credit / required credit")
+    axes[1].set_ylabel("Visible operator cost (ms)")
+    axes[1].set_title("(b) Credit admission sensitivity", pad=7)
+    axes[1].set_xlim(0.0, 1.5)
     axes[1].set_ylim(0.0, 1.08 * visible_max)
+    axes[1].legend(frameon=False, loc="upper right")
 
     for axis in axes:
-        if use_log_x:
+        if axis is axes[0] and use_log_x:
             axis.set_xscale("log")
-        axis.set_xlim(float(np.min(multipliers)), float(np.max(multipliers)))
+        if axis is axes[0]:
+            axis.set_xlim(float(np.min(multipliers)), float(np.max(multipliers)))
         axis.grid(True, ls="--", alpha=0.35)
         axis.spines["top"].set_visible(False)
         axis.spines["right"].set_visible(False)

@@ -27,11 +27,14 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def load_histories(results_dir: Path) -> tuple[list[dict], list[Path]]:
+def load_histories(
+    results_dir: Path,
+    final_scenario: str,
+) -> tuple[list[dict], list[Path]]:
     histories: list[dict] = []
     paths: list[Path] = []
     for seed in range(5):
-        path = results_dir / "HMPE-ACF" / f"seed{seed}" / "training_history.json"
+        path = results_dir / final_scenario / f"seed{seed}" / "training_history.json"
         if not path.is_file():
             raise FileNotFoundError(f"missing final FedPLH history: {path}")
         history = json.loads(path.read_text(encoding="utf-8"))
@@ -84,6 +87,7 @@ def main() -> int:
     )
     parser.add_argument("--paper-results", type=Path)
     parser.add_argument("--trajectory-dir", type=Path)
+    parser.add_argument("--final-scenario", default="HMPE-ACF")
     args = parser.parse_args()
 
     paper_results_path = args.paper_results or (
@@ -97,7 +101,7 @@ def main() -> int:
         raise ValueError("paper_results.json lacks the final HMPE-ACF entry")
 
     if args.trajectory_dir is None:
-        histories, history_paths = load_histories(args.results_dir)
+        histories, history_paths = load_histories(args.results_dir, args.final_scenario)
     else:
         histories, history_paths = load_public_trajectories(args.trajectory_dir)
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -116,7 +120,7 @@ def main() -> int:
     manifest = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "status": "passed",
-        "scope": "TPDS Figs. 4 and 5 from final operand-complete five-seed runs",
+        "scope": "Figs. 4 and 5 from final operand-complete five-seed runs",
         "inputs": {
             str(paper_results_path.resolve()): sha256(paper_results_path),
             **{str(path.resolve()): sha256(path) for path in history_paths},

@@ -1,0 +1,23 @@
+{
+  "generated_at_utc": "2026-09-05T03:43:23.894272+00:00",
+  "status": "passed",
+  "scope": "Figs. 4 and 5 from final operand-complete five-seed runs",
+  "inputs": {
+    "D:\\code\\HMPE_ACF\\audited_runs\\tpds_operand_complete_five_seed_20260902\\unet\\summaries\\paper_results.json": "3a324246a99a9adb2dc983c99c1530f0257b80367abd33b4234613354939f513",
+    "D:\\code\\HMPE_ACF\\audited_runs\\tecs_precision_policy_ablation_operand_complete_20260904\\unet\\ACF_full\\seed0\\training_history.json": "3e0c77d3a2177a2616fb2e572a2912a50d8401785f323c6a3b7279dd363a073f",
+    "D:\\code\\HMPE_ACF\\audited_runs\\tecs_precision_policy_ablation_operand_complete_20260904\\unet\\ACF_full\\seed1\\training_history.json": "fa07aba4586dea8cf85f4162e22a85fd4b532d6515ea4422fbe4d5962984a95d",
+    "D:\\code\\HMPE_ACF\\audited_runs\\tecs_precision_policy_ablation_operand_complete_20260904\\unet\\ACF_full\\seed2\\training_history.json": "8bd846c37f33737c8b38d989c51af909aa4f880a9bcd75f55bc25e6b173a9d2b",
+    "D:\\code\\HMPE_ACF\\audited_runs\\tecs_precision_policy_ablation_operand_complete_20260904\\unet\\ACF_full\\seed3\\training_history.json": "d7d6526ca94969ada8bd94dc50286a36ece9db0e93fb133aabfbb8fcfc192b85",
+    "D:\\code\\HMPE_ACF\\audited_runs\\tecs_precision_policy_ablation_operand_complete_20260904\\unet\\ACF_full\\seed4\\training_history.json": "e36a9783c8f9fb0f5c14bb44c97e7f5b7689b80aaddb18fbdf2b5de882f8bf67"
+  },
+  "tools": {
+    "scripts/generate_tpds_figures.py": "560f916c6608fcfda5f87541811d525796f5e13553ca6d6ea9f242f9803c26a7",
+    "visualization/plot_generator.py": "42d44bbbffbd6bd490437e4d852f9b384811d772c4a4d6d204b3e14125114a84"
+  },
+  "outputs": {
+    "D:\\code\\HMPE_ACF\\TECS_submission\\source\\figures\\Fig4_BEU_Breakdown.pdf": "9cd73af111471bdc19578c7bbbe2e66ae9455a448741e179085516e8af6a88b6",
+    "D:\\code\\HMPE_ACF\\TECS_submission\\source\\figures\\Fig4_BEU_Breakdown.png": "7fcb5413fb4a6f5f01d40f5645234e83a61ec0079d41e020f771d10a5c1cb5d2",
+    "D:\\code\\HMPE_ACF\\TECS_submission\\source\\figures\\Fig5_Convergence.pdf": "03e4b5c01b72336143671b5d64835ec9b3fb1096f2ada50cd323e879e019a033",
+    "D:\\code\\HMPE_ACF\\TECS_submission\\source\\figures\\Fig5_Convergence.png": "05a0e5f96021b2eef90a72b557c87ac78075013b82db9a8d5f46bde4f1224af1"
+  }
+}

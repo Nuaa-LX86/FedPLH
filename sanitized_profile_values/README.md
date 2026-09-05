@@ -30,8 +30,8 @@ It provides the hardware-profile values used by the trace-based system model, in
 - clock frequency and memory bandwidth;
 - precision-dependent operation throughput assumptions;
 - compute and memory energy coefficients;
-- SoftDP operator cost model parameters;
-- SAC pipeline depth, streaming throughput, and software conversion factor.
+- clipping-and-noise operator cost parameters;
+- server-aggregator pipeline depth, streaming throughput, and software conversion factor.
 
 Boundary: these are sanitized profile values used by the model. The repository does not include complete original synthesis reports, proprietary standard-cell libraries, foundry-library-bound artifacts, or a complete independently reproducible PPA package.
 

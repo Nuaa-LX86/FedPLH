@@ -1,0 +1,32 @@
+{
+  "generated_at_utc": "2026-09-05T04:04:48.020537+00:00",
+  "status": "passed",
+  "gates": {
+    "all_required_files_present": true,
+    "abstract_100_to_200_words": true,
+    "both_pdfs_built": true,
+    "zero_undefined": true,
+    "zero_overfull": true,
+    "zero_compiled_tbd": true,
+    "zero_unresolved_value_macros": true,
+    "twenty_five_complete_histories": true,
+    "ablation_audit_passed": true,
+    "five_policy_seed_protocol": true,
+    "no_blocked_reference_sources": true,
+    "no_forbidden_claims": true,
+    "abstract_uses_serial_actual_macro": true,
+    "figure_one_optional_branch_disclosed": true
+  },
+  "measurements": {
+    "pages": {
+      "FedMPE_TECS.pdf": 19,
+      "FedMPE_TECS_acmsmall.pdf": 20
+    },
+    "abstract_words": 186,
+    "completed_histories": 25,
+    "forbidden_claim_hits": [],
+    "blocked_reference_hits": [],
+    "missing_files": [],
+    "unresolved_value_macros": []
+  }
+}

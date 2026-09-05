@@ -6,29 +6,36 @@
 \renewcommand{\MaoDice}{87.19\(\pm\)0.39}
 \renewcommand{\FedPLHDice}{87.11\(\pm\)0.33}
 \renewcommand{\FedPLHVsMaoDiceDiff}{-0.08}
-\renewcommand{\FedPLHVsMaoDiceCI}{0.20}
-\renewcommand{\MatchedSOTASummary}{FedCLAM has the highest observed mean Dice at 88.57\%, with FedPLH lower by 1.46 percentage points}
-\renewcommand{\ACFAllocationSummary}{Across the five seeded schedules, ACF issued BF16 69.8\%, FP8\_E5M2 30.2\% over 1600 selected-client assignments}
-\renewcommand{\FedBNLatencyMs}{1485083.57\(\pm\)4486.95}
-\renewcommand{\MaoLatencyMs}{165343.89\(\pm\)498.93}
-\renewcommand{\FedPLHLatencyMs}{161446.25\(\pm\)2730.19}
-\renewcommand{\FedBNEnergyJ}{6658.346\(\pm\)8.642}
-\renewcommand{\MaoEnergyJ}{929.154\(\pm\)1.206}
-\renewcommand{\FedPLHEnergyJ}{720.144\(\pm\)16.197}
+\renewcommand{\FedPLHVsMaoDiceCI}{0.28}
+\renewcommand{\MatchedSOTASummary}{FedCLAM has the highest observed mean Dice at 88.57\%, with FedMPE lower by 1.46 percentage points}
+\renewcommand{\ACFAllocationSummary}{Across the schedules for five seeds, the precision controller issued BF16 69.8\%, FP8\_E5M2 30.2\% over 1600 assignments to selected clients}
+\renewcommand{\FedBNLatencyMs}{1485084\(\pm\)4487}
+\renewcommand{\MaoLatencyMs}{165344\(\pm\)499}
+\renewcommand{\FedPLHLatencyMs}{161446\(\pm\)2730}
+\renewcommand{\FedMPEActualLatencyMs}{161713\(\pm\)2731}
+\renewcommand{\FedMPEFullCreditBoundMs}{161446\(\pm\)2730}
+\renewcommand{\FedBNEnergyJ}{6658.35\(\pm\)8.64}
+\renewcommand{\MaoEnergyJ}{929.15\(\pm\)1.21}
+\renewcommand{\FedPLHEnergyJ}{720.14\(\pm\)16.20}
 \renewcommand{\FedBNVisibleCost}{268.01}
 \renewcommand{\MaoVisibleCost}{268.01}
 \renewcommand{\MaoLatency}{0.1113\pm0.0000}
 \renewcommand{\MaoEnergy}{0.140\pm0.000}
 \renewcommand{\FedPLHLatency}{0.1087\pm0.0017}
+\renewcommand{\FedMPEActualLatency}{0.1089\pm0.0017}
+\renewcommand{\FedMPEFullCreditBound}{0.1087\pm0.0017}
 \renewcommand{\FedPLHEnergy}{0.108\pm0.002}
-\renewcommand{\FedPLHVsMaoLatencyDelta}{-3897.64}
+\renewcommand{\FedPLHVsMaoLatencyDelta}{-3630.65}
 \renewcommand{\FedPLHVsMaoEnergyDelta}{-209.010}
+\renewcommand{\FedPLHVsMaoLatencyReduction}{2.20\%}
+\renewcommand{\FedPLHVsMaoEnergyReduction}{22.49\%}
 \renewcommand{\FPNoDPLatency}{0.9998\pm0.0000}
 \renewcommand{\FPSoftDPLatency}{1.0000\pm0.0000}
 \renewcommand{\BitFusionLatency}{0.1112\pm0.0000}
 \renewcommand{\FedPLHNoDPLatency}{0.1087\pm0.0017}
 \renewcommand{\SerialLatency}{0.1089\pm0.0017}
 \renewcommand{\BEUDirectLatencyReduction}{0.17\%}
+\renewcommand{\BEUCreditBoundGap}{0.17\%}
 \renewcommand{\FPNoDPLatencyMs}{1484815.56\(\pm\)4486.52}
 \renewcommand{\FPSoftDPLatencyMs}{1485083.57\(\pm\)4486.95}
 \renewcommand{\FedPLHNoDPLatencyMs}{161446.25\(\pm\)2730.19}
@@ -39,7 +46,7 @@
 \renewcommand{\SerialVisibleCost}{266.99}
 \renewcommand{\FPSoftDPRelativeIncrement}{0.02}
 \renewcommand{\FedPLHVisibleCost}{0.00}
-\renewcommand{\FedPLHCoverageOutcome}{zero uncovered SoftDP increment}
+\renewcommand{\FedPLHCoverageOutcome}{zero residual in the full-credit deadline bound}
 \renewcommand{\BEUBoundaryMultiplier}{5010.461}
 \renewcommand{\BEUStressVisibleCost}{0.00}
 \renewcommand{\BEUCreditThreshold}{0.02\%}

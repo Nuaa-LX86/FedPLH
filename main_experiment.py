@@ -430,6 +430,25 @@ def run_full_pipeline(args):
         # ACF mechanism evidence. Every scheduler field is explicit so the
         # run manifest is sufficient to reproduce precision assignments.
         acf_evidence_scenarios = {
+            "ACF_static_BF16": {
+                "dp": {
+                    **common_dp,
+                    "simulate_hardware_beu": True,
+                    "simulate_hardware_pec": True,
+                },
+                "acf": {
+                    "compute": "Mixed",
+                    "strategy": "EntropyAware",
+                    "mode": "static_high",
+                    "lamda": 0.0,
+                    "budget_threshold": 0.0,
+                    "deterministic": True,
+                    "scheduler_stream": "acf_scheduler:static_bf16",
+                    "low_precision": "FP8_E5M2",
+                    "high_precision": "BF16",
+                },
+                "comm_interval": 1,
+            },
             "ACF_static_FP8": {
                 "dp": {
                     **common_dp,
@@ -438,11 +457,12 @@ def run_full_pipeline(args):
                 },
                 "acf": {
                     "compute": "Mixed",
-                    "strategy": "FedAvg",
+                    "strategy": "EntropyAware",
                     "mode": "static_low",
                     "lamda": 0.0,
                     "budget_threshold": 0.0,
-                    "deterministic": False,
+                    "deterministic": True,
+                    "scheduler_stream": "acf_scheduler:static_fp8",
                     "low_precision": "FP8_E5M2",
                     "high_precision": "BF16",
                 },
@@ -461,6 +481,7 @@ def run_full_pipeline(args):
                     "lamda": 0.0,
                     "budget_threshold": 0.0,
                     "deterministic": False,
+                    "scheduler_stream": "acf_scheduler:progress_only",
                     "low_precision": "FP8_E5M2",
                     "high_precision": "BF16",
                 },
@@ -479,6 +500,7 @@ def run_full_pipeline(args):
                     "lamda": 1.0,
                     "budget_threshold": 0.0,
                     "deterministic": False,
+                    "scheduler_stream": "acf_scheduler:entropy_only",
                     "low_precision": "FP8_E5M2",
                     "high_precision": "BF16",
                 },
@@ -497,6 +519,7 @@ def run_full_pipeline(args):
                     "lamda": 0.5,
                     "budget_threshold": 0.0,
                     "deterministic": False,
+                    "scheduler_stream": "acf_scheduler",
                     "low_precision": "FP8_E5M2",
                     "high_precision": "BF16",
                 },
@@ -882,7 +905,14 @@ def run_full_pipeline(args):
                         "high_precision",
                         "BF16",
                     ),
-                    "scheduler_seed": derive_seed(seed, "acf_scheduler"),
+                    "scheduler_seed_namespace": cfg["acf"].get(
+                        "scheduler_stream",
+                        "acf_scheduler",
+                    ),
+                    "scheduler_seed": derive_seed(
+                        seed,
+                        cfg["acf"].get("scheduler_stream", "acf_scheduler"),
+                    ),
                 }
                 seed_manifest = {
                     "schema_version": 1,

@@ -1,16 +1,20 @@
-# FedPLH
+# FedMPE
 
-FedPLH is the code and evidence package for the TPDS manuscript:
+This repository contains the code and evidence package for the ACM TECS manuscript:
 
-**FedPLH: Cross-Layer Privacy-Operator Scheduling for Cross-Silo Federated Medical Learning**
+**FedMPE: Coordinated Mixed Precision Execution for Federated 3D Medical Image Segmentation**
 
-The repository exposes source code, frozen experiment protocols, validated aggregate evidence, sanitized profile values, and postprocessed summaries used by the manuscript. It does not include raw BraTS data, private medical images, complete original synthesis reports, foundry-library-bound artifacts, or model checkpoints.
+The repository name remains `FedPLH` so existing links continue to work. It
+contains source code, frozen experiment protocols, validated aggregate
+evidence, sanitized profile values, and postprocessed summaries. Raw BraTS
+data, medical images, original synthesis reports, foundry-bound artifacts, and
+model checkpoints are not included.
 
 ## Artifact Map
 
 | Manuscript wording | Repository entry point | What it contains |
 | --- | --- | --- |
-| Source code | `main_experiment.py`, `training/`, `models/`, `simulator/`, `scripts/`, `visualization/`, `tests/` | Training, SoftDP processing, ACF scheduling, aggregation simulation, postprocessing, plotting, and integrity checks. |
+| Source code | `main_experiment.py`, `training/`, `models/`, `simulator/`, `scripts/`, `visualization/`, `tests/` | Training, aggregate gradient clipping and noise, precision allocation, aggregation simulation, postprocessing, plotting, and integrity checks. |
 | Frozen experiment protocols | `frozen_experiment_protocols/` | Human-readable protocol entry points for the frozen BraTS partition, client schedules, seeds, and baseline adaptation scope. |
 | Validated aggregate evidence | `validated_aggregate_evidence/` | Aggregate-only evidence summaries, hash manifests, integrity reports, and the frozen-trace BEU credit-factor sensitivity result. |
 | Sanitized profile values | `sanitized_profile_values/` | Released hardware profile values and the source/derivation record for the manuscript hardware-comparison table. |
@@ -35,7 +39,7 @@ The five-seed training runs are computationally expensive. The released aggregat
 
 ## License and Citation
 
-Original FedPLH code, scripts, documentation, and released aggregate evidence are provided under the MIT License. Third-party datasets, BraTS medical images, external baseline code, model checkpoints, proprietary synthesis reports, standard-cell libraries, and foundry-library-bound artifacts remain governed by their own terms.
+Original FedMPE code, scripts, documentation, and released aggregate evidence are provided under the MIT License. Third-party datasets, BraTS medical images, external baseline code, model checkpoints, proprietary synthesis reports, standard-cell libraries, and foundry-library-bound artifacts remain governed by their own terms.
 
 If you use this repository, cite the manuscript using the metadata in `CITATION.cff`.
 
@@ -52,6 +56,13 @@ The final paper-facing result summary is:
 
 ```text
 postprocessed_summaries/paper_results.json
+```
+
+The five-policy ablation is released as 25 policy/seed records:
+
+```text
+validated_aggregate_evidence/precision_policy_ablation.json
+validated_aggregate_evidence/precision_policy_ablation.csv
 ```
 
 To reproduce the participant-mean BEU credit-factor sensitivity artifact:
@@ -81,7 +92,7 @@ python scripts/generate_tpds_figures.py `
 
 ## Evidence Boundaries
 
-- The SoftDP accountant output is nominal and is not a formal differential-privacy guarantee.
-- Reported energy metrics are modeled local-training compute/memory energy; they exclude SoftDP auxiliary energy, BEU auxiliary logic, communication, and server aggregation.
+- The aggregate gradient accountant output is nominal and is not a formal differential-privacy guarantee.
+- Reported energy metrics are modeled local-training compute/memory energy; they exclude clipping-and-noise auxiliary energy, BEU logic, communication, and server aggregation.
 - Hardware evidence combines RTL functional verification, separate client/server VCU128-targeted OOC post-route profiles, SAIF power analysis, and trace-based evaluation; it is not a board deployment or complete edge-system measurement.
 - The repository provides aggregate evidence and protocol manifests, not raw medical data or private patient-level artifacts.
